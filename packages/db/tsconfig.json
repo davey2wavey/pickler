@@ -1,0 +1,4 @@
+{
+  "extends": "@pickler/config/typescript/library.json",
+  "include": ["src", "vitest.config.ts"]
+}

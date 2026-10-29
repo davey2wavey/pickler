@@ -1,0 +1,1 @@
+-- Seed data for local development. Empty until the first migration lands.
