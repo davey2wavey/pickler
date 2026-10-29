@@ -7,6 +7,8 @@ export type ColorTokens = {
   dark: Record<string, string>;
   /** Values in the prefers-color-scheme: dark block. Must equal `dark`. */
   darkMedia: Record<string, string>;
+  /** Values in the [data-theme="light"] block. Must equal `light`. */
+  lightForced: Record<string, string>;
 };
 
 const declaration = /--([a-z0-9-]+)\s*:\s*(#[0-9a-f]{3,6})\s*;/gi;
@@ -32,5 +34,6 @@ export function parseColorTokens(css: string): ColorTokens {
     light: colors(block(css, ":root {")),
     dark: colors(block(css, '[data-theme="dark"] {')),
     darkMedia: colors(block(css, ':root:not([data-theme="light"]) {')),
+    lightForced: colors(block(css, '[data-theme="light"] {')),
   };
 }

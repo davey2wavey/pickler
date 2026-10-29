@@ -2,11 +2,12 @@
   Design tokens. Source of truth for every color, font, size, and space in the apps.
   Values follow packages/ui/SPEC.md.
 
-  Themes: :root holds light. [data-theme="dark"] holds dark and scopes to its subtree.
-  The prefers-color-scheme block repeats the dark values on purpose: light-dark()
-  gets polyfilled by the CSS pipeline in a way that breaks subtree scoping, so the
-  values are written out twice. packages/ui/src/tokens/tokens.test.ts fails if the
-  two dark blocks drift apart or any pair drops below WCAG AA.
+  Themes: :root holds light, the prefers-color-scheme block holds dark for the OS
+  setting, and [data-theme="dark"] / [data-theme="light"] force a subtree either
+  way. Values repeat on purpose: light-dark() gets polyfilled by the CSS pipeline
+  in a way that breaks subtree scoping, so each block is written out in full.
+  packages/ui/src/tokens/tokens.test.ts fails if the repeated blocks drift apart
+  or any pair drops below WCAG AA.
 */
 :root {
   color-scheme: light;
@@ -82,6 +83,18 @@
   }
 }
 
+/* Repeats the :root light values so a light subtree stays light when the OS is dark. */
 [data-theme="light"] {
   color-scheme: light;
+
+  --bg: #ffffff;
+  --fg: #0b0b0c;
+  --grey: #6b6b6b;
+  --line: #0b0b0c;
+  --line-soft: #e4e4e1;
+  --acc: #b6ff3b;
+  --acc-ink: #0b0b0c;
+  --ok: #1f9d55;
+  --warn: #c48800;
+  --bad: #c62828;
 }

@@ -27,6 +27,10 @@ test("the two dark blocks carry the same values", () => {
   expect(themes.darkMedia).toEqual(themes.dark);
 });
 
+test("the forced light block matches :root", () => {
+  expect(themes.lightForced).toEqual(themes.light);
+});
+
 describe.each(["light", "dark"] as const)("%s theme", (theme) => {
   const colors = themes[theme];
 

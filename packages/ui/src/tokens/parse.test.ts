@@ -15,6 +15,9 @@ const css = `
     --bg: #0b0b0c;
   }
 }
+[data-theme="light"] {
+  --bg: #ffffff;
+}
 `;
 
 describe("parseColorTokens", () => {
@@ -23,6 +26,7 @@ describe("parseColorTokens", () => {
       light: { bg: "#ffffff" },
       dark: { bg: "#0b0b0c" },
       darkMedia: { bg: "#0b0b0c" },
+      lightForced: { bg: "#ffffff" },
     });
   });
 
@@ -36,6 +40,7 @@ describe("parseColorTokens", () => {
       light: { fg: "#000" },
       dark: {},
       darkMedia: {},
+      lightForced: {},
     });
   });
 });
