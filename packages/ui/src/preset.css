@@ -1,0 +1,53 @@
+/*
+  Tailwind v4 theme. Maps utilities onto the tokens in tokens.css and removes
+  Tailwind's own palette, type scale, radii, and shadows so nothing outside the
+  system is reachable. `inline` keeps the var() reference, so a [data-theme]
+  subtree flips utilities with it.
+*/
+@theme inline {
+  --color-*: initial;
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-grey: var(--grey);
+  --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
+  --color-acc: var(--acc);
+  --color-acc-ink: var(--acc-ink);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --color-bad: var(--bad);
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --font-*: initial;
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  --text-*: initial;
+  --text-label: var(--text-label);
+  --text-label--line-height: 1.2;
+  --text-small: var(--text-small);
+  --text-small--line-height: 1.4;
+  --text-body: var(--text-body);
+  --text-body--line-height: 1.5;
+  --text-lead: var(--text-lead);
+  --text-lead--line-height: 1.4;
+  --text-h3: var(--text-h3);
+  --text-h3--line-height: 1.2;
+  --text-h2: var(--text-h2);
+  --text-h2--line-height: 1.1;
+  --text-h1: var(--text-h1);
+  --text-h1--line-height: 1;
+  --text-display: var(--text-display);
+  --text-display--line-height: 0.95;
+
+  --tracking-*: initial;
+  --tracking-label: var(--tracking-label);
+
+  --radius-*: initial;
+  --shadow-*: initial;
+  --inset-shadow-*: initial;
+  --drop-shadow-*: initial;
+
+  --container-grid: var(--grid-max);
+}
