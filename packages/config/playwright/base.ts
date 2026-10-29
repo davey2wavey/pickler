@@ -10,6 +10,12 @@ const isCI = Boolean(process.env.CI);
 export function appConfig(port: number) {
   const externalUrl = process.env.PLAYWRIGHT_BASE_URL;
   const baseURL = externalUrl ?? `http://localhost:${port}`;
+  // Vercel previews sit behind Deployment Protection. The bypass secret, when
+  // present, lets CI through: https://vercel.com/docs/deployment-protection
+  const bypassSecret = process.env.VERCEL_AUTOMATION_BYPASS_SECRET;
+  const extraHTTPHeaders = bypassSecret
+    ? { "x-vercel-protection-bypass": bypassSecret, "x-vercel-set-bypass-cookie": "true" }
+    : undefined;
 
   return defineConfig({
     testDir: "./e2e",
@@ -21,6 +27,7 @@ export function appConfig(port: number) {
     use: {
       baseURL,
       trace: "on-first-retry",
+      ...(extraHTTPHeaders ? { extraHTTPHeaders } : {}),
     },
     projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
     ...(externalUrl

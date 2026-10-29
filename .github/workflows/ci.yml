@@ -42,14 +42,14 @@ jobs:
           node-version-file: .nvmrc
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - name: Wait for Vercel preview
+      - name: Find Vercel preview
         id: preview
-        uses: patrickedqvist/wait-for-vercel-preview@v1.3.2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          environment: Preview – pickler-${{ matrix.app }}
-          max_timeout: 600
+        run: node scripts/vercel-preview-url.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERCEL_PROJECT: pickler-${{ matrix.app }}
       - run: pnpm --filter ${{ matrix.app }} exec playwright install --with-deps chromium
       - run: pnpm --filter ${{ matrix.app }} test:e2e --grep @smoke
         env:
           PLAYWRIGHT_BASE_URL: ${{ steps.preview.outputs.url }}
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}

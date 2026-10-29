@@ -25,6 +25,8 @@ Local database: `pnpm db:start` (needs Docker Desktop running). Then copy `.env.
 
 ## Deploy
 
-Each app is its own Vercel project with the root directory set to its folder. Name the projects `pickler-site`, `pickler-runway`, `pickler-company-log`. CI waits for those preview deployments by name.
+Each app is its own Vercel project with the root directory set to its folder. Name the projects `pickler-site`, `pickler-runway`, `pickler-company-log`. CI reads each preview URL from the comment Vercel posts on the PR, so keep "Preview Comments" on.
+
+Previews are behind Vercel Authentication by default, which CI cannot pass. Either turn Vercel Authentication off for previews in each project (Settings, Deployment Protection) or create a Protection Bypass for Automation secret there and add it to GitHub as the repository secret `VERCEL_AUTOMATION_BYPASS_SECRET`. The same secret works for all three projects only if you paste the same value into each.
 
 How decisions got made: [DECISIONS.md](DECISIONS.md). How to work here: [CLAUDE.md](CLAUDE.md).
