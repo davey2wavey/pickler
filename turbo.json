@@ -1,0 +1,28 @@
+{
+  "$schema": "https://turborepo.dev/schema.json",
+  "globalEnv": ["CI", "NODE_ENV"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "start": {
+      "cache": false,
+      "persistent": true
+    },
+    "typecheck": {
+      "dependsOn": ["^typecheck"],
+      "outputs": ["next-env.d.ts", ".next/types/**"]
+    },
+    "lint": {},
+    "test": {},
+    "test:e2e": {
+      "cache": false,
+      "env": ["PLAYWRIGHT_BASE_URL"]
+    }
+  }
+}

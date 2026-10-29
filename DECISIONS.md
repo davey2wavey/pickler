@@ -54,6 +54,7 @@ Analogy to remember: Vercel is the storefront, the worker is the warehouse.
 - Views depend on content. Empty views look empty. Demos ship before views.
 
 Phases:
+
 1. Data file, design system, views 1 (live demos embedded) and 6 (minimal grid). Ship.
 2. Views 2 (split screen), 4 (dashboard home), 8 (build timeline), 9 (inbox of projects).
 3. Views 3 (scroll story), 5 (flow map), 7 (command palette).

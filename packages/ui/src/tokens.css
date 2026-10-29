@@ -1,0 +1,8 @@
+/* Design tokens. Tailwind v4 reads these as utilities: bg-ink, text-paper, text-accent. */
+@theme {
+  --color-ink: #141414;
+  --color-paper: #fafaf7;
+  --color-muted: #6b6b66;
+  --color-accent: #1f5eff;
+  --font-sans: ui-sans-serif, system-ui, sans-serif;
+}

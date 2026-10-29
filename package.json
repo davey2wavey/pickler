@@ -1,0 +1,30 @@
+{
+  "name": "pickler",
+  "private": true,
+  "packageManager": "pnpm@12.16.1",
+  "engines": {
+    "node": ">=26"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "test:e2e": "turbo run test:e2e",
+    "test:smoke": "turbo run test:e2e -- --grep @smoke",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "db:start": "pnpm --filter @pickler/db db:start",
+    "db:stop": "pnpm --filter @pickler/db db:stop",
+    "db:reset": "pnpm --filter @pickler/db db:reset",
+    "db:types": "pnpm --filter @pickler/db db:types"
+  },
+  "prettier": "@pickler/config/prettier",
+  "devDependencies": {
+    "@pickler/config": "workspace:*",
+    "prettier": "3.9.10",
+    "turbo": "2.11.10",
+    "typescript": "5.9.3"
+  }
+}

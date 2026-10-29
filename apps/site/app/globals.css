@@ -1,0 +1,9 @@
+@import "tailwindcss";
+@import "@pickler/ui/tokens.css";
+@source "../../../packages/ui/src";
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
