@@ -2,11 +2,11 @@
 
 Web work by David Pickler. One repo, three apps, one design system.
 
-| App                             | What it does                                    | Live               |
-| ------------------------------- | ----------------------------------------------- | ------------------ |
-| [site](apps/site)               | Portfolio. One dataset, many views.             | _not deployed yet_ |
-| [runway](apps/runway)           | Shows where money goes.                         | _not deployed yet_ |
-| [company-log](apps/company-log) | Every post from a company's socials, one place. | _not deployed yet_ |
+| App                             | What it does                                    | Live                                                                     |
+| ------------------------------- | ----------------------------------------------- | ------------------------------------------------------------------------ |
+| [site](apps/site)               | Portfolio. One dataset, many views.             | [pickler-site.vercel.app](https://pickler-site.vercel.app)               |
+| [runway](apps/runway)           | Shows where money goes.                         | [pickler-runway.vercel.app](https://pickler-runway.vercel.app)           |
+| [company-log](apps/company-log) | Every post from a company's socials, one place. | [pickler-company-log.vercel.app](https://pickler-company-log.vercel.app) |
 
 Shared code lives in `packages/` (ui, db, config). Scheduled jobs live in `workers/`.
 
