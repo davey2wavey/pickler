@@ -80,3 +80,22 @@ Other projects get built in silence and added when live.
 "I build internal tools, dashboards, and automations. Fast. Alone."
 
 Hiring managers read labels. Lead with one sentence, not "I do everything."
+
+## 2026-10-29 — Repo name
+
+- Repo is `pickler`, not `bool`.
+- Why: David is being hired, not the studio. A recruiter opens a repo with his name on it and knows whose work it is.
+- Rejected: naming it after Bool. Adds a brand to explain before the work speaks.
+
+## 2026-10-29 — Testing stack and process
+
+- TypeScript strict. No `any` without a comment saying why.
+- ESLint and Prettier from `packages/config`. One config, every package.
+- Vitest with Testing Library for unit and component tests. Logic (money math, parsers, sorters) is test-first.
+- Playwright for end to end. Smoke suite (critical flows only) runs on every PR against the Vercel preview. Full suite runs on merge to `main` and nightly.
+- Zod at every boundary: API input, scraper output, env vars. Bad data fails loudly at the edge, not deep in a component.
+- Supabase runs locally through Docker for development and tests. No test touches the hosted project.
+- PostToolUse hook runs `pnpm typecheck` and affected tests after every edit. A red hook stops work until fixed.
+- GitHub Actions on every PR: typecheck, lint, unit, smoke e2e. Branch protection on `main`: red cannot merge, no direct pushes.
+- Why: tests written with the code keep the hook and CI cheap to trust. Smoke on PR keeps feedback under a few minutes; the full suite catches the rest overnight.
+- Rejected: Jest (Vitest shares the Vite toolchain and is faster). Cypress (Playwright covers more browsers, one API). Full e2e on every PR (too slow, blocks small slices).
