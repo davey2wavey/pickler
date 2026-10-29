@@ -22,7 +22,7 @@
     "test": {},
     "test:e2e": {
       "cache": false,
-      "env": ["PLAYWRIGHT_BASE_URL"]
+      "env": ["PLAYWRIGHT_BASE_URL", "VERCEL_AUTOMATION_BYPASS_SECRET"]
     }
   }
 }
