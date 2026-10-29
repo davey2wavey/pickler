@@ -30,7 +30,7 @@ Color (light / dark):
 - `--grey` #6b6b6b / #9a9a96 (secondary text)
 - `--line` #0b0b0c at 100% for structural rules / #f2f2f0; `--line-soft` #e4e4e1 / #262628 for table rows
 - `--acc` #b6ff3b (lime) both themes; `--acc-ink` #0b0b0c
-- `--ok` #1f9d55 / #3fd27f; `--warn` #c78a00 / #f0b429; `--bad` #c62828 / #ff5f56
+- `--ok` #1f9d55 / #3fd27f; `--warn` #c48800 / #f0b429 (was #c78a00, which measures 2.97:1 on white; moved to the nearest shade that passes 3:1); `--bad` #c62828 / #ff5f56
 
 Type:
 

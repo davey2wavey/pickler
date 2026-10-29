@@ -1,0 +1,21 @@
+/* The one import for apps: tokens, Tailwind theme, base element styles. */
+@import "./tokens.css";
+@import "./preset.css";
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    background-color: var(--bg);
+    color: var(--fg);
+  }
+  body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-size: var(--text-body);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  * {
+    border-radius: 0;
+  }
+}

@@ -1,8 +1,87 @@
-/* Design tokens. Tailwind v4 reads these as utilities: bg-ink, text-paper, text-accent. */
-@theme {
-  --color-ink: #141414;
-  --color-paper: #fafaf7;
-  --color-muted: #6b6b66;
-  --color-accent: #1f5eff;
-  --font-sans: ui-sans-serif, system-ui, sans-serif;
+/*
+  Design tokens. Source of truth for every color, font, size, and space in the apps.
+  Values follow packages/ui/SPEC.md.
+
+  Themes: :root holds light. [data-theme="dark"] holds dark and scopes to its subtree.
+  The prefers-color-scheme block repeats the dark values on purpose: light-dark()
+  gets polyfilled by the CSS pipeline in a way that breaks subtree scoping, so the
+  values are written out twice. packages/ui/src/tokens/tokens.test.ts fails if the
+  two dark blocks drift apart or any pair drops below WCAG AA.
+*/
+:root {
+  color-scheme: light;
+
+  --bg: #ffffff;
+  --fg: #0b0b0c;
+  --grey: #6b6b6b;
+  --line: #0b0b0c;
+  --line-soft: #e4e4e1;
+  --acc: #b6ff3b;
+  --acc-ink: #0b0b0c;
+  --ok: #1f9d55;
+  --warn: #c48800;
+  --bad: #c62828;
+
+  --font-sans: var(--font-space-grotesk, "Space Grotesk"), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono, "JetBrains Mono"), ui-monospace, monospace;
+
+  --text-label: 0.6875rem;
+  --text-small: 0.8125rem;
+  --text-body: 0.9375rem;
+  --text-lead: 1.125rem;
+  --text-h3: 1.5rem;
+  --text-h2: 2rem;
+  --text-h1: 3rem;
+  --text-display: 4.5rem;
+  --tracking-label: 0.08em;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+
+  --radius: 0;
+  --grid-max: 1200px;
+  --grid-gutter: 24px;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #0b0b0c;
+  --fg: #f2f2f0;
+  --grey: #9a9a96;
+  --line: #f2f2f0;
+  --line-soft: #262628;
+  --acc: #b6ff3b;
+  --acc-ink: #0b0b0c;
+  --ok: #3fd27f;
+  --warn: #f0b429;
+  --bad: #ff5f56;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --bg: #0b0b0c;
+    --fg: #f2f2f0;
+    --grey: #9a9a96;
+    --line: #f2f2f0;
+    --line-soft: #262628;
+    --acc: #b6ff3b;
+    --acc-ink: #0b0b0c;
+    --ok: #3fd27f;
+    --warn: #f0b429;
+    --bad: #ff5f56;
+  }
+}
+
+[data-theme="light"] {
+  color-scheme: light;
 }
