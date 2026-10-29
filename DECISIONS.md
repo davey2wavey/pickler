@@ -100,3 +100,18 @@ Hiring managers read labels. Lead with one sentence, not "I do everything."
 - GitHub Actions on every PR: typecheck, lint, unit, smoke e2e. Branch protection on `main`: red cannot merge, no direct pushes.
 - Why: tests written with the code keep the hook and CI cheap to trust. Smoke on PR keeps feedback under a few minutes; the full suite catches the rest overnight.
 - Rejected: Jest (Vitest shares the Vite toolchain and is faster). Cypress (Playwright covers more browsers, one API). Full e2e on every PR (too slow, blocks small slices).
+
+## UI direction
+
+Reference: wahooservices.co.uk lean. Systems, terminals, hard grid. Not their pixel art.
+
+- Sans: Space Grotesk. Headlines, body, controls.
+- Mono: JetBrains Mono. Labels, numbers, nav, code.
+- Colors: black, white, one grey, lime. Nothing else except three semantic colors.
+- Radius: 0. Everywhere.
+- Lines: 1px hairlines. Grid lines are allowed to show.
+- Labels: uppercase mono, letter-spaced, often wrapped `//LIKE THIS//`.
+- Numbers: mono, tabular, large when they matter.
+- Tools (Runway, Company Log): same rules, denser, no flourish, no photos.
+- Overview surfaces (portfolio): same rules, bigger type, real screenshots.
+- Dark mode: yes, v1. Same tokens, inverted ground. Lime stays lime.
