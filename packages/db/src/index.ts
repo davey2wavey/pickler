@@ -4,4 +4,7 @@ export { DEMO_EMAIL, DEMO_USER_ID } from "./demo";
 export { getDbEnv, parseDbEnv } from "./env";
 export type { DbEnv } from "./env";
 export * from "./schemas";
+export { createServerClient } from "./server-client";
+export type { CookieAdapter } from "./server-client";
 export type { Database } from "./types";
+export type { User } from "@supabase/supabase-js";
