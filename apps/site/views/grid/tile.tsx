@@ -1,15 +1,7 @@
 import Link from "next/link";
 import { Label } from "@pickler/ui";
-import type { Tone } from "@pickler/ui";
-import type { Project, ProjectStatus } from "@/data/project";
-
-const tones: Record<ProjectStatus, Tone | undefined> = {
-  live: "ok",
-  beta: "acc",
-  "in-progress": "warn",
-  "case-study": "acc",
-  archived: undefined,
-};
+import type { Project } from "@/data/project";
+import { statusTone } from "../status-tone";
 
 const cell = "border-b border-r border-line";
 const box =
@@ -17,7 +9,7 @@ const box =
 
 /** One project. Opens its case study page. */
 export function Tile({ project }: { project: Project }) {
-  const tone = tones[project.status];
+  const tone = statusTone[project.status];
   return (
     <li className={cell}>
       <Link href={`/p/${project.slug}`} className={box}>

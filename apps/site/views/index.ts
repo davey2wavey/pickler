@@ -13,6 +13,11 @@ export const views = [
     name: "Grid",
     Component: dynamic(() => import("./grid/grid").then((m) => m.Grid)),
   },
+  {
+    id: "timeline",
+    name: "Timeline",
+    Component: dynamic(() => import("./timeline/timeline").then((m) => m.Timeline)),
+  },
 ] as const satisfies readonly View[];
 
 export type RegisteredView = (typeof views)[number];
