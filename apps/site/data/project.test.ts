@@ -65,6 +65,52 @@ describe("parseProjects", () => {
     expect(ok?.metrics[0]?.note).toBe("est.");
   });
 
+  test("accepts the band fields and the extra links", () => {
+    const [ok] = parseProjects([
+      {
+        ...runway,
+        headline: "Where the money goes, and",
+        headlineMono: "how long it lasts",
+        whatItDoes: "Every dollar in one table.",
+        underTheHood: "Postgres with RLS.",
+        links: { video: "https://example.com/v.mp4", appstore: "https://apps.apple.com/x" },
+      },
+    ]);
+    expect(ok?.headlineMono).toBe("how long it lasts");
+    expect(ok?.links.appstore).toBe("https://apps.apple.com/x");
+    expect(() => parseProjects([{ ...runway, links: { video: "clip" } }])).toThrow(/video/);
+  });
+
+  test("a featured project must carry headline, whatItDoes, and underTheHood", () => {
+    expect(() => parseProjects([{ ...runway, featured: true }])).toThrow(
+      /headline is required when featured/,
+    );
+    const [ok] = parseProjects([
+      { ...runway, featured: true, headline: "H", whatItDoes: "W", underTheHood: "U" },
+    ]);
+    expect(ok?.featured).toBe(true);
+    const [plain] = parseProjects([runway]);
+    expect(plain?.headline).toBeUndefined();
+  });
+
+  test("screenshots default to no frame and reject an unknown one", () => {
+    const [ok] = parseProjects([
+      {
+        ...runway,
+        screenshots: [
+          { src: "/shots/runway/home.png", alt: "Home" },
+          { src: "/shots/runway/phone.png", alt: "Phone", frame: "phone" },
+        ],
+      },
+    ]);
+    expect(ok?.screenshots.map((shot) => shot.frame)).toEqual(["none", "phone"]);
+    expect(() =>
+      parseProjects([
+        { ...runway, screenshots: [{ src: "/shots/a.png", alt: "A", frame: "tablet" }] },
+      ]),
+    ).toThrow(/frame/);
+  });
+
   test("rejects a slug with spaces or capitals", () => {
     expect(() => parseProjects([{ ...runway, slug: "Run way" }])).toThrow(/slug/);
   });

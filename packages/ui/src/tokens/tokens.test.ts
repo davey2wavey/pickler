@@ -4,7 +4,7 @@
 import { describe, expect, test } from "vitest";
 import { readFileSync } from "node:fs";
 import { contrastRatio } from "./contrast";
-import { parseColorTokens } from "./parse";
+import { mixHex, parseColorTokens } from "./parse";
 
 const css = readFileSync(new URL("../tokens.css", import.meta.url), "utf8");
 const themes = parseColorTokens(css);
@@ -12,10 +12,32 @@ const themes = parseColorTokens(css);
 const AA_BODY = 4.5;
 const AA_LARGE = 3;
 
+const names = [
+  "bg",
+  "fg",
+  "grey",
+  "line",
+  "line-soft",
+  "panel",
+  "ground",
+  "acc",
+  "acc-ink",
+  "grey-on-water",
+  "ok",
+  "warn",
+  "bad",
+];
+
 // [foreground, background, minimum ratio]
 const pairs: Array<[string, string, number]> = [
   ["fg", "bg", AA_BODY],
+  ["fg", "panel", AA_BODY],
+  ["fg", "ground", AA_BODY],
+  ["fg", "water", AA_BODY],
   ["grey", "bg", AA_BODY],
+  ["grey", "panel", AA_BODY],
+  ["grey", "ground", AA_BODY],
+  ["grey-on-water", "water", AA_BODY],
   ["acc-ink", "acc", AA_BODY],
   ["ok", "bg", AA_LARGE],
   ["warn", "bg", AA_LARGE],
@@ -31,23 +53,22 @@ test("the forced light block matches :root", () => {
   expect(themes.lightForced).toEqual(themes.light);
 });
 
+test("the inverted block is dark, and flips to light when the OS is dark", () => {
+  expect(themes.invert).toEqual(themes.dark);
+  expect(themes.invertInDark).toEqual(themes.light);
+});
+
+test("water is 40% accent over the ground", () => {
+  expect(css).toMatch(/--water:\s*color-mix\(in srgb, var\(--acc\) 40%, var\(--bg\)\)/);
+});
+
 describe.each(["light", "dark"] as const)("%s theme", (theme) => {
-  const colors = themes[theme];
+  const colors = { ...themes[theme] };
+  colors.water = mixHex(colors.acc ?? "", colors.bg ?? "", 0.4);
 
   test("defines every color token", () => {
-    for (const name of [
-      "bg",
-      "fg",
-      "grey",
-      "line",
-      "line-soft",
-      "acc",
-      "acc-ink",
-      "ok",
-      "warn",
-      "bad",
-    ]) {
-      expect(colors[name], name).toMatch(/^#/);
+    for (const name of names) {
+      expect(colors[name], name).toMatch(/^#[0-9a-f]{6}$/);
     }
   });
 

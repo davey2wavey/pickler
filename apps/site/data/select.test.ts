@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { byFeatured, byNewest, findProject, newestDate } from "./select";
+import { byFeatured, byNewest, featured, findProject, newestDate } from "./select";
 import { parseProjects } from "./project";
 
 const base = {
@@ -14,9 +14,25 @@ const base = {
 };
 const projects = parseProjects([
   { ...base, slug: "a", name: "A" },
-  { ...base, slug: "b", name: "B", featured: true },
+  {
+    ...base,
+    slug: "b",
+    name: "B",
+    headline: "H",
+    whatItDoes: "W",
+    underTheHood: "U",
+    featured: true,
+  },
   { ...base, slug: "c", name: "C" },
-  { ...base, slug: "d", name: "D", featured: true },
+  {
+    ...base,
+    slug: "d",
+    name: "D",
+    headline: "H",
+    whatItDoes: "W",
+    underTheHood: "U",
+    featured: true,
+  },
 ]);
 
 describe("byFeatured", () => {
@@ -60,4 +76,8 @@ describe("byNewest", () => {
     byNewest(dated);
     expect(dated.map((p) => p.slug)).toEqual(before);
   });
+});
+
+test("featured keeps only the featured projects, in file order", () => {
+  expect(featured(projects).map((p) => p.slug)).toEqual(["b", "d"]);
 });

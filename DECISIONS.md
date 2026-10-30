@@ -122,3 +122,11 @@ Reference: wahooservices.co.uk lean. Systems, terminals, hard grid. Not their pi
 - Service role is allowed in two places: tests (admin API for throwaway users) and `workers/`.
 - Why: bypassing RLS in app code is a footgun even behind an explicit `user_id` filter. One forgotten filter leaks every user's rows.
 - Rejected: a server-only service client for the Runway `/health` page. Replaced with a per-request sign-in as the seeded demo user over the anon key.
+
+## 2026-10-30 — Accent moves to sky blue, light ground to warm off-white
+
+- `--acc` is `#7fd1f2` in both themes. `--acc-ink` stays black. Light `--bg` is `#f1f1ec`, with `--panel #f8f8f5` for windows and `--ground #e9e9e3` for recessed areas. Dark ground unchanged.
+- Why: the approved home mock (apps/site/design/home-mock.html) reads as sun, water, and paper. Lime fought the water. One token change, every app follows.
+- Side effects measured, not guessed: `--warn` light darkens to `#b07a00` (the old value fails 3:1 on the off-white), `--grey` light darkens to `#606060` (the old value fails 4.5:1 on `--ground`). `--grey-on-water` exists because grey on dark water measures 2.6:1.
+- `[data-invert]` flips a subtree to the other theme's values, so one band on a page can be black without a second copy of the tokens.
+- Rejected: keeping lime and only recoloring the home page. Two accents is two design systems.

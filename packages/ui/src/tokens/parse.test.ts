@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { parseColorTokens } from "./parse";
+import { mixHex, parseColorTokens } from "./parse";
 
 const css = `
 :root {
@@ -18,6 +18,14 @@ const css = `
 [data-theme="light"] {
   --bg: #ffffff;
 }
+[data-invert] {
+  --bg: #0b0b0c;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) [data-invert] {
+    --bg: #ffffff;
+  }
+}
 `;
 
 describe("parseColorTokens", () => {
@@ -27,6 +35,8 @@ describe("parseColorTokens", () => {
       dark: { bg: "#0b0b0c" },
       darkMedia: { bg: "#0b0b0c" },
       lightForced: { bg: "#ffffff" },
+      invert: { bg: "#0b0b0c" },
+      invertInDark: { bg: "#ffffff" },
     });
   });
 
@@ -41,6 +51,19 @@ describe("parseColorTokens", () => {
       dark: {},
       darkMedia: {},
       lightForced: {},
+      invert: {},
+      invertInDark: {},
     });
+  });
+});
+
+describe("mixHex", () => {
+  test("40% blue over off-white matches the browser's srgb mix", () => {
+    expect(mixHex("#7fd1f2", "#f1f1ec", 0.4)).toBe("#c3e4ee");
+  });
+
+  test("0% is the second color, 100% the first", () => {
+    expect(mixHex("#7fd1f2", "#0b0b0c", 0)).toBe("#0b0b0c");
+    expect(mixHex("#7fd1f2", "#0b0b0c", 1)).toBe("#7fd1f2");
   });
 });

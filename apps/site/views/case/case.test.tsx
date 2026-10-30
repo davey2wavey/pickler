@@ -55,7 +55,7 @@ describe("Case", () => {
       <Case
         project={{
           ...runway,
-          screenshots: [{ src: "/shots/runway/home.png", alt: "Runway home" }],
+          screenshots: [{ src: "/shots/runway/home.png", alt: "Runway home", frame: "none" }],
         }}
       />,
     );

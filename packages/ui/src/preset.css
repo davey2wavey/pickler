@@ -11,6 +11,10 @@
   --color-grey: var(--grey);
   --color-line: var(--line);
   --color-line-soft: var(--line-soft);
+  --color-panel: var(--panel);
+  --color-ground: var(--ground);
+  --color-water: var(--water);
+  --color-grey-on-water: var(--grey-on-water);
   --color-acc: var(--acc);
   --color-acc-ink: var(--acc-ink);
   --color-ok: var(--ok);

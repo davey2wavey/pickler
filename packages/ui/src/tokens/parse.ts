@@ -9,6 +9,10 @@ export type ColorTokens = {
   darkMedia: Record<string, string>;
   /** Values in the [data-theme="light"] block. Must equal `light`. */
   lightForced: Record<string, string>;
+  /** Values in the [data-invert] block. Must equal `dark`. */
+  invert: Record<string, string>;
+  /** Values for [data-invert] when the OS is dark. Must equal `light`. */
+  invertInDark: Record<string, string>;
 };
 
 const declaration = /--([a-z0-9-]+)\s*:\s*(#[0-9a-f]{3,6})\s*;/gi;
@@ -35,5 +39,20 @@ export function parseColorTokens(css: string): ColorTokens {
     dark: colors(block(css, '[data-theme="dark"] {')),
     darkMedia: colors(block(css, ':root:not([data-theme="light"]) {')),
     lightForced: colors(block(css, '[data-theme="light"] {')),
+    invert: colors(block(css, "\n[data-invert] {")),
+    invertInDark: colors(block(css, ':root:not([data-theme="light"]) [data-invert] {')),
   };
+}
+
+/** Hex result of `color-mix(in srgb, a p%, b)`, the way --water is defined. */
+export function mixHex(a: string, b: string, p: number): string {
+  const channels = (hex: string) =>
+    [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16)) as [number, number, number];
+  const A = channels(a);
+  const B = channels(b);
+  return `#${A.map((v, i) =>
+    Math.round(v * p + (B[i] ?? 0) * (1 - p))
+      .toString(16)
+      .padStart(2, "0"),
+  ).join("")}`;
 }

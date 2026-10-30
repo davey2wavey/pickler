@@ -21,6 +21,14 @@ const rows: Row[] = [
   { item: "Domains", due: "22nd", amount: "12.00" },
 ];
 
+const swatches = [
+  { name: "bg", className: "bg-bg text-fg" },
+  { name: "panel", className: "bg-panel text-fg" },
+  { name: "ground", className: "bg-ground text-fg" },
+  { name: "water", className: "bg-water text-grey-on-water" },
+  { name: "acc", className: "bg-acc text-acc-ink" },
+];
+
 function Showcase({ theme }: { theme: "light" | "dark" }) {
   return (
     <div
@@ -31,8 +39,23 @@ function Showcase({ theme }: { theme: "light" | "dark" }) {
       <div className="flex flex-col gap-2">
         <Label text={theme} dot="acc" />
         <h2 className="text-h2 font-medium">Primitives</h2>
-        <p className="text-grey">Five of them. Nothing else exists yet.</p>
+        <p className="text-grey">Surfaces, then the five primitives.</p>
       </div>
+
+      <section className="flex flex-col gap-3">
+        <Label text="tokens" />
+        <ul aria-label={`Surfaces, ${theme}`} className="grid grid-cols-5 border border-line">
+          {swatches.map((swatch) => (
+            <li
+              key={swatch.name}
+              data-testid={`swatch-${swatch.name}`}
+              className={`${swatch.className} flex aspect-square items-end border-r border-line p-2 font-mono text-label uppercase tracking-label last:border-r-0`}
+            >
+              {swatch.name}
+            </li>
+          ))}
+        </ul>
+      </section>
 
       <section className="flex flex-col gap-3">
         <Label text="button" />
