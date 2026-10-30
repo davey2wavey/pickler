@@ -42,14 +42,21 @@ function readEnv(): Env {
   return { url, anonKey, password };
 }
 
-/** Deletes every demo-user transaction with this payee. Returns how many went. */
-export async function deleteByPayee(payee: string): Promise<number> {
+/** Every payee the smoke test writes starts with this, so a later run can sweep leftovers. */
+export const SMOKE_PAYEE_PREFIX = "Smoke test";
+
+/** Deletes every demo-user transaction the smoke test ever added. Returns how many went. */
+export async function deleteSmokeRows(): Promise<number> {
   const { password } = readEnv();
   const db = createClient();
   const signedIn = await db.auth.signInWithPassword({ email: DEMO_EMAIL, password });
   if (signedIn.error) throw signedIn.error;
   try {
-    const { data, error } = await db.from("transactions").delete().eq("payee", payee).select("id");
+    const { data, error } = await db
+      .from("transactions")
+      .delete()
+      .like("payee", `${SMOKE_PAYEE_PREFIX} %`)
+      .select("id");
     if (error) throw error;
     return data.length;
   } finally {

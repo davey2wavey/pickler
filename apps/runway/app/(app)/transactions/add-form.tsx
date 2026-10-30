@@ -65,8 +65,21 @@ export function AddForm({ accounts, categories, today, action = addTransaction }
   return (
     <form key={state.added ?? 0} action={submit} className="flex flex-col gap-3">
       <div className="grid gap-3 sm:grid-cols-2">
-        <Field label="Date" name="occurred_at" type="date" defaultValue={today} required {...hintProp(errors.occurred_at)} />
-        <Field label="Payee" name="payee" type="text" autoComplete="off" {...hintProp(errors.payee)} />
+        <Field
+          label="Date"
+          name="occurred_at"
+          type="date"
+          defaultValue={today}
+          required
+          {...hintProp(errors.occurred_at)}
+        />
+        <Field
+          label="Payee"
+          name="payee"
+          type="text"
+          autoComplete="off"
+          {...hintProp(errors.payee)}
+        />
         <Field
           label="Amount"
           name="amount"
@@ -74,17 +87,43 @@ export function AddForm({ accounts, categories, today, action = addTransaction }
           step="0.01"
           inputMode="decimal"
           placeholder="-42.10"
-          hint={errors.amount ?? (transfer ? "Moved between the two accounts." : "Negative is money out.")}
+          hint={
+            errors.amount ??
+            (transfer ? "Moved between the two accounts." : "Negative is money out.")
+          }
         />
-        <SelectField label="Account" name="account_id" options={accounts} {...hintProp(errors.account_id)} />
+        <SelectField
+          label="Account"
+          name="account_id"
+          options={accounts}
+          {...hintProp(errors.account_id)}
+        />
         {transfer ? (
-          <SelectField label="To account" name="to_account_id" options={accounts} blank="Choose" {...hintProp(errors.to_account_id)} />
+          <SelectField
+            label="To account"
+            name="to_account_id"
+            options={accounts}
+            blank="Choose"
+            {...hintProp(errors.to_account_id)}
+          />
         ) : (
-          <SelectField label="Category" name="category_id" options={categories} blank="None" {...hintProp(errors.category_id)} />
+          <SelectField
+            label="Category"
+            name="category_id"
+            options={categories}
+            blank="None"
+            {...hintProp(errors.category_id)}
+          />
         )}
       </div>
       <label className="inline-flex items-center gap-2 font-mono text-label uppercase tracking-label text-grey">
-        <input type="checkbox" name="transfer" checked={transfer} onChange={(e) => setTransfer(e.target.checked)} className="size-4 accent-acc" />
+        <input
+          type="checkbox"
+          name="transfer"
+          checked={transfer}
+          onChange={(e) => setTransfer(e.target.checked)}
+          className="size-4 accent-acc"
+        />
         Transfer
       </label>
       {state.error ? (

@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 import type { Page } from "@playwright/test";
-import { deleteByPayee } from "./cleanup";
+import { deleteSmokeRows, SMOKE_PAYEE_PREFIX } from "./cleanup";
 
 async function signInAsDemo(page: Page) {
   await page.goto("/sign-in");
@@ -24,7 +24,7 @@ test("the demo lands on this month's transactions with seeded rows @smoke", asyn
 });
 
 test("add a transaction, see it, sign out @smoke", async ({ page }) => {
-  const payee = `Smoke test ${Date.now()}`;
+  const payee = `${SMOKE_PAYEE_PREFIX} ${Date.now()}`;
   try {
     await signInAsDemo(page);
     await page.getByLabel("Payee").fill(payee);
@@ -35,7 +35,7 @@ test("add a transaction, see it, sign out @smoke", async ({ page }) => {
     await page.getByRole("button", { name: "Sign out" }).click();
     await expect(page).toHaveURL(/\/sign-in$/);
   } finally {
-    await deleteByPayee(payee);
+    await deleteSmokeRows();
   }
 });
 

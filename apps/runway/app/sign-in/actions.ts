@@ -22,7 +22,8 @@ async function origin(): Promise<string> {
 
 export async function sendMagicLink(_prev: SignInState, formData: FormData): Promise<SignInState> {
   const parsed = emailSchema.safeParse({ email: formData.get("email") });
-  if (!parsed.success) return { error: parsed.error.issues[0]?.message ?? "Enter an email address." };
+  if (!parsed.success)
+    return { error: parsed.error.issues[0]?.message ?? "Enter an email address." };
 
   const db = await createClient();
   const { error } = await db.auth.signInWithOtp({

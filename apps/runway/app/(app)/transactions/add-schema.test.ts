@@ -12,14 +12,27 @@ function form(fields: Record<string, string>): FormData {
   return fd;
 }
 
-const valid = { occurred_at: "2026-10-12", payee: "Landlord", amount: "-1450.25", account_id: CHECKING, category_id: RENT };
+const valid = {
+  occurred_at: "2026-10-12",
+  payee: "Landlord",
+  amount: "-1450.25",
+  account_id: CHECKING,
+  category_id: RENT,
+};
 
 test("a plain transaction becomes one row with its category", () => {
   const result = parseAddForm(form(valid), GROUP);
   expect(result.ok).toBe(true);
   if (!result.ok) return;
   expect(result.rows).toEqual([
-    { occurred_at: "2026-10-12", payee: "Landlord", amount: -1450.25, account_id: CHECKING, category_id: RENT, source: "manual" },
+    {
+      occurred_at: "2026-10-12",
+      payee: "Landlord",
+      amount: -1450.25,
+      account_id: CHECKING,
+      category_id: RENT,
+      source: "manual",
+    },
   ]);
 });
 
@@ -30,7 +43,10 @@ test("empty category becomes null", () => {
 
 test("rejects empty payee and zero amount", () => {
   const result = parseAddForm(form({ ...valid, payee: "   ", amount: "0" }), GROUP);
-  expect(result).toEqual({ ok: false, errors: { payee: "Enter a payee.", amount: "Amount cannot be zero." } });
+  expect(result).toEqual({
+    ok: false,
+    errors: { payee: "Enter a payee.", amount: "Amount cannot be zero." },
+  });
 });
 
 test("rejects a missing amount and a bad date", () => {
@@ -42,15 +58,33 @@ test("rejects a missing amount and a bad date", () => {
 });
 
 test("a transfer splits into two rows, same group, opposite signs, no category", () => {
-  const result = parseAddForm(form({ ...valid, amount: "500", transfer: "on", to_account_id: SAVINGS }), GROUP);
+  const result = parseAddForm(
+    form({ ...valid, amount: "500", transfer: "on", to_account_id: SAVINGS }),
+    GROUP,
+  );
   expect(result.ok).toBe(true);
   if (!result.ok) return;
   expect(result.rows).toHaveLength(2);
-  expect(result.rows[0]).toMatchObject({ account_id: CHECKING, amount: -500, category_id: null, transfer_group: GROUP });
-  expect(result.rows[1]).toMatchObject({ account_id: SAVINGS, amount: 500, category_id: null, transfer_group: GROUP });
+  expect(result.rows[0]).toMatchObject({
+    account_id: CHECKING,
+    amount: -500,
+    category_id: null,
+    transfer_group: GROUP,
+  });
+  expect(result.rows[1]).toMatchObject({
+    account_id: SAVINGS,
+    amount: 500,
+    category_id: null,
+    transfer_group: GROUP,
+  });
 });
 
 test("a transfer needs a different second account", () => {
-  expect(parseAddForm(form({ ...valid, transfer: "on" }), GROUP)).toMatchObject({ ok: false, errors: { to_account_id: "Choose the other account." } });
-  expect(parseAddForm(form({ ...valid, transfer: "on", to_account_id: CHECKING }), GROUP)).toMatchObject({ ok: false, errors: { to_account_id: "Pick two different accounts." } });
+  expect(parseAddForm(form({ ...valid, transfer: "on" }), GROUP)).toMatchObject({
+    ok: false,
+    errors: { to_account_id: "Choose the other account." },
+  });
+  expect(
+    parseAddForm(form({ ...valid, transfer: "on", to_account_id: CHECKING }), GROUP),
+  ).toMatchObject({ ok: false, errors: { to_account_id: "Pick two different accounts." } });
 });

@@ -14,7 +14,11 @@ export type CookieAdapter = CookieMethodsServer;
  */
 export function createServerClient(cookies: CookieAdapter): DbClient {
   const env = getDbEnv();
-  return createSsrClient<Database>(env.NEXT_PUBLIC_SUPABASE_URL, env.NEXT_PUBLIC_SUPABASE_ANON_KEY, {
-    cookies,
-  });
+  return createSsrClient<Database>(
+    env.NEXT_PUBLIC_SUPABASE_URL,
+    env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    {
+      cookies,
+    },
+  );
 }

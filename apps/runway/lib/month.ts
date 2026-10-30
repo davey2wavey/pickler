@@ -5,8 +5,18 @@ export type Month = string;
 const MONTH = /^\d{4}-(0[1-9]|1[0-2])$/;
 
 const NAMES = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December",
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
 
 const pad = (n: number) => String(n).padStart(2, "0");

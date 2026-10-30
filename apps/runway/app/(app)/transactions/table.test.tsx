@@ -3,10 +3,42 @@ import { expect, test } from "vitest";
 import { TransactionsTable } from "./table";
 
 const rows = [
-  { id: "1", occurred_at: "2026-10-01", payee: "Acme Payroll", amount: 3200, transfer_group: null, account: "Checking", category: "Salary" },
-  { id: "2", occurred_at: "2026-10-03", payee: "Landlord", amount: -1450.25, transfer_group: null, account: "Checking", category: "Rent" },
-  { id: "3", occurred_at: "2026-10-05", payee: "Transfer", amount: -500, transfer_group: "t1", account: "Checking", category: null },
-  { id: "4", occurred_at: "2026-10-05", payee: "Transfer", amount: 500, transfer_group: "t1", account: "Savings", category: null },
+  {
+    id: "1",
+    occurred_at: "2026-10-01",
+    payee: "Acme Payroll",
+    amount: 3200,
+    transfer_group: null,
+    account: "Checking",
+    category: "Salary",
+  },
+  {
+    id: "2",
+    occurred_at: "2026-10-03",
+    payee: "Landlord",
+    amount: -1450.25,
+    transfer_group: null,
+    account: "Checking",
+    category: "Rent",
+  },
+  {
+    id: "3",
+    occurred_at: "2026-10-05",
+    payee: "Transfer",
+    amount: -500,
+    transfer_group: "t1",
+    account: "Checking",
+    category: null,
+  },
+  {
+    id: "4",
+    occurred_at: "2026-10-05",
+    payee: "Transfer",
+    amount: 500,
+    transfer_group: "t1",
+    account: "Savings",
+    category: null,
+  },
 ];
 
 test("renders rows, labels transfers, and totals exclude them", () => {

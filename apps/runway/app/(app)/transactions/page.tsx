@@ -20,5 +20,13 @@ export default async function Page({ searchParams }: Props) {
     readCategoryOptions(db),
   ]);
 
-  return <TransactionsView month={month} rows={rows} accounts={accounts} categories={categories} today={today} />;
+  return (
+    <TransactionsView
+      month={month}
+      rows={rows}
+      accounts={accounts}
+      categories={categories}
+      today={today}
+    />
+  );
 }

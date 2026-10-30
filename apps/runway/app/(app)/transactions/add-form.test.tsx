@@ -10,7 +10,9 @@ const accounts = [
   { id: "10000000-0000-4000-8000-000000000001", name: "Checking" },
   { id: "10000000-0000-4000-8000-000000000002", name: "Savings" },
 ];
-const categories = [{ id: "20000000-0000-4000-8000-000000000001", name: "Rent", kind: "spend" as const }];
+const categories = [
+  { id: "20000000-0000-4000-8000-000000000001", name: "Rent", kind: "spend" as const },
+];
 
 /** Stands in for the server action: validates, never touches a database. */
 async function fakeAction(_prev: AddState, formData: FormData): Promise<AddState> {
@@ -19,7 +21,9 @@ async function fakeAction(_prev: AddState, formData: FormData): Promise<AddState
 }
 
 test("rejects empty payee and zero amount", async () => {
-  render(<AddForm accounts={accounts} categories={categories} today="2026-10-12" action={fakeAction} />);
+  render(
+    <AddForm accounts={accounts} categories={categories} today="2026-10-12" action={fakeAction} />,
+  );
   fireEvent.change(screen.getByLabelText("Amount"), { target: { value: "0" } });
   fireEvent.submit(screen.getByRole("button", { name: "Add" }).closest("form")!);
   expect(await screen.findByText("Enter a payee.")).toBeInTheDocument();
@@ -27,7 +31,9 @@ test("rejects empty payee and zero amount", async () => {
 });
 
 test("transfer swaps the category select for a second account select", () => {
-  render(<AddForm accounts={accounts} categories={categories} today="2026-10-12" action={fakeAction} />);
+  render(
+    <AddForm accounts={accounts} categories={categories} today="2026-10-12" action={fakeAction} />,
+  );
   expect(screen.getByLabelText("Category")).toBeInTheDocument();
   fireEvent.click(screen.getByLabelText("Transfer"));
   expect(screen.queryByLabelText("Category")).not.toBeInTheDocument();

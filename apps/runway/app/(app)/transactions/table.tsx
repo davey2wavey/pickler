@@ -6,7 +6,8 @@ import type { TransactionRow } from "./query";
 
 type Props = { rows: TransactionRow[]; month: Month };
 
-const th = "px-3 py-2 text-left font-mono text-label font-normal uppercase tracking-label text-grey";
+const th =
+  "px-3 py-2 text-left font-mono text-label font-normal uppercase tracking-label text-grey";
 const td = "px-3 py-2";
 const num = "text-right font-mono tabular-nums";
 // Category and account step aside on phones so date, payee, and amount fit.
@@ -28,11 +29,21 @@ export function TransactionsTable({ rows, month }: Props) {
         <caption className="sr-only">Transactions for {formatMonth(month)}</caption>
         <thead>
           <tr className="border-b border-line">
-            <th scope="col" className={th}>Date</th>
-            <th scope="col" className={th}>Payee</th>
-            <th scope="col" className={`${th} ${wide}`}>Category</th>
-            <th scope="col" className={`${th} ${wide}`}>Account</th>
-            <th scope="col" className={`${th} text-right`}>Amount</th>
+            <th scope="col" className={th}>
+              Date
+            </th>
+            <th scope="col" className={th}>
+              Payee
+            </th>
+            <th scope="col" className={`${th} ${wide}`}>
+              Category
+            </th>
+            <th scope="col" className={`${th} ${wide}`}>
+              Account
+            </th>
+            <th scope="col" className={`${th} text-right`}>
+              Amount
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -40,9 +51,13 @@ export function TransactionsTable({ rows, month }: Props) {
             const transfer = row.transfer_group !== null;
             return (
               <tr key={row.id} className="border-b border-line-soft">
-                <td className={`${td} font-mono tabular-nums whitespace-nowrap`}>{row.occurred_at}</td>
+                <td className={`${td} font-mono tabular-nums whitespace-nowrap`}>
+                  {row.occurred_at}
+                </td>
                 <td className={td}>{row.payee}</td>
-                <td className={`${td} ${wide}`}>{transfer ? <Label text="transfer" /> : (row.category ?? "")}</td>
+                <td className={`${td} ${wide}`}>
+                  {transfer ? <Label text="transfer" /> : (row.category ?? "")}
+                </td>
                 <td className={`${td} ${wide}`}>{row.account}</td>
                 <td className={`${td} ${num}`}>
                   <Amount amount={row.amount} transfer={transfer} />
@@ -53,19 +68,25 @@ export function TransactionsTable({ rows, month }: Props) {
         </tbody>
         <tfoot>
           <tr className="border-t border-line font-mono text-small">
-            <th scope="row" colSpan={2} className={`${td} text-left font-normal text-grey`}>In</th>
+            <th scope="row" colSpan={2} className={`${td} text-left font-normal text-grey`}>
+              In
+            </th>
             <td className={`${td} ${wide}`} />
             <td className={`${td} ${wide}`} />
             <td className={`${td} ${num} text-ok`}>{formatAmount(moneyIn(rows))}</td>
           </tr>
           <tr className="font-mono text-small">
-            <th scope="row" colSpan={2} className={`${td} text-left font-normal text-grey`}>Out</th>
+            <th scope="row" colSpan={2} className={`${td} text-left font-normal text-grey`}>
+              Out
+            </th>
             <td className={`${td} ${wide}`} />
             <td className={`${td} ${wide}`} />
             <td className={`${td} ${num} text-bad`}>{formatAmount(moneyOut(rows))}</td>
           </tr>
           <tr className="font-mono text-small">
-            <th scope="row" colSpan={2} className={`${td} text-left font-normal text-grey`}>Net</th>
+            <th scope="row" colSpan={2} className={`${td} text-left font-normal text-grey`}>
+              Net
+            </th>
             <td className={`${td} ${wide}`} />
             <td className={`${td} ${wide}`} />
             <td className={`${td} ${num}`}>{formatAmount(net(rows))}</td>

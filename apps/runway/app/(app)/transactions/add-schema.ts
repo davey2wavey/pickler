@@ -21,9 +21,19 @@ const addForm = z
     const { transfer, account_id, to_account_id } = ctx.value;
     if (!transfer) return;
     if (!to_account_id) {
-      ctx.issues.push({ code: "custom", path: ["to_account_id"], message: "Choose the other account.", input: to_account_id });
+      ctx.issues.push({
+        code: "custom",
+        path: ["to_account_id"],
+        message: "Choose the other account.",
+        input: to_account_id,
+      });
     } else if (to_account_id === account_id) {
-      ctx.issues.push({ code: "custom", path: ["to_account_id"], message: "Pick two different accounts.", input: to_account_id });
+      ctx.issues.push({
+        code: "custom",
+        path: ["to_account_id"],
+        message: "Pick two different accounts.",
+        input: to_account_id,
+      });
     }
   });
 
@@ -49,18 +59,45 @@ function toInsertRow(candidate: unknown): InsertRow {
 export function toRows(input: AddInput, group: string): InsertRow[] {
   const base = { occurred_at: input.occurred_at, payee: input.payee, source: "manual" as const };
   if (!input.transfer) {
-    return [toInsertRow({ ...base, account_id: input.account_id, amount: input.amount, category_id: input.category_id })];
+    return [
+      toInsertRow({
+        ...base,
+        account_id: input.account_id,
+        amount: input.amount,
+        category_id: input.category_id,
+      }),
+    ];
   }
   const magnitude = Math.abs(input.amount);
   return [
-    toInsertRow({ ...base, account_id: input.account_id, amount: -magnitude, category_id: null, transfer_group: group }),
-    toInsertRow({ ...base, account_id: input.to_account_id, amount: magnitude, category_id: null, transfer_group: group }),
+    toInsertRow({
+      ...base,
+      account_id: input.account_id,
+      amount: -magnitude,
+      category_id: null,
+      transfer_group: group,
+    }),
+    toInsertRow({
+      ...base,
+      account_id: input.to_account_id,
+      amount: magnitude,
+      category_id: null,
+      transfer_group: group,
+    }),
   ];
 }
 
 export function parseAddForm(formData: FormData, group: string): ParseResult {
   const raw = Object.fromEntries(
-    ["occurred_at", "payee", "amount", "account_id", "category_id", "transfer", "to_account_id"].map((k) => [k, formData.get(k) ?? undefined]),
+    [
+      "occurred_at",
+      "payee",
+      "amount",
+      "account_id",
+      "category_id",
+      "transfer",
+      "to_account_id",
+    ].map((k) => [k, formData.get(k) ?? undefined]),
   );
   const parsed = addForm.safeParse(raw);
   if (!parsed.success) {

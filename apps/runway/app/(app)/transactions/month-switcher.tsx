@@ -19,9 +19,13 @@ export function MonthSwitcher({ month }: { month: Month }) {
   return (
     <div className="flex flex-wrap items-center gap-3">
       <Label text="month" />
-      <Jump to={prevMonth(month)} label="Previous month">Prev</Jump>
+      <Jump to={prevMonth(month)} label="Previous month">
+        Prev
+      </Jump>
       <span className="font-mono text-small uppercase tracking-label">{formatMonth(month)}</span>
-      <Jump to={nextMonth(month)} label="Next month">Next</Jump>
+      <Jump to={nextMonth(month)} label="Next month">
+        Next
+      </Jump>
     </div>
   );
 }
