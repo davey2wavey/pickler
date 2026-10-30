@@ -23,6 +23,11 @@ const sizes: Record<ButtonSize, string> = {
   md: "h-9 px-4 text-small",
 };
 
+/** The Button look as a class string, for anchors that must look like buttons. */
+export function buttonClasses(variant: ButtonVariant = "primary", size: ButtonSize = "md"): string {
+  return cx(base, variants[variant], sizes[size]);
+}
+
 export function Button({
   variant = "primary",
   size = "md",
@@ -30,11 +35,5 @@ export function Button({
   className,
   ...props
 }: ButtonProps) {
-  return (
-    <button
-      type={type}
-      className={cx(base, variants[variant], sizes[size], className)}
-      {...props}
-    />
-  );
+  return <button type={type} className={cx(buttonClasses(variant, size), className)} {...props} />;
 }

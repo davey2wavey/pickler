@@ -1,58 +1,57 @@
 import { render, screen, within } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
-import type { Project } from "@/data/project";
+import { parseProjects } from "@/data/project";
 import { Grid } from "./grid";
 
-const projects: Project[] = [
+const base = {
+  stack: ["Next.js"],
+  problem: "p",
+  built: "b",
+  changed: "c",
+  updatedAt: "2026-10-29",
+};
+const projects = parseProjects([
+  { ...base, slug: "site", name: "This site", oneLiner: "Portfolio.", status: "live", kind: "web" },
   {
-    slug: "site",
-    name: "This site",
-    oneLiner: "Portfolio.",
-    status: "live",
-    stack: ["Next.js"],
-    url: "https://pickler-site.vercel.app",
-  },
-  {
+    ...base,
     slug: "runway",
     name: "Runway",
     oneLiner: "Shows where money goes.",
-    status: "building",
+    status: "in-progress",
+    kind: "web",
     stack: ["Next.js", "Supabase"],
-    url: "https://pickler-runway.vercel.app",
+    featured: true,
   },
   {
-    slug: "mail-room",
-    name: "Mail Room",
-    oneLiner: "Inbox sorts itself.",
-    status: "native",
-    stack: ["Swift"],
+    ...base,
+    slug: "old",
+    name: "Old thing",
+    oneLiner: "Retired.",
+    status: "archived",
+    kind: "static",
   },
-];
+]);
 
 describe("Grid", () => {
-  test("renders the name and one tile per project", () => {
+  test("renders the name and one tile per project, featured first", () => {
     render(<Grid projects={projects} />);
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("David Pickler");
-    const list = screen.getByRole("list", { name: "Projects" });
-    expect(within(list).getAllByRole("listitem")).toHaveLength(3);
+    const items = within(screen.getByRole("list", { name: "Projects" })).getAllByRole("listitem");
+    expect(items).toHaveLength(3);
+    expect(items[0]).toHaveTextContent("Runway");
   });
 
-  test("a live tile links to its url", () => {
+  test("every tile links to its case study page", () => {
     render(<Grid projects={projects} />);
-    const link = screen.getByRole("link", { name: /This site/ });
-    expect(link).toHaveAttribute("href", "https://pickler-site.vercel.app");
+    expect(screen.getByRole("link", { name: /Runway/ })).toHaveAttribute("href", "/p/runway");
+    expect(screen.getByRole("link", { name: /This site/ })).toHaveAttribute("href", "/p/site");
+    expect(screen.getAllByRole("link")).toHaveLength(3);
   });
 
-  test("building and native tiles do not link, even with a url", () => {
+  test("shows status with a dot, except archived, and the stack", () => {
     render(<Grid projects={projects} />);
-    expect(screen.getAllByRole("link")).toHaveLength(1);
-    expect(screen.getByText("Runway")).toBeInTheDocument();
-    expect(screen.getByText("Mail Room")).toBeInTheDocument();
-  });
-
-  test("shows status and stack in the tile", () => {
-    render(<Grid projects={projects} />);
-    expect(screen.getByText("//building//")).toBeInTheDocument();
+    expect(screen.getByText("//in-progress//")).toBeInTheDocument();
     expect(screen.getByText("Next.js / Supabase")).toBeInTheDocument();
+    expect(screen.getAllByTestId("label-dot")).toHaveLength(3); // portfolio, live, in-progress
   });
 });
