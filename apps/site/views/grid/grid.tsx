@@ -2,7 +2,8 @@ import { Label } from "@pickler/ui";
 import type { Project } from "@/data/project";
 import { Tile } from "./tile";
 
-export const pitch = "I build internal tools, dashboards, and automations. Fast. Alone.";
+export const pitch =
+  "I build internal tools, dashboards, and automations for small teams. Solo, end to end.";
 
 /** View 6, minimal grid. Name, one line, a tile per project. Each tile draws its own
  * bottom and right hairline, the list the top and left, so a short last row stays open. */
