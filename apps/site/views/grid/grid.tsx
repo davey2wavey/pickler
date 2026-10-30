@@ -4,7 +4,8 @@ import { Tile } from "./tile";
 
 export const pitch = "I build internal tools, dashboards, and automations. Fast. Alone.";
 
-/** View 6, minimal grid. Name, one line, a tile per project. Hairlines show. */
+/** View 6, minimal grid. Name, one line, a tile per project. Each tile draws its own
+ * bottom and right hairline, the list the top and left, so a short last row stays open. */
 export function Grid({ projects }: { projects: Project[] }) {
   return (
     <main className="mx-auto flex max-w-grid flex-col gap-12 px-6 py-16">
@@ -15,7 +16,7 @@ export function Grid({ projects }: { projects: Project[] }) {
       </header>
       <ul
         aria-label="Projects"
-        className="grid gap-px border border-line bg-line md:grid-cols-2 lg:grid-cols-3"
+        className="grid border-t border-l border-line md:grid-cols-2 lg:grid-cols-3"
       >
         {projects.map((project) => (
           <Tile key={project.slug} project={project} />

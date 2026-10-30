@@ -5,6 +5,7 @@ import type { Project, ProjectStatus } from "@/data/project";
 const tones: Record<ProjectStatus, Tone> = { live: "ok", building: "warn", native: "acc" };
 
 const box = "flex h-full flex-col gap-3 bg-bg p-4 text-fg";
+const cell = "border-b border-r border-line";
 const link =
   "group hover:bg-acc hover:text-acc-ink focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-acc";
 
@@ -27,12 +28,12 @@ export function Tile({ project }: { project: Project }) {
 
   if (project.status === "live" && project.url) {
     return (
-      <li className="bg-bg">
+      <li className={cell}>
         <a href={project.url} className={`${box} ${link}`}>
           {body}
         </a>
       </li>
     );
   }
-  return <li className={box}>{body}</li>;
+  return <li className={`${cell} ${box}`}>{body}</li>;
 }
