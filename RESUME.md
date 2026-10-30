@@ -6,6 +6,7 @@ Repo: github.com/davey2wavey/pickler (public, branch protection on, 13 PRs merge
 Mac: ~/Projects/pickler (main) · ~/Projects/pickler-site (site worktree) · ~/Projects/pickler-runway (runway worktree)
 
 Live:
+
 - pickler-site.vercel.app — grid + timeline views, view switch, case pages at /p/[slug], /ui design system
 - pickler-runway.vercel.app — sign-in, "Try the demo", five-tab shell, Transactions tab working
 - pickler-company-log.vercel.app — placeholder
@@ -24,11 +25,13 @@ Docs in repo: CLAUDE.md (working rules), DECISIONS.md (why), apps/*/SPEC.md and 
 ## How to restart (two terminals)
 
 Site window:
+
 ```
 cd ~/Projects/pickler-site && git checkout main && git pull && claude
 ```
 
 Runway window:
+
 ```
 cd ~/Projects/pickler-runway && git checkout main && git pull && claude
 ```
