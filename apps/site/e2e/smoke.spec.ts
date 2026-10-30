@@ -49,3 +49,23 @@ test("the view switch marks the active view and the footer has contact @smoke", 
   await expect(footer.getByRole("button", { name: "copied" })).toBeVisible();
   expect(await page.evaluate(() => navigator.clipboard.readText())).toBe("picklerdavid@gmail.com");
 });
+
+test("the timeline view lists projects newest first and links to their pages @smoke", async ({
+  page,
+}) => {
+  await page.goto("/?view=timeline");
+  const nav = page.getByRole("navigation", { name: "View" });
+  await expect(nav.getByRole("link", { name: "Timeline" })).toHaveAttribute("aria-current", "page");
+  const entries = page.getByRole("list", { name: "Projects, newest first" }).getByRole("listitem");
+  await expect(entries).toHaveCount(projects.length);
+
+  const first = entries.first().getByRole("link");
+  const href = await first.getAttribute("href");
+  expect(href).toMatch(/^\/p\/[a-z0-9-]+$/);
+  await first.click();
+  await expect(page).toHaveURL(href!);
+
+  await page.goto("/?view=grid");
+  await expect(nav.getByRole("link", { name: "Grid" })).toHaveAttribute("aria-current", "page");
+  await expect(page.getByRole("list", { name: "Projects" })).toBeVisible();
+});
