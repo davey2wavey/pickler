@@ -91,7 +91,7 @@ Utilities map one to one: `bg-bg`, `bg-panel`, `bg-ground`, `bg-water`, `text-fg
 | `ground`              | `#e9e9e3`                         | `#131315`                         | recessed areas             |
 | `acc`                 | `#7fd1f2`                         | `#7fd1f2`                         | blue fills and focus rings |
 | `acc-ink`             | `#0b0b0c`                         | `#0b0b0c`                         | text on blue               |
-| `water`               | 40% `acc` over `bg`               | same                              | below the home waterline   |
+| `water`               | 40% `acc` over `bg`               | 15% `acc` over `bg`               | below the home waterline   |
 | `grey-on-water`       | `#606060`                         | `#d4d4d0`                         | secondary text on water    |
 | `ok` / `warn` / `bad` | `#1f9d55` / `#b07a00` / `#c62828` | `#3fd27f` / `#f0b429` / `#ff5f56` | semantic dots and text     |
 

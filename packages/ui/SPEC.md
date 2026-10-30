@@ -31,7 +31,7 @@ Color (light / dark):
 - `--line` #0b0b0c at 100% for structural rules / #f2f2f0; `--line-soft` #dcdcd6 / #262628 for table rows and grid lines
 - `--panel` #f8f8f5 / #0b0b0c (window and card fill); `--ground` #e9e9e3 / #131315 (recessed areas)
 - `--acc` #7fd1f2 (sky blue) both themes; `--acc-ink` #0b0b0c
-- `--water` `color-mix(in srgb, var(--acc) 40%, var(--bg))`: the ground below the waterline on the portfolio home. `--grey-on-water` #606060 / #d4d4d0 replaces `--grey` on it, because grey on dark water measures 2.6:1.
+- `--water` `color-mix(in srgb, var(--acc) 40%, var(--bg))` in light, 15% in dark (40% over near-black reads navy): the ground below the waterline on the portfolio home. `--grey-on-water` #606060 / #d4d4d0 replaces `--grey` on it, because grey on dark water measures 2.6:1.
 - `--ok` #1f9d55 / #3fd27f; `--warn` #b07a00 / #f0b429 (#c48800 measures 2.70:1 on the off-white; moved to the nearest shade that passes 3:1); `--bad` #c62828 / #ff5f56
 - `[data-invert]` on any element flips its subtree to the other theme's values. Used for the black band on the home page.
 

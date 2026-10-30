@@ -58,13 +58,22 @@ test("the inverted block is dark, and flips to light when the OS is dark", () =>
   expect(themes.invertInDark).toEqual(themes.light);
 });
 
-test("water is 40% accent over the ground", () => {
-  expect(css).toMatch(/--water:\s*color-mix\(in srgb, var\(--acc\) 40%, var\(--bg\)\)/);
+const waterMix = { light: 0.4, dark: 0.15 } as const;
+
+test("water is 40% accent over the ground in light and 15% in dark, in every block", () => {
+  // :root, [data-theme="light"], and [data-invert] under a dark OS are light.
+  expect(css.match(/--water: color-mix\(in srgb, var\(--acc\) 40%, var\(--bg\)\);/g)).toHaveLength(
+    3,
+  );
+  // [data-theme="dark"], the dark OS block, and [data-invert] are dark.
+  expect(css.match(/--water: color-mix\(in srgb, var\(--acc\) 15%, var\(--bg\)\);/g)).toHaveLength(
+    3,
+  );
 });
 
 describe.each(["light", "dark"] as const)("%s theme", (theme) => {
   const colors = { ...themes[theme] };
-  colors.water = mixHex(colors.acc ?? "", colors.bg ?? "", 0.4);
+  colors.water = mixHex(colors.acc ?? "", colors.bg ?? "", waterMix[theme]);
 
   test("defines every color token", () => {
     for (const name of names) {

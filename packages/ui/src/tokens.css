@@ -27,7 +27,8 @@
   --warn: #b07a00;
   --bad: #c62828;
 
-  /* Derived: the ground below the waterline on the portfolio home. Resolves per subtree. */
+  /* Derived: the ground below the waterline on the portfolio home. Light mixes 40%,
+     dark 15%: the same 40% over near-black reads navy. Resolves per subtree. */
   --water: color-mix(in srgb, var(--acc) 40%, var(--bg));
 
   --font-sans: var(--font-space-grotesk, "Space Grotesk"), system-ui, sans-serif;
@@ -74,6 +75,7 @@
   --ok: #3fd27f;
   --warn: #f0b429;
   --bad: #ff5f56;
+  --water: color-mix(in srgb, var(--acc) 15%, var(--bg));
 }
 
 @media (prefers-color-scheme: dark) {
@@ -93,6 +95,7 @@
     --ok: #3fd27f;
     --warn: #f0b429;
     --bad: #ff5f56;
+    --water: color-mix(in srgb, var(--acc) 15%, var(--bg));
   }
 }
 
@@ -113,6 +116,7 @@
   --ok: #1f9d55;
   --warn: #b07a00;
   --bad: #c62828;
+  --water: color-mix(in srgb, var(--acc) 40%, var(--bg));
 }
 
 /* Inverted subtree: dark values on a light page. The dark-OS block below swaps back. */
@@ -132,6 +136,7 @@
   --ok: #3fd27f;
   --warn: #f0b429;
   --bad: #ff5f56;
+  --water: color-mix(in srgb, var(--acc) 15%, var(--bg));
 }
 
 @media (prefers-color-scheme: dark) {
@@ -151,5 +156,6 @@
     --ok: #1f9d55;
     --warn: #b07a00;
     --bad: #c62828;
+    --water: color-mix(in srgb, var(--acc) 40%, var(--bg));
   }
 }

@@ -14,18 +14,16 @@ export default function Home() {
   const bands = featured(projects);
   return (
     <Waterline>
-      <main className="mx-auto max-w-[1180px] border-x border-line">
-        <Nav projects={bands} />
-        <Hero projects={bands} />
-        <div className={styles.below}>
-          <ProofStrip projects={projects} today={new Date()} />
-          {bands.map((project, index) => (
-            <ProjectBand key={project.slug} project={project} index={index} />
-          ))}
-          <HowIWork />
-          <Contact />
-        </div>
-      </main>
+      <Nav projects={bands} />
+      <Hero projects={bands} />
+      <div className={styles.below}>
+        <ProofStrip projects={projects} today={new Date()} />
+        {bands.map((project, index) => (
+          <ProjectBand key={project.slug} project={project} index={index} />
+        ))}
+        <HowIWork />
+        <Contact />
+      </div>
     </Waterline>
   );
 }

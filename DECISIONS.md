@@ -128,5 +128,6 @@ Reference: wahooservices.co.uk lean. Systems, terminals, hard grid. Not their pi
 - `--acc` is `#7fd1f2` in both themes. `--acc-ink` stays black. Light `--bg` is `#f1f1ec`, with `--panel #f8f8f5` for windows and `--ground #e9e9e3` for recessed areas. Dark ground unchanged.
 - Why: the approved home mock (apps/site/design/home-mock.html) reads as sun, water, and paper. Lime fought the water. One token change, every app follows.
 - Side effects measured, not guessed: `--warn` light darkens to `#b07a00` (the old value fails 3:1 on the off-white), `--grey` light darkens to `#606060` (the old value fails 4.5:1 on `--ground`). `--grey-on-water` exists because grey on dark water measures 2.6:1.
+- `--water` mixes 40% accent into the ground in light and 15% in dark. The same 40% over near-black read navy on the first preview.
 - `[data-invert]` flips a subtree to the other theme's values, so one band on a page can be black without a second copy of the tokens.
 - Rejected: keeping lime and only recoloring the home page. Two accents is two design systems.

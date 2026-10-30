@@ -15,20 +15,25 @@ export function WaterlineAnchor() {
 }
 
 /**
- * The page wrapper. Its background is ground above --wl and water below; the line
- * starts at the anchor and rises as the page scrolls. Under reduced motion it stays put.
+ * The content column. Its background is ground above --wl and water below; outside its
+ * borders the page stays plain --bg. The line starts at the anchor and rises as the page
+ * scrolls. Under reduced motion it stays put.
  */
 export function Waterline({ className, children }: { className?: string; children: ReactNode }) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLElement>(null);
   const depth = useScrollDepth(ref, `[${anchorAttribute}]`);
   const level = depth.reduced
     ? depth.anchorOffset
     : waterlineFor(depth.anchorOffset, depth.scrollY);
   const style = { "--wl": `${Math.round(level)}px` } as CSSProperties;
   return (
-    <div ref={ref} style={style} className={cx(styles.page, className)}>
+    <main
+      ref={ref}
+      style={style}
+      className={cx(styles.page, "mx-auto max-w-[1180px] border-x border-line", className)}
+    >
       <div aria-hidden className={cx(styles.waterline, styles.waveMask)} />
       {children}
-    </div>
+    </main>
   );
 }
