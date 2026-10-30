@@ -6,6 +6,11 @@
 // project's preview URL. This script waits for the status to succeed, then reads
 // the URL from the comment and writes `url=` to GITHUB_OUTPUT.
 //
+// Vercel skips projects a PR does not touch ("Skipped - Not affected"). The status
+// still reads success, but the comment marks the project SKIPPED with no URL. Then
+// this script exits without writing `url=`, and the smoke job builds and starts
+// the app itself, the same way the full suite does.
+//
 // Env: GITHUB_TOKEN, GITHUB_REPOSITORY, GITHUB_EVENT_PATH (pull_request event),
 //      VERCEL_PROJECT (e.g. pickler-site), TIMEOUT_SECONDS (default 600).
 import { appendFileSync, readFileSync } from "node:fs";
@@ -53,7 +58,8 @@ async function deploymentState() {
   return statuses.find((s) => contextPattern.test(s.context))?.state;
 }
 
-async function previewUrl() {
+// The project's entry in the Vercel comment: { previewUrl, nextCommitStatus, ... }.
+async function commentEntry() {
   const comments = await github(`issues/${prNumber}/comments?per_page=100`);
   for (const comment of comments) {
     if (comment.user?.login !== "vercel[bot]") continue;
@@ -61,7 +67,7 @@ async function previewUrl() {
     if (!match) continue;
     const blob = JSON.parse(Buffer.from(match[1], "base64").toString("utf8"));
     const entry = blob.projects?.find((p) => p.name === project);
-    if (entry?.previewUrl) return `https://${entry.previewUrl}`;
+    if (entry) return entry;
   }
   return undefined;
 }
@@ -72,8 +78,13 @@ while (Date.now() < deadline) {
   const state = await deploymentState();
   if (state === "failure" || state === "error") fail(`Vercel deployment for ${project} ${state}`);
   if (state === "success") {
-    const url = await previewUrl();
-    if (url) {
+    const entry = await commentEntry();
+    if (entry?.nextCommitStatus === "SKIPPED") {
+      console.log(`${project} skipped by Vercel (not affected); smoke will build it locally`);
+      process.exit(0);
+    }
+    if (entry?.previewUrl) {
+      const url = `https://${entry.previewUrl}`;
       console.log(`${project} preview: ${url}`);
       if (process.env.GITHUB_OUTPUT) appendFileSync(process.env.GITHUB_OUTPUT, `url=${url}\n`);
       process.exit(0);
