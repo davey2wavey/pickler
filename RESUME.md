@@ -48,3 +48,5 @@ Spec → plan mode → approve (auto mode) → PR → CI green → you check pre
 - Docker Desktop must be running for runway unit tests.
 - Vercel previews need no login; Vercel Authentication is off on all three.
 - "Not built yet" tabs in Runway are intentional.
+
+PR #15 (full e2e CI fix) is open and green in code; blocked only by Vercel daily build quota. After 7:15 pm Oct 30, push an empty commit, wait green, merge.
