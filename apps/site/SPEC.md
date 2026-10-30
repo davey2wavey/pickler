@@ -9,6 +9,7 @@ One data file describes every project. Views are renderers over that file. This 
 `apps/site/content/projects.ts`, typed with Zod and exported as `projects`.
 
 Per project:
+
 - `slug`, `name`
 - `oneLiner` — what it does and the problem it solves. No taglines.
 - `status`: `live | beta | in-progress | case-study | archived`
