@@ -26,7 +26,7 @@ test("home shows every featured headline and the live demo, and opens a project 
     .getByRole("link")
     .click();
   await expect(page).toHaveURL(`/p/${first.slug}`);
-  await expect(page.getByRole("heading", { level: 1 })).toContainText(first.name);
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(first.headline ?? first.name);
   await expect(page.getByText(first.problem)).toBeVisible();
 });
 

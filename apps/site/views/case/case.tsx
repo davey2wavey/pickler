@@ -1,71 +1,111 @@
 import Link from "next/link";
 import { Label } from "@pickler/ui";
 import type { Project } from "@/data/project";
+import { DemoSlot } from "@/components/home/demo-slot";
+import { WaveRule } from "@/components/home/wave-rule";
 import { LinkButton } from "./link-button";
 import { Shots } from "./shots";
 
 const linkLabels = {
   live: "Open",
-  repo: "Code",
+  video: "Watch",
   testflight: "TestFlight",
+  appstore: "App Store",
+  repo: "Code",
   caseStudy: "Case study",
 } as const;
 
-function Section({ label, text }: { label: string; text: string }) {
+type LinkKey = keyof typeof linkLabels;
+
+export function caseLinks(project: Project): Array<{ key: LinkKey; href: string }> {
+  return (Object.keys(linkLabels) as LinkKey[])
+    .map((key) => ({ key, href: project.links[key] }))
+    .filter((link): link is { key: LinkKey; href: string } => Boolean(link.href));
+}
+
+function Story({ label, text }: { label: string; text: string }) {
   return (
-    <section className="flex flex-col gap-3">
-      <Label text={label} />
-      <p className="max-w-[60ch]">{text}</p>
-    </section>
+    <div className="border-b border-line px-6 py-5 last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0">
+      <span className="mb-2 block font-mono text-label uppercase tracking-label text-grey">
+        {label}
+      </span>
+      <p className="max-w-[46ch]">{text}</p>
+    </div>
   );
 }
 
-/** One project's case study: problem, what was built, what changed, numbers, shots, links. */
+/** One project's page in the band language: head, demo, story, numbers, screens, links. */
 export function Case({ project }: { project: Project }) {
-  const links = (Object.keys(linkLabels) as Array<keyof typeof linkLabels>)
-    .map((key) => ({ key, href: project.links[key] }))
-    .filter((link): link is { key: keyof typeof linkLabels; href: string } => Boolean(link.href));
-
+  const links = caseLinks(project);
   return (
-    <main className="mx-auto flex max-w-grid flex-col gap-12 px-6 py-16">
-      <Link
-        href="/"
-        className="self-start font-mono text-label uppercase tracking-label text-grey hover:text-fg"
-      >
-        All projects
-      </Link>
-
-      <header className="flex flex-col gap-3">
-        <div className="flex flex-wrap gap-4">
-          <Label text={project.status} dot="acc" />
-          <Label text={project.kind} />
-        </div>
-        <h1 className="text-h1 font-medium">{project.name}</h1>
-        <p className="max-w-[60ch] text-lead text-grey">{project.oneLiner}</p>
-        <p className="font-mono text-label uppercase tracking-label text-grey">
-          {project.stack.join(" / ")}
-        </p>
-      </header>
-
-      <div className="grid gap-8 md:grid-cols-3">
-        <Section label="problem" text={project.problem} />
-        <Section label="built" text={project.built} />
-        <Section label="changed" text={project.changed} />
+    <main className="mx-auto max-w-[1180px] border-x border-line">
+      <div className="flex h-[52px] items-stretch border-b border-line">
+        <Link
+          href="/"
+          className="flex items-center border-r border-line px-4 font-mono text-label uppercase tracking-label hover:bg-fg hover:text-bg"
+        >
+          ← All projects
+        </Link>
+        <span className="flex items-center gap-2 px-4 font-mono text-label uppercase tracking-label text-grey">
+          <span aria-hidden className="size-[7px] bg-acc" />
+          {project.name}
+        </span>
       </div>
 
+      <header className="grid items-start gap-x-8 gap-y-4 px-6 pb-7 pt-9 md:grid-cols-[1.15fr_1fr]">
+        <h1 className="text-balance text-[clamp(2rem,4.6vw,3.4rem)] font-semibold leading-[1.02] tracking-[-0.03em]">
+          {project.headline ?? project.name}
+          {project.headlineMono ? (
+            <>
+              {" "}
+              <span className="font-mono font-medium">{project.headlineMono}</span>
+            </>
+          ) : null}
+        </h1>
+        <div className="flex flex-col gap-2.5 pt-1">
+          <p className="max-w-[46ch] text-lead text-grey">{project.oneLiner}</p>
+          <p className="flex flex-wrap gap-x-4 font-mono text-label tracking-[0.06em]">
+            <span>
+              <span className="mr-1.5 text-grey">stack</span>
+              {project.stack.join(" · ").toLowerCase()}
+            </span>
+            <span>
+              <span className="mr-1.5 text-grey">status</span>
+              {project.status}
+            </span>
+            <span>
+              <span className="mr-1.5 text-grey">kind</span>
+              {project.kind}
+            </span>
+          </p>
+        </div>
+      </header>
+      <WaveRule className="mx-6" />
+
+      <section aria-label="Demo" className="border-t border-line bg-ground p-6">
+        <DemoSlot project={project} />
+      </section>
+
+      <section aria-label="Story" className="grid border-t border-line md:grid-cols-3">
+        <Story label="problem" text={project.problem} />
+        <Story label="built" text={project.built} />
+        <Story label="changed" text={project.changed} />
+      </section>
+
       {project.metrics.length > 0 ? (
-        <section aria-label="Numbers" className="flex flex-col gap-3">
-          <Label text="numbers" />
-          <dl className="grid border-t border-l border-line md:grid-cols-3">
+        <section aria-label="Numbers" className="border-t border-line">
+          <dl className="grid md:grid-cols-3">
             {project.metrics.map((metric) => (
               <div
                 key={metric.label}
-                className="flex flex-col gap-1 border-b border-r border-line p-4"
+                className="flex flex-col gap-1 border-b border-line px-6 py-5 last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0"
               >
                 <dt className="font-mono text-label uppercase tracking-label text-grey">
                   {metric.label}
                 </dt>
-                <dd className="font-mono text-h2 tabular-nums">{metric.value}</dd>
+                <dd className="font-mono text-[2.2rem] leading-none tabular-nums tracking-tight">
+                  {metric.value}
+                </dd>
                 {metric.note ? <dd className="text-small text-grey">{metric.note}</dd> : null}
               </div>
             ))}
@@ -73,21 +113,21 @@ export function Case({ project }: { project: Project }) {
         </section>
       ) : null}
 
-      <section aria-label="Screenshots" className="flex flex-col gap-3">
-        <Label text="screenshots" />
+      <section
+        aria-label="Screenshots"
+        className="flex flex-col gap-4 border-t border-line px-6 py-6"
+      >
+        <Label text="screens" />
         <Shots project={project} />
       </section>
 
       {links.length > 0 ? (
-        <section aria-label="Links" className="flex flex-col gap-3">
-          <Label text="links" />
-          <div className="flex flex-wrap gap-3">
-            {links.map((link) => (
-              <LinkButton key={link.key} href={link.href} rel="noreferrer">
-                {linkLabels[link.key]}
-              </LinkButton>
-            ))}
-          </div>
+        <section aria-label="Links" className="flex flex-wrap gap-3 border-t border-line px-6 py-6">
+          {links.map((link) => (
+            <LinkButton key={link.key} href={link.href} rel="noreferrer">
+              {linkLabels[link.key]}
+            </LinkButton>
+          ))}
         </section>
       ) : null}
     </main>
