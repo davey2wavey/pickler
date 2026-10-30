@@ -1,12 +1,6 @@
-import { Footer } from "@/components/footer";
 import { projects } from "@/data/projects";
 import { Grid } from "@/views/grid/grid";
 
 export default function Page() {
-  return (
-    <>
-      <Grid projects={projects} />
-      <Footer />
-    </>
-  );
+  return <Grid projects={projects} />;
 }

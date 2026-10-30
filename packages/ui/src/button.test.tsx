@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { expect, test } from "vitest";
-import { Button } from "./button";
+import { Button, buttonClasses } from "./button";
 
 test("renders a button with its label", () => {
   render(<Button>Save</Button>);
@@ -36,4 +36,15 @@ test("forwards className and native props", () => {
   expect(button).toHaveClass("font-mono");
   expect(button).toBeDisabled();
   expect(button).toHaveAttribute("type", "submit");
+});
+
+test("buttonClasses matches what Button renders", () => {
+  render(
+    <Button variant="secondary" size="sm">
+      Same
+    </Button>,
+  );
+  expect(screen.getByRole("button", { name: "Same" }).className).toBe(
+    buttonClasses("secondary", "sm"),
+  );
 });

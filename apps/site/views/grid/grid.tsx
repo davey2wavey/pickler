@@ -1,12 +1,13 @@
 import { Label } from "@pickler/ui";
 import type { Project } from "@/data/project";
+import { byFeatured } from "@/data/select";
 import { Tile } from "./tile";
 
 export const pitch =
   "I build internal tools, dashboards, and automations for small teams. Solo, end to end.";
 
-/** View 6, minimal grid. Name, one line, a tile per project. Each tile draws its own
- * bottom and right hairline, the list the top and left, so a short last row stays open. */
+/** View 6, minimal grid. Name, one line, a tile per project, featured first. Each tile draws
+ * its own bottom and right hairline, the list the top and left, so a short last row stays open. */
 export function Grid({ projects }: { projects: Project[] }) {
   return (
     <main className="mx-auto flex max-w-grid flex-col gap-12 px-6 py-16">
@@ -19,7 +20,7 @@ export function Grid({ projects }: { projects: Project[] }) {
         aria-label="Projects"
         className="grid border-t border-l border-line md:grid-cols-2 lg:grid-cols-3"
       >
-        {projects.map((project) => (
+        {byFeatured(projects).map((project) => (
           <Tile key={project.slug} project={project} />
         ))}
       </ul>

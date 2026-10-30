@@ -3,31 +3,74 @@
     "slug": "runway",
     "name": "Runway",
     "oneLiner": "Shows where money goes.",
-    "status": "building",
+    "status": "in-progress",
+    "kind": "web",
     "stack": ["Next.js", "Supabase", "Vercel"],
-    "url": "https://pickler-runway.vercel.app"
+    "links": {
+      "live": "https://pickler-runway.vercel.app",
+      "repo": "https://github.com/davey2wavey/pickler"
+    },
+    "problem": "Money leaves a small business in dozens of small pieces, and nobody can say at a glance how long the cash lasts.",
+    "built": "A web rebuild of the original tool: every outgoing amount in one ledger, a burn line, and the number of days left at the current rate.",
+    "changed": "In progress. The web version is being rebuilt in this stack; the number that matters is the days-left figure on the first screen.",
+    "metrics": [],
+    "screenshots": [],
+    "updatedAt": "2026-10-29",
+    "featured": true
   },
   {
     "slug": "mail-room",
     "name": "Mail Room",
     "oneLiner": "Inbox sorts itself.",
-    "status": "native",
-    "stack": ["Swift", "macOS"]
+    "status": "case-study",
+    "kind": "mac",
+    "stack": ["Swift", "macOS"],
+    "links": {},
+    "problem": "An inbox fills faster than one person can file it, and the useful messages hide between the rest.",
+    "built": "A native Mac app that reads the inbox and sorts each message into a bucket, so the person only reads what is left.",
+    "changed": "Mail Room stays native. This page is the case study; a short video and a link to the app follow when they are ready.",
+    "metrics": [],
+    "screenshots": [],
+    "updatedAt": "2026-10-29",
+    "featured": true
   },
   {
     "slug": "company-log",
     "name": "Company Log",
     "oneLiner": "Every post from a company's socials, one place.",
-    "status": "building",
+    "status": "in-progress",
+    "kind": "web",
     "stack": ["Next.js", "Supabase", "GitHub Actions"],
-    "url": "https://pickler-company-log.vercel.app"
+    "links": {
+      "live": "https://pickler-company-log.vercel.app",
+      "repo": "https://github.com/davey2wavey/pickler"
+    },
+    "problem": "Following what a company says means opening four apps and scrolling four feeds.",
+    "built": "Paste a company's social links; a scheduled worker collects every post into one feed. The scraper runs on a GitHub Actions cron and writes to Supabase.",
+    "changed": "In progress. The scraper is the long pole; official APIs first, scraping as the fallback.",
+    "metrics": [],
+    "screenshots": [],
+    "updatedAt": "2026-10-29",
+    "featured": true
   },
   {
     "slug": "site",
     "name": "This site",
     "oneLiner": "Portfolio. One dataset, many views.",
     "status": "live",
+    "kind": "web",
     "stack": ["Next.js", "Tailwind", "Turborepo"],
-    "url": "https://pickler-site.vercel.app"
+    "links": {
+      "live": "https://pickler-site.vercel.app",
+      "repo": "https://github.com/davey2wavey/pickler"
+    },
+    "problem": "A portfolio usually shows one layout. Ten were drawn, and choosing one throws away nine.",
+    "built": "One JSON file describes every project. Each layout is a renderer over that file, so views can be added without touching the data. The design system lives in the same repo.",
+    "changed": "Live. One view so far; the switcher that lets a visitor flip between them is the next piece.",
+    "metrics": [],
+    "screenshots": [],
+    "shippedAt": "2026-10-29",
+    "updatedAt": "2026-10-29",
+    "featured": false
   }
 ]
