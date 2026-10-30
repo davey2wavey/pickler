@@ -28,3 +28,24 @@ test("an unknown project is a 404 @smoke", async ({ page }) => {
   expect(response?.status()).toBe(404);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("No such project");
 });
+
+test("the view switch marks the active view and the footer has contact @smoke", async ({
+  page,
+  context,
+}) => {
+  await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+  await page.goto("/?view=grid");
+  const nav = page.getByRole("navigation", { name: "View" });
+  await expect(nav.getByRole("link", { name: "Grid" })).toHaveAttribute("aria-current", "page");
+  await expect(page.getByRole("list", { name: "Projects" })).toBeVisible();
+  await expect.poll(() => page.evaluate(() => localStorage.getItem("site.view"))).toBe("grid");
+
+  const footer = page.getByRole("contentinfo");
+  await expect(footer.getByRole("link", { name: "GitHub" })).toHaveAttribute(
+    "href",
+    "https://github.com/davey2wavey",
+  );
+  await footer.getByRole("button", { name: "copy" }).click();
+  await expect(footer.getByRole("button", { name: "copied" })).toBeVisible();
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe("picklerdavid@gmail.com");
+});
