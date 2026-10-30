@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { ViewSwitch } from "@/views/view-switch";
 
-/** Pages that are views over the dataset get the switch. Case pages do not. */
+/** /views: the dataset through every registered renderer, with the switch. Home and case pages do not get it. */
 export default function ViewsLayout({ children }: { children: ReactNode }) {
   return (
     <>

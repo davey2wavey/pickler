@@ -12,10 +12,10 @@ describe("ViewSwitch", () => {
     expect(within(nav).getByText("//view//")).toBeInTheDocument();
     const links = within(nav).getAllByRole("link");
     expect(links).toHaveLength(views.length);
-    expect(links[0]).toHaveAttribute("href", "/?view=grid");
+    expect(links[0]).toHaveAttribute("href", "/views?view=grid");
     expect(links[0]).toHaveAttribute("aria-current", "page");
     expect(links[0]?.className).toContain("bg-acc");
-    expect(links[1]).toHaveAttribute("href", "/?view=timeline");
+    expect(links[1]).toHaveAttribute("href", "/views?view=timeline");
     expect(links[1]).not.toHaveAttribute("aria-current");
   });
 });

@@ -5,7 +5,7 @@ import Page from "./page";
 
 vi.mock("next/navigation", () => ({ useSearchParams: () => new URLSearchParams("") }));
 
-test("home shows the name and a tile per project", async () => {
+test("/views shows the name and a tile per project", async () => {
   await act(async () => {
     render(<Page />);
   });

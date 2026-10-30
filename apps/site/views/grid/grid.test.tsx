@@ -20,7 +20,10 @@ const projects = parseProjects([
     status: "in-progress",
     kind: "web",
     stack: ["Next.js", "Supabase"],
-    headline: "H", whatItDoes: "W", underTheHood: "U", featured: true,
+    headline: "H",
+    whatItDoes: "W",
+    underTheHood: "U",
+    featured: true,
   },
   {
     ...base,

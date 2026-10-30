@@ -1,0 +1,142 @@
+/*
+  What Tailwind cannot say cleanly: the waterline gradient, the wavy rules, stroke
+  draw-on, and parallax. Colors come from tokens only; the SVG waves are masks filled
+  with currentColor, so they recolor with the theme.
+*/
+
+.page {
+  position: relative;
+  --wl: 100vh;
+  background: linear-gradient(
+    to bottom,
+    var(--bg) 0,
+    var(--bg) var(--wl),
+    var(--water) var(--wl),
+    var(--water) 100%
+  );
+}
+
+.page > * {
+  position: relative;
+}
+
+.waveMask {
+  mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='14' viewBox='0 0 28 14'><path d='M0 7 Q7 1 14 7 T28 7' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round'/></svg>")
+    repeat-x center / 28px 14px;
+  background: currentColor;
+  height: 14px;
+}
+
+.waterline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--wl) - 14px);
+  pointer-events: none;
+  color: var(--acc);
+}
+
+.below {
+  --grey: var(--grey-on-water);
+}
+
+/* Strokes. Every path carries pathLength="1", so dasharray 1 is the whole path. */
+.stroke path,
+.stroke circle {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--p, 0.4));
+}
+
+.blue {
+  color: var(--acc);
+}
+
+.doodle {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+
+.doodle svg {
+  position: absolute;
+  overflow: visible;
+  stroke-width: 3;
+}
+
+.w1 {
+  left: -2%;
+  bottom: -6px;
+  width: 60%;
+  height: 120px;
+  transform: translateY(calc(var(--sy, 0) * -0.35px));
+}
+
+.w2 {
+  right: -2%;
+  bottom: 14px;
+  width: 50%;
+  height: 110px;
+  transform: translateY(calc(var(--sy, 0) * -0.6px));
+}
+
+.sun {
+  left: 6%;
+  top: -10px;
+  width: 120px;
+  height: 120px;
+  transform: translateY(calc(var(--sy, 0) * 0.25px)) rotate(calc(var(--sy, 0) * 0.08deg));
+}
+
+.palm {
+  right: 4%;
+  top: -30px;
+  width: 150px;
+  height: 200px;
+  transform: translateY(calc(var(--sy, 0) * -0.15px));
+}
+
+.sectionDoodle {
+  width: 96px;
+  height: 96px;
+  stroke-width: 2.4;
+  pointer-events: none;
+  justify-self: end;
+  align-self: center;
+}
+
+@media (max-width: 760px) {
+  .sun {
+    width: 80px;
+    height: 80px;
+  }
+  .palm {
+    width: 100px;
+    height: 140px;
+    top: -10px;
+  }
+  .sectionDoodle {
+    width: 72px;
+    height: 72px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .stroke path,
+  .stroke circle {
+    transition: stroke-dashoffset 0.35s linear;
+  }
+  .blink {
+    animation: blink 1.6s steps(1) infinite;
+  }
+  @keyframes blink {
+    50% {
+      opacity: 0.25;
+    }
+  }
+}
