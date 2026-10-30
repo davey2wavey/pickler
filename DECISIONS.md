@@ -115,3 +115,10 @@ Reference: wahooservices.co.uk lean. Systems, terminals, hard grid. Not their pi
 - Tools (Runway, Company Log): same rules, denser, no flourish, no photos.
 - Overview surfaces (portfolio): same rules, bigger type, real screenshots.
 - Dark mode: yes, v1. Same tokens, inverted ground. Lime stays lime.
+
+## 2026-10-29 — Service role stays out of app routes
+
+- The Supabase service role key never ships in a Next.js app route or server component. App reads use the anon key with a real signed-in session, so RLS does the filtering.
+- Service role is allowed in two places: tests (admin API for throwaway users) and `workers/`.
+- Why: bypassing RLS in app code is a footgun even behind an explicit `user_id` filter. One forgotten filter leaks every user's rows.
+- Rejected: a server-only service client for the Runway `/health` page. Replaced with a per-request sign-in as the seeded demo user over the anon key.
