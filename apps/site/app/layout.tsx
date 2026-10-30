@@ -8,8 +8,9 @@ const sans = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains-mono" });
 
 export const metadata: Metadata = {
-  title: "site",
-  description: "Portfolio. One dataset, many views.",
+  title: "David Pickler",
+  description:
+    "Internal tools, dashboards, and automations. Portfolio with one dataset and many views.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

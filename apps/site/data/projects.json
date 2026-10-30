@@ -1,0 +1,33 @@
+[
+  {
+    "slug": "runway",
+    "name": "Runway",
+    "oneLiner": "Shows where money goes.",
+    "status": "building",
+    "stack": ["Next.js", "Supabase", "Vercel"],
+    "url": "https://pickler-runway.vercel.app"
+  },
+  {
+    "slug": "mail-room",
+    "name": "Mail Room",
+    "oneLiner": "Inbox sorts itself.",
+    "status": "native",
+    "stack": ["Swift", "macOS"]
+  },
+  {
+    "slug": "company-log",
+    "name": "Company Log",
+    "oneLiner": "Every post from a company's socials, one place.",
+    "status": "building",
+    "stack": ["Next.js", "Supabase", "GitHub Actions"],
+    "url": "https://pickler-company-log.vercel.app"
+  },
+  {
+    "slug": "site",
+    "name": "This site",
+    "oneLiner": "Portfolio. One dataset, many views.",
+    "status": "live",
+    "stack": ["Next.js", "Tailwind", "Turborepo"],
+    "url": "https://pickler-site.vercel.app"
+  }
+]
