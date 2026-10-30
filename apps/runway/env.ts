@@ -4,6 +4,8 @@ import { z } from "zod";
 const schema = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
   NEXT_PUBLIC_APP_URL: z.url().optional(),
+  // Server only. Lets /health sign in as the seeded demo user. Never NEXT_PUBLIC_.
+  RUNWAY_DEMO_PASSWORD: z.string().min(1).optional(),
 });
 
 export type Env = z.infer<typeof schema>;
