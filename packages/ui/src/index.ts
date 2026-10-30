@@ -1,4 +1,4 @@
-export { Button } from "./button";
+export { Button, buttonClasses } from "./button";
 export type { ButtonProps, ButtonSize, ButtonVariant } from "./button";
 export { Label } from "./label";
 export type { LabelProps, Tone } from "./label";
