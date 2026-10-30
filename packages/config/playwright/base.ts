@@ -8,7 +8,8 @@ const isCI = Boolean(process.env.CI);
  * Tag critical-flow tests with @smoke; `pnpm test:smoke` runs only those.
  */
 export function appConfig(port: number) {
-  const externalUrl = process.env.PLAYWRIGHT_BASE_URL;
+  // CI passes an empty string when Vercel skipped the app's preview; treat it as unset.
+  const externalUrl = process.env.PLAYWRIGHT_BASE_URL || undefined;
   const baseURL = externalUrl ?? `http://localhost:${port}`;
   // Vercel previews sit behind Deployment Protection. The bypass secret, when
   // present, lets CI through: https://vercel.com/docs/deployment-protection
