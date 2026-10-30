@@ -15,5 +15,7 @@ describe("ViewSwitch", () => {
     expect(links[0]).toHaveAttribute("href", "/?view=grid");
     expect(links[0]).toHaveAttribute("aria-current", "page");
     expect(links[0]?.className).toContain("bg-acc");
+    expect(links[1]).toHaveAttribute("href", "/?view=timeline");
+    expect(links[1]).not.toHaveAttribute("aria-current");
   });
 });
