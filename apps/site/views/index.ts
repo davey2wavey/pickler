@@ -1,13 +1,18 @@
+import dynamic from "next/dynamic";
 import type { ComponentType } from "react";
 import type { Project } from "@/data/project";
-import { Grid } from "./grid/grid";
 
 export type ViewProps = { projects: Project[] };
 export type View = { id: string; name: string; Component: ComponentType<ViewProps> };
 
-/** Every view the switch can show. Add a line here; nothing else changes. */
+/** Every view the switch can show. Add a line here; nothing else changes.
+ * Each view is its own chunk, loaded only when it is the active one. */
 export const views = [
-  { id: "grid", name: "Grid", Component: Grid },
+  {
+    id: "grid",
+    name: "Grid",
+    Component: dynamic(() => import("./grid/grid").then((m) => m.Grid)),
+  },
 ] as const satisfies readonly View[];
 
 export type RegisteredView = (typeof views)[number];

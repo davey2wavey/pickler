@@ -32,7 +32,7 @@ describe("ActiveView", () => {
     await act(async () => {
       render(<ActiveView projects={projects} />);
     });
-    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("David Pickler");
+    expect(await screen.findByRole("heading", { level: 1 })).toHaveTextContent("David Pickler");
     expect(screen.getByRole("link", { name: /Alpha/ })).toBeInTheDocument();
     expect(localStorage.getItem(storageKey)).toBeNull();
   });
@@ -49,7 +49,9 @@ describe("ActiveView", () => {
     await act(async () => {
       render(<ActiveView projects={projects} />);
     });
-    expect(screen.getAllByRole("heading", { level: 1 })[0]).toHaveTextContent("David Pickler");
+    expect((await screen.findAllByRole("heading", { level: 1 }))[0]).toHaveTextContent(
+      "David Pickler",
+    );
     expect(localStorage.getItem(storageKey)).toBeNull();
   });
 });

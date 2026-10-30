@@ -9,7 +9,7 @@ test("home shows the name and a tile per project", async () => {
   await act(async () => {
     render(<Page />);
   });
-  expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("David Pickler");
+  expect(await screen.findByRole("heading", { level: 1 })).toHaveTextContent("David Pickler");
   const list = screen.getByRole("list", { name: "Projects" });
   expect(within(list).getAllByRole("listitem")).toHaveLength(projects.length);
 });
