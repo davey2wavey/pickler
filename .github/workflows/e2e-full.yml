@@ -24,6 +24,19 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter ${{ matrix.app }} exec playwright install --with-deps chromium
+      # Runway reads and writes a database on every page. Start Supabase local
+      # (migrations and seed apply on start) and point the build at it. No test
+      # touches the hosted project.
+      - name: Start local Supabase (runway)
+        if: matrix.app == 'runway'
+        run: |
+          pnpm --filter @pickler/db exec supabase start -x studio,imgproxy,mailpit,edge-runtime,logflare,vector,supavisor,realtime,storage-api,postgres-meta
+          eval "$(pnpm --filter @pickler/db exec supabase status -o env | grep -E '^(API_URL|ANON_KEY)=')"
+          {
+            echo "NEXT_PUBLIC_SUPABASE_URL=$API_URL"
+            echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=$ANON_KEY"
+            echo "RUNWAY_DEMO_PASSWORD=runway-demo" # the seed's demo password
+          } >> "$GITHUB_ENV"
       # No PLAYWRIGHT_BASE_URL: Playwright builds and starts the app itself.
       - run: pnpm --filter ${{ matrix.app }} test:e2e
       - uses: actions/upload-artifact@v4
