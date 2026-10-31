@@ -15,9 +15,9 @@ export function WaterlineAnchor() {
 }
 
 /**
- * The content column. Its background is ground above --wl and water below; outside its
- * borders the page stays plain --bg. The line starts at the anchor and rises as the page
- * scrolls. Under reduced motion it stays put.
+ * The page, edge to edge. Ground above --wl, water below it, and the water's top edge is
+ * the wave itself. The line starts at the anchor and rises as the page scrolls. Under
+ * reduced motion it stays put.
  */
 export function Waterline({ className, children }: { className?: string; children: ReactNode }) {
   const ref = useRef<HTMLElement>(null);
@@ -27,11 +27,8 @@ export function Waterline({ className, children }: { className?: string; childre
     : waterlineFor(depth.anchorOffset, depth.scrollY);
   const style = { "--wl": `${Math.round(level)}px` } as CSSProperties;
   return (
-    <main
-      ref={ref}
-      style={style}
-      className={cx(styles.page, "mx-auto max-w-[1180px] border-x border-line", className)}
-    >
+    <main ref={ref} style={style} className={cx(styles.page, className)}>
+      <div aria-hidden className={styles.water} />
       <div aria-hidden className={cx(styles.waterline, styles.waveMask)} />
       {children}
     </main>

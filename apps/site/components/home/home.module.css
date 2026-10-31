@@ -7,24 +7,37 @@
 .page {
   position: relative;
   --wl: 100vh;
-  background: linear-gradient(
-    to bottom,
-    var(--bg) 0,
-    var(--bg) var(--wl),
-    var(--water) var(--wl),
-    var(--water) 100%
-  );
+  background: var(--bg);
 }
 
 .page > * {
   position: relative;
 }
 
+/*
+  One 28x14 tile, path M0 7 Q7 1 14 7 T28 7. The rule strokes it; the water fills under it.
+  Both start at the same top, so the drawn line sits exactly on the fill's edge.
+*/
 .waveMask {
   mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='14' viewBox='0 0 28 14'><path d='M0 7 Q7 1 14 7 T28 7' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round'/></svg>")
     repeat-x center / 28px 14px;
   background: currentColor;
   height: 14px;
+}
+
+/* The water. Its top edge is the wave: one tile row of fill, then solid below. */
+.page > .water {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: calc(var(--wl) - 14px);
+  background: var(--water);
+  pointer-events: none;
+  mask:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='14' viewBox='0 0 28 14'><path d='M0 7 Q7 1 14 7 T28 7 V14 H0 Z' fill='black'/></svg>")
+      repeat-x top / 28px 14px,
+    linear-gradient(transparent 14px, black 14px);
 }
 
 .waterline {

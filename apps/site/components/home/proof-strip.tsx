@@ -1,5 +1,7 @@
+import { cx } from "@pickler/ui";
 import type { Project } from "@/data/project";
 import { daysSince, proof } from "@/data/proof";
+import { columnClasses } from "./column";
 
 type Cell = { n: string; d: string };
 
@@ -21,21 +23,20 @@ export function proofCells(projects: readonly Project[], today: Date): Cell[] {
 export function ProofStrip({ projects, today }: { projects: readonly Project[]; today: Date }) {
   const cells = proofCells(projects, today);
   return (
-    <dl
-      aria-label="Proof"
-      className="grid grid-cols-2 border-b border-t border-line bg-panel md:grid-cols-4"
-    >
-      {cells.map((cell) => (
-        <div
-          key={cell.d}
-          className="border-r border-line px-5 py-4 last:border-r-0 max-md:nth-[2]:border-r-0 max-md:nth-[-n+2]:border-b"
-        >
-          <dd className="font-mono text-[1.7rem] leading-none tabular-nums tracking-tight">
-            {cell.n}
-          </dd>
-          <dt className="mt-1.5 text-small text-grey">{cell.d}</dt>
-        </div>
-      ))}
-    </dl>
+    <div className="border-b border-t border-line bg-panel">
+      <dl aria-label="Proof" className={cx(columnClasses, "grid grid-cols-2 md:grid-cols-4")}>
+        {cells.map((cell) => (
+          <div
+            key={cell.d}
+            className="border-r border-line px-5 py-4 last:border-r-0 max-md:nth-[2]:border-r-0 max-md:nth-[-n+2]:border-b"
+          >
+            <dd className="font-mono text-[1.7rem] leading-none tabular-nums tracking-tight">
+              {cell.n}
+            </dd>
+            <dt className="mt-1.5 text-small text-grey">{cell.d}</dt>
+          </div>
+        ))}
+      </dl>
+    </div>
   );
 }
