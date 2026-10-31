@@ -84,8 +84,8 @@ export function Case({ project }: { project: Project }) {
             </p>
           </div>
         </header>
-        <WaveRule className="mx-6" />
       </Column>
+      <WaveRule />
 
       <section aria-label="Demo" className="bg-ground">
         <Column className="p-6">

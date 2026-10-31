@@ -221,6 +221,64 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;paddin
 .strip{background:var(--panel)}
 .contact{background:var(--ground)}
 .win .bar .right .sq{background:var(--acc)}
+
+/* fishing */
+.fish{display:grid;grid-template-columns:1.4fr 1fr;border-bottom:1px solid var(--line)}
+.fish>div{min-width:0}
+.fish .scene{border-right:1px solid var(--line);position:relative;min-height:300px;background:var(--water);overflow:hidden;cursor:pointer}
+.fish .scene svg{width:100%;height:100%;display:block;position:absolute;inset:0}
+.fish .scene path,.fish .scene circle,.fish .scene line{fill:none;stroke:var(--fg);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.fish .scene .blue{stroke:var(--acc)}
+.fish .scene .sky{fill:var(--bg);stroke:none}
+.fish .scene .card{fill:var(--panel);stroke:var(--fg);stroke-width:2}
+.fish .scene text{font-family:var(--mono);font-size:11px;fill:var(--fg);letter-spacing:.08em;text-transform:uppercase}
+.fish .side{padding:22px 20px;display:flex;flex-direction:column;gap:12px}
+.fish .side h3{margin:4px 0 0;font-size:1.3rem;letter-spacing:-.02em;font-weight:600}
+.fish .side p{margin:0;color:var(--grey);font-size:.9rem}
+.fish .log{display:grid;gap:6px;margin-top:4px}
+.fish .log div{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border:1px solid var(--soft);font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}
+.fish .log div.got{border-color:var(--line);background:var(--panel)}
+.fish .log div span.k{color:var(--grey)}
+.fish .log div.got span.k{color:var(--acc)}
+.fish .hint{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--grey)}
+@media (max-width:860px){.fish{grid-template-columns:1fr}.fish .scene{border-right:0;border-bottom:1px solid var(--line);min-height:240px}}
+@media (prefers-reduced-motion:no-preference){.fish .scene .bob{animation:bob 2.6s ease-in-out infinite}@keyframes bob{50%{transform:translateY(4px)}}}
+
+/* ---- adaptations 1-6 ---- */
+nav{height:48px}
+nav ul{display:none}
+.dock{position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:50;display:flex;align-items:stretch;border:1px solid var(--line);background:var(--panel);box-shadow:4px 4px 0 var(--fg)}
+.dock a{display:flex;align-items:center;justify-content:center;width:44px;height:44px;font-family:var(--mono);font-size:.8rem;border-right:1px solid var(--soft);color:var(--grey)}
+.dock a:hover,.dock a.on{color:var(--fg);background:var(--ground)}
+.dock a.cta{width:auto;padding:0 16px;background:var(--acc);color:var(--acc-ink);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;border-right:0}
+.dock a.cta .dot{width:6px;height:6px;background:var(--acc-ink);margin-right:8px}
+.dock a:focus-visible{outline:2px solid var(--acc);outline-offset:-2px}
+.thesis{padding:96px 24px;border-bottom:1px solid var(--line)}
+.thesis p{margin:0;font-size:clamp(1.5rem,3.6vw,2.6rem);line-height:1.18;letter-spacing:-.025em;font-weight:500;max-width:30ch;text-wrap:balance}
+.thesis p .blue{color:var(--acc)}
+.thesis .lab{margin-bottom:18px}
+.hero{padding-top:110px}
+.hero .ctas{margin-bottom:84px}
+.sec .head{padding:72px 24px 40px}
+.sec .body{min-height:0}
+.sec .shot{padding:40px 0 0 40px;overflow:hidden;position:relative}
+.sec .shot .app{transform:translate(0,0);width:112%;margin-bottom:-24px;mask-image:linear-gradient(to bottom,#000 70%,transparent 100%),linear-gradient(to right,#000 85%,transparent 100%);mask-composite:intersect;-webkit-mask-image:linear-gradient(to bottom,#000 70%,transparent 100%),linear-gradient(to right,#000 85%,transparent 100%);-webkit-mask-composite:source-in}
+.sec .fact{padding:20px 24px}
+.sec .fact .kv{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;font-size:.88rem}
+.sec .fact .kv b{font-family:var(--mono);font-weight:400;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--grey);padding-top:3px}
+.sec .fact .feat{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.sec .fact .feat li{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:baseline;border-bottom:1px solid var(--soft);padding-bottom:8px}
+.sec .fact .feat li:last-child{border-bottom:0;padding-bottom:0}
+.sec .fact .feat li span{font-size:.9rem}
+.sec .fact .feat li em{font-style:normal;font-family:var(--mono);font-size:.8rem;color:var(--acc);white-space:nowrap}
+.how>div{padding:40px 24px}
+.contact>div{padding:72px 24px}
+.me{display:flex;gap:28px;align-items:flex-start}
+.me svg{width:120px;height:140px;flex:none}
+.me svg path,.me svg circle{fill:none;stroke:var(--fg);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.me svg .blue{stroke:var(--acc)}
+.me svg .fill{fill:var(--panel);stroke:var(--fg)}
+@media (max-width:760px){.me{flex-direction:column}.sec .shot{padding:24px 0 0 24px}.sec .shot .app{width:120%}}
 /* motion */
 @media (prefers-reduced-motion:no-preference){
   .blink{animation:blink 1.6s steps(1) infinite}
@@ -233,6 +291,10 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;paddin
 }
 </style>
 
+<nav class="dock" aria-label="Sections">
+  <a href="#" class="on" title="Top">⌂</a><a href="#runway" title="Runway">$</a><a href="#mailroom" title="Mail Room">@</a><a href="#companylog" title="Company Log">#</a><a href="#how" title="How I work">//</a>
+  <a href="#contact" class="cta"><span class="dot"></span>Get in touch</a>
+</nav>
 <div class="page">
 <div class="waterline" aria-hidden="true"></div>
 <nav>
@@ -285,6 +347,32 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;paddin
   </div>
 </section>
 
+
+<section class="fish" id="fish">
+  <div class="scene" id="scene" role="button" tabindex="0" aria-label="Cast the line">
+    <svg viewBox="0 0 600 300" preserveAspectRatio="xMidYMid slice">
+      <rect class="sky" x="0" y="0" width="600" height="118"/>
+      <path d="M0 118c20-10 40-10 60 0s40 10 60 0 40-10 60 0 40 10 60 0 40-10 60 0 40 10 60 0 40-10 60 0 40 10 60 0 40-10 60 0 40 10 60 0" class="blue"/>
+      <g class="bob">
+        <path d="M80 118l18 30h110l18-30" /><path d="M86 118h134"/>
+        <circle cx="160" cy="70" r="12"/><path d="M160 82v26M160 92l-16 12M160 92l18-6M152 108l-6 12M168 108l4 12"/>
+        <path d="M178 86l60-40" id="rod"/>
+      </g>
+      <line id="line" x1="238" y1="46" x2="238" y2="46"/>
+      <circle id="hook" cx="238" cy="46" r="4" class="blue"/>
+      <g id="fishg" opacity="0"><path id="fishp" d="M0 0c-14-12-30-12-44 0 14 12 30 12 44 0zM-44 0l-14-10v20z"/><circle cx="-12" cy="-3" r="2"/></g>
+      <g id="catch" opacity="0"><rect class="card" x="300" y="140" width="220" height="56"/><text id="catchT" x="314" y="163">caught</text><text id="catchS" x="314" y="183" style="fill:var(--grey)">tap to open</text></g>
+      <text x="16" y="286" id="status">tap water to cast</text>
+    </svg>
+  </div>
+  <div class="side">
+    <div class="lab"><span class="sq"></span>Side quest</div>
+    <h3>Go fishing. Catch a project.</h3>
+    <p>Tap the water to cast. When something bites, tap again to reel. Each catch opens the project it belongs to.</p>
+    <div class="log" id="log"></div>
+    <div class="hint" id="hint">0 / 3 caught</div>
+  </div>
+</section>
 <section class="sec" id="runway">
   <div class="head">
     <div><div class="lab"><span class="sq"></span>01 · Runway</div><h2>Where the money goes, and <span class="mono">how long it lasts</span></h2></div>
@@ -314,8 +402,12 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;paddin
       </div>
     </div>
     <div class="facts">
-      <div class="fact big"><div class="lab">Runway</div><div class="n">12.2 mo</div><div class="d">at current burn, demo data</div></div>
-      <div class="fact"><div class="lab">What it does</div><p>Every outgoing dollar in one table. Transfers excluded from spend. A forward line shows the lowest cash point in the next 180 days.</p></div>
+      <div class="fact"><div class="kv"><b>Role</b><span>Spec, design, build, deploy. Solo.</span><b>Year</b><span>2026, in progress</span><b>Stack</b><span>Next.js, Supabase, Vercel</span></div></div>
+      <div class="fact"><div class="lab">What it does</div><ul class="feat">
+        <li><span>One ledger, transfers excluded from spend</span><em>65 rows seeded</em></li>
+        <li><span>Forward line finds the lowest cash point</span><em>180 days</em></li>
+        <li><span>Row-level security, one user sees one ledger</span><em>30 RLS tests</em></li>
+      </ul></div>
       <div class="fact"><div class="lab">Under the hood</div><p>Postgres with row-level security, server actions, magic-link auth, Playwright on every PR.</p></div>
       <div class="links"><a href="#">Open demo <span class="k">→</span></a><a href="#">Case study</a><a href="#">Code</a></div>
     </div>
@@ -346,8 +438,12 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;paddin
       </div>
     </div>
     <div class="facts">
-      <div class="fact big"><div class="lab">Sorted</div><div class="n">8,210</div><div class="d">messages, 30 days, one account</div></div>
-      <div class="fact"><div class="lab">What it does</div><p>Five views on one inbox: feed, days, buckets, reply board, calendar. AI classifies, you confirm, Gmail labels update.</p></div>
+      <div class="fact"><div class="kv"><b>Role</b><span>Design and build. Solo.</span><b>Year</b><span>2026</span><b>Stack</b><span>SwiftUI, Gmail API</span></div></div>
+      <div class="fact"><div class="lab">What it does</div><ul class="feat">
+        <li><span>Five views on one inbox</span><em>feed · days · buckets · board · calendar</em></li>
+        <li><span>AI sorts, you confirm, Gmail labels update</span><em>two-way sync</em></li>
+        <li><span>Draft replies written for you</span><em>example</em></li>
+      </ul></div>
       <div class="fact"><div class="lab">Under the hood</div><p>SwiftUI, Gmail API, on-device classification cache, background sync.</p></div>
       <div class="links"><a href="#">Watch 2 min <span class="k">▶</span></a><a href="#">Case study</a><a href="#">Code</a></div>
     </div>
@@ -374,8 +470,12 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;paddin
       </div>
     </div>
     <div class="facts">
-      <div class="fact big"><div class="lab">Pulled</div><div class="n">12,780</div><div class="d">posts across 5 platforms, test run</div></div>
-      <div class="fact"><div class="lab">What it does</div><p>Scheduled worker fetches, dedupes, and stores every post with likes, comments, views. Dashboard filters by platform, week, and format.</p></div>
+      <div class="fact"><div class="kv"><b>Role</b><span>Spec, build, deploy. Solo.</span><b>Year</b><span>2026, building</span><b>Stack</b><span>Next.js, Postgres, GitHub Actions</span></div></div>
+      <div class="fact"><div class="lab">What it does</div><ul class="feat">
+        <li><span>Worker pulls every post on a schedule</span><em>5 platforms</em></li>
+        <li><span>Dedupes and stores likes, comments, views</em><em>Zod on every record</em></li>
+        <li><span>Dashboard filters by platform, week, format</span><em>building</em></li>
+      </ul></div>
       <div class="fact"><div class="lab">Under the hood</div><p>GitHub Actions cron, official APIs first, Postgres, Zod on every record.</p></div>
       <div class="links"><a href="#">Follow the build <span class="k">→</span></a><a href="#">Spec</a><a href="#">Code</a></div>
     </div>
@@ -391,10 +491,15 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;paddin
 
 <section class="contact" id="contact">
   <div>
+    <div class="me">
+      <svg viewBox="0 0 120 140" aria-hidden="true"><path class="fill" d="M60 96c-24 0-36-16-36-40S36 14 60 14s36 18 36 42-12 40-36 40z"/><path d="M28 50c6-22 18-30 32-30s26 8 32 30"/><path d="M26 44c10-6 22-12 34-12s24 6 34 12"/><path d="M44 62h8M68 62h8"/><path d="M48 80c6 6 18 6 24 0"/><path class="blue" d="M82 56c6 0 10 4 10 10s-4 10-10 10M38 56c-6 0-10 4-10 10s4 10 10 10"/><path d="M30 138c6-26 20-38 30-38s24 12 30 38"/><path class="blue" d="M46 118h28"/></svg>
+      <div>
     <div class="lab"><span class="sq"></span>Contact</div>
     <h2>Need a tool built? <span class="mono">Start here.</span></h2>
     <p>Remote, project-based or full-time. Reply within a day. Tell me the process that's hurting and I'll tell you what I'd build.</p>
     <div class="mailrow"><code>picklerdavid@gmail.com</code><button id="cp">Copy</button></div>
+      </div>
+    </div>
   </div>
   <div>
     <div class="lab" style="margin-bottom:10px"><span class="sq g"></span>Stack</div>
@@ -425,8 +530,34 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;paddin
     hero.style.setProperty('--p',p.toFixed(3));
     secs.forEach(h=>{const b=h.getBoundingClientRect();const q=Math.max(0.3,Math.min(1,(vh-b.top)/(vh*0.6)));h.style.setProperty('--p',q.toFixed(3))});
   }
-  function loop(){tick();requestAnimationFrame(loop)}
+  const dockLinks=[...document.querySelectorAll('.dock a[href^="#"]:not(.cta)')];
+  const targets=dockLinks.map(a=>a.getAttribute('href')==='#'?document.body:document.querySelector(a.getAttribute('href')));
+  function dock(){ let idx=0; targets.forEach((t,i)=>{ if(t&&t.getBoundingClientRect().top<innerHeight*0.4) idx=i }); dockLinks.forEach((a,i)=>a.classList.toggle('on',i===idx)) }
+  function loop(){tick();dock();requestAnimationFrame(loop)}
   loop();
+})();
+
+(function(){
+  const scene=document.getElementById('scene'); if(!scene) return;
+  const line=document.getElementById('line'),hook=document.getElementById('hook'),fg=document.getElementById('fishg'),fp=document.getElementById('fishp');
+  const catchG=document.getElementById('catch'),catchT=document.getElementById('catchT'),status=document.getElementById('status'),log=document.getElementById('log'),hint=document.getElementById('hint');
+  const pool=[{n:'Runway',h:'#runway'},{n:'Mail Room',h:'#mailroom'},{n:'Company Log',h:'#companylog'}];
+  const got=new Set(); let state='idle', t=null, cur=null, fx=600, fy=200, dir=-1;
+  function renderLog(){log.innerHTML=pool.map(p=>`<div class="${got.has(p.n)?'got':''}"><span>${p.n}</span><span class="k">${got.has(p.n)?'caught':'in the water'}</span></div>`).join('');hint.textContent=`${got.size} / 3 caught${got.size===3?' · you found them all':''}`}
+  function set(y){line.setAttribute('y2',y);hook.setAttribute('cy',y)}
+  function swim(){ if(state!=='wait') return; fx+=dir*2.2; if(fx<60){dir=1} if(fx>540){dir=-1}
+    fg.setAttribute('transform',`translate(${fx} ${fy}) scale(${dir>0?-1:1},1)`); requestAnimationFrame(swim) }
+  function cast(){ state='cast'; catchG.setAttribute('opacity',0); status.textContent='casting…';
+    let y=46; const drop=()=>{y+=6; set(Math.min(y,200)); if(y<200) requestAnimationFrame(drop); else {state='wait'; status.textContent='waiting for a bite…'; const left=pool.filter(p=>!got.has(p.n)); cur=left.length?left[Math.floor(Math.random()*left.length)]:pool[Math.floor(Math.random()*3)]; fg.setAttribute('opacity',1); fx=560; dir=-1; fy=200; swim(); t=setTimeout(bite,1800+Math.random()*2200)}}; drop() }
+  function bite(){ if(state!=='wait') return; state='bite'; status.textContent='BITE — tap to reel!'; fx=238; fg.setAttribute('transform',`translate(238 200)`); set(206); hook.setAttribute('r',6);
+    t=setTimeout(()=>{ if(state==='bite'){ state='idle'; fg.setAttribute('opacity',0); hook.setAttribute('r',4); set(46); status.textContent='it got away. tap to cast again' } },1400) }
+  function reel(){ clearTimeout(t); state='reel'; status.textContent='reeling…'; let y=206; const up=()=>{y-=8; set(Math.max(y,46)); fg.setAttribute('transform',`translate(238 ${Math.max(y,46)})`); if(y>46) requestAnimationFrame(up); else { fg.setAttribute('opacity',0); hook.setAttribute('r',4); got.add(cur.n); renderLog(); catchT.textContent='caught: '+cur.n; catchG.setAttribute('opacity',1); status.textContent='tap the card to open · tap water to cast'; state='caught' }}; up() }
+  scene.addEventListener('click',e=>{
+    if(state==='caught'){ const r=scene.getBoundingClientRect(); const x=(e.clientX-r.left)/r.width*600, y=(e.clientY-r.top)/r.height*300; if(x>300&&x<520&&y>140&&y<196){ location.hash=cur.h; return } }
+    if(state==='idle'||state==='caught') cast(); else if(state==='bite') reel();
+  });
+  scene.addEventListener('keydown',e=>{ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); scene.click() } });
+  renderLog();
 })();
 const b=document.getElementById('cp');
 b.addEventListener('click',()=>{const t='picklerdavid@gmail.com';

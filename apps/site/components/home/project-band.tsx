@@ -81,8 +81,9 @@ export function ProjectBand({ project, index }: { project: Project; index: numbe
           </div>
           <SectionMarkSvg mark={sectionMarkFor(index)} className="max-md:hidden" />
         </DrawOn>
-        <WaveRule className="mx-6" />
-
+      </Column>
+      <WaveRule />
+      <Column>
         <div className="grid md:grid-cols-[1.4fr_1fr]">
           <div className="border-b border-line bg-ground p-6 md:border-b-0 md:border-r">
             <DemoSlot project={project} />
