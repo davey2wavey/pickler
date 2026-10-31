@@ -10,11 +10,21 @@ export type ProjectKind = z.infer<typeof projectKind>;
 const isoDate = z.iso.date();
 const paragraph = z.string().trim().min(1);
 
-export const projectSchema = z.object({
+/** How a screenshot is framed on the page. Phone is 9:19.5, desktop 16:10, none is the image as is. */
+export const screenshotFrame = z.enum(["phone", "desktop", "none"]);
+export type ScreenshotFrame = z.infer<typeof screenshotFrame>;
+
+/** Fields a featured project must carry: the home page bands read them. */
+const featuredFields = ["headline", "whatItDoes", "underTheHood"] as const;
+
+const projectBase = z.object({
   slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "slug is lowercase words joined by -"),
   name: z.string().min(1),
   /** Leads with what it does. No tagline. */
   oneLiner: paragraph,
+  /** Band headline. The mono tail goes in headlineMono. Required when featured. */
+  headline: paragraph.optional(),
+  headlineMono: paragraph.optional(),
   status: projectStatus,
   kind: projectKind,
   stack: z.array(z.string().min(1)).min(1),
@@ -22,7 +32,9 @@ export const projectSchema = z.object({
     .object({
       live: z.url().optional(),
       repo: z.url().optional(),
+      video: z.url().optional(),
       testflight: z.url().optional(),
+      appstore: z.url().optional(),
       caseStudy: z.url().optional(),
     })
     .default({}),
@@ -30,18 +42,40 @@ export const projectSchema = z.object({
   problem: paragraph,
   built: paragraph,
   changed: paragraph,
+  /** Band facts. Required when featured. */
+  whatItDoes: paragraph.optional(),
+  underTheHood: paragraph.optional(),
   /** Real numbers only. An estimate says "est." in note. */
   metrics: z
     .array(z.object({ label: paragraph, value: paragraph, note: paragraph.optional() }))
     .default([]),
   /** Files live under public/shots/<slug>/. Empty renders a labeled placeholder. */
   screenshots: z
-    .array(z.object({ src: z.string().startsWith("/shots/"), alt: paragraph }))
+    .array(
+      z.object({
+        src: z.string().startsWith("/shots/"),
+        alt: paragraph,
+        frame: screenshotFrame.default("none"),
+      }),
+    )
     .default([]),
   shippedAt: isoDate.optional(),
   updatedAt: isoDate,
   /** The core three. Sort first on the grid. */
   featured: z.boolean().default(false),
+});
+
+export const projectSchema = projectBase.superRefine((project, ctx) => {
+  if (!project.featured) return;
+  for (const field of featuredFields) {
+    if (!project[field]) {
+      ctx.addIssue({
+        code: "custom",
+        message: `${field} is required when featured`,
+        path: [field],
+      });
+    }
+  }
 });
 export type Project = z.infer<typeof projectSchema>;
 

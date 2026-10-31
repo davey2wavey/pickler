@@ -2,14 +2,19 @@
 
 import { useEffect, useState } from "react";
 import { Button } from "@pickler/ui";
+import type { ButtonVariant } from "@pickler/ui";
 
 /** Copies the address. Says so for a moment. A blocked clipboard is a silent no-op; the text is still selectable. */
 export function CopyEmail({
   email,
   resetAfterMs = 2000,
+  variant = "ghost",
+  className,
 }: {
   email: string;
   resetAfterMs?: number;
+  variant?: ButtonVariant;
+  className?: string;
 }) {
   const [copied, setCopied] = useState(false);
 
@@ -29,7 +34,7 @@ export function CopyEmail({
   }
 
   return (
-    <Button variant="ghost" size="sm" onClick={copy} aria-live="polite">
+    <Button variant={variant} size="sm" onClick={copy} aria-live="polite" className={className}>
       {copied ? "copied" : "copy"}
     </Button>
   );

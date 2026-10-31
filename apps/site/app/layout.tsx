@@ -11,7 +11,7 @@ const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains-mo
 export const metadata: Metadata = {
   title: "David Pickler",
   description:
-    "Internal tools, dashboards, and automations. Portfolio with one dataset and many views.",
+    "Internal tools, dashboards, and automations, built and shipped alone. Three live demos and how they were made.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

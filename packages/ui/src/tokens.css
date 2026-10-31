@@ -4,24 +4,32 @@
 
   Themes: :root holds light, the prefers-color-scheme block holds dark for the OS
   setting, and [data-theme="dark"] / [data-theme="light"] force a subtree either
-  way. Values repeat on purpose: light-dark() gets polyfilled by the CSS pipeline
-  in a way that breaks subtree scoping, so each block is written out in full.
-  packages/ui/src/tokens/tokens.test.ts fails if the repeated blocks drift apart
-  or any pair drops below WCAG AA.
+  way. [data-invert] flips a subtree relative to the OS theme (a black band on a
+  light page, a light band on a dark one). Values repeat on purpose: light-dark()
+  gets polyfilled by the CSS pipeline in a way that breaks subtree scoping, so
+  each block is written out in full. packages/ui/src/tokens/tokens.test.ts fails
+  if the repeated blocks drift apart or any pair drops below WCAG AA.
 */
 :root {
   color-scheme: light;
 
-  --bg: #ffffff;
+  --bg: #f1f1ec;
   --fg: #0b0b0c;
-  --grey: #6b6b6b;
+  --grey: #606060;
   --line: #0b0b0c;
-  --line-soft: #e4e4e1;
-  --acc: #b6ff3b;
+  --line-soft: #dcdcd6;
+  --panel: #f8f8f5;
+  --ground: #e9e9e3;
+  --acc: #7fd1f2;
   --acc-ink: #0b0b0c;
+  --grey-on-water: #606060;
   --ok: #1f9d55;
-  --warn: #c48800;
+  --warn: #b07a00;
   --bad: #c62828;
+
+  /* Derived: the ground below the waterline on the portfolio home. Light mixes 40%,
+     dark 15%: the same 40% over near-black reads navy. Resolves per subtree. */
+  --water: color-mix(in srgb, var(--acc) 40%, var(--bg));
 
   --font-sans: var(--font-space-grotesk, "Space Grotesk"), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains-mono, "JetBrains Mono"), ui-monospace, monospace;
@@ -59,11 +67,15 @@
   --grey: #9a9a96;
   --line: #f2f2f0;
   --line-soft: #262628;
-  --acc: #b6ff3b;
+  --panel: #0b0b0c;
+  --ground: #131315;
+  --acc: #7fd1f2;
   --acc-ink: #0b0b0c;
+  --grey-on-water: #d4d4d0;
   --ok: #3fd27f;
   --warn: #f0b429;
   --bad: #ff5f56;
+  --water: color-mix(in srgb, var(--acc) 15%, var(--bg));
 }
 
 @media (prefers-color-scheme: dark) {
@@ -75,11 +87,15 @@
     --grey: #9a9a96;
     --line: #f2f2f0;
     --line-soft: #262628;
-    --acc: #b6ff3b;
+    --panel: #0b0b0c;
+    --ground: #131315;
+    --acc: #7fd1f2;
     --acc-ink: #0b0b0c;
+    --grey-on-water: #d4d4d0;
     --ok: #3fd27f;
     --warn: #f0b429;
     --bad: #ff5f56;
+    --water: color-mix(in srgb, var(--acc) 15%, var(--bg));
   }
 }
 
@@ -87,14 +103,59 @@
 [data-theme="light"] {
   color-scheme: light;
 
-  --bg: #ffffff;
+  --bg: #f1f1ec;
   --fg: #0b0b0c;
-  --grey: #6b6b6b;
+  --grey: #606060;
   --line: #0b0b0c;
-  --line-soft: #e4e4e1;
-  --acc: #b6ff3b;
+  --line-soft: #dcdcd6;
+  --panel: #f8f8f5;
+  --ground: #e9e9e3;
+  --acc: #7fd1f2;
   --acc-ink: #0b0b0c;
+  --grey-on-water: #606060;
   --ok: #1f9d55;
-  --warn: #c48800;
+  --warn: #b07a00;
   --bad: #c62828;
+  --water: color-mix(in srgb, var(--acc) 40%, var(--bg));
+}
+
+/* Inverted subtree: dark values on a light page. The dark-OS block below swaps back. */
+[data-invert] {
+  color-scheme: dark;
+
+  --bg: #0b0b0c;
+  --fg: #f2f2f0;
+  --grey: #9a9a96;
+  --line: #f2f2f0;
+  --line-soft: #262628;
+  --panel: #0b0b0c;
+  --ground: #131315;
+  --acc: #7fd1f2;
+  --acc-ink: #0b0b0c;
+  --grey-on-water: #d4d4d0;
+  --ok: #3fd27f;
+  --warn: #f0b429;
+  --bad: #ff5f56;
+  --water: color-mix(in srgb, var(--acc) 15%, var(--bg));
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) [data-invert] {
+    color-scheme: light;
+
+    --bg: #f1f1ec;
+    --fg: #0b0b0c;
+    --grey: #606060;
+    --line: #0b0b0c;
+    --line-soft: #dcdcd6;
+    --panel: #f8f8f5;
+    --ground: #e9e9e3;
+    --acc: #7fd1f2;
+    --acc-ink: #0b0b0c;
+    --grey-on-water: #606060;
+    --ok: #1f9d55;
+    --warn: #b07a00;
+    --bad: #c62828;
+    --water: color-mix(in srgb, var(--acc) 40%, var(--bg));
+  }
 }

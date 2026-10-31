@@ -21,14 +21,36 @@ const [runway] = parseProjects([
 if (!runway) throw new Error("fixture");
 
 describe("Case", () => {
-  test("renders the header and the three case study paragraphs", () => {
+  test("renders the head and the three story paragraphs", () => {
     render(<Case project={runway} />);
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Runway");
-    expect(screen.getByText("//in-progress//")).toBeInTheDocument();
-    expect(screen.getByText("//web//")).toBeInTheDocument();
-    expect(screen.getByText("Money leaves in small pieces.")).toBeInTheDocument();
-    expect(screen.getByText("A ledger with a burn line.")).toBeInTheDocument();
-    expect(screen.getByText("Still building.")).toBeInTheDocument();
+    expect(screen.getByText("in-progress")).toBeInTheDocument();
+    expect(screen.getByText("web")).toBeInTheDocument();
+    const story = screen.getByRole("region", { name: "Story" });
+    expect(within(story).getByText("Money leaves in small pieces.")).toBeInTheDocument();
+    expect(within(story).getByText("A ledger with a burn line.")).toBeInTheDocument();
+    expect(within(story).getByText("Still building.")).toBeInTheDocument();
+  });
+
+  test("the headline leads when there is one, with its mono tail", () => {
+    render(
+      <Case
+        project={{
+          ...runway,
+          headline: "Where the money goes, and",
+          headlineMono: "how long it lasts",
+        }}
+      />,
+    );
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
+      "Where the money goes, and how long it lasts",
+    );
+  });
+
+  test("the demo slot sits full width: a placeholder for an in-progress web app", () => {
+    render(<Case project={runway} />);
+    const demo = screen.getByRole("region", { name: "Demo" });
+    expect(within(demo).getByRole("img", { name: "Runway: demo coming" })).toBeInTheDocument();
   });
 
   test("hides numbers when there are no metrics, shows them when there are", () => {
@@ -50,24 +72,42 @@ describe("Case", () => {
     expect(screen.getByRole("img", { name: "Runway: screenshots to come" })).toBeInTheDocument();
   });
 
-  test("renders images when screenshots exist", () => {
+  test("renders screenshots in their frames with the alt as caption", () => {
     render(
       <Case
         project={{
           ...runway,
-          screenshots: [{ src: "/shots/runway/home.png", alt: "Runway home" }],
+          screenshots: [
+            { src: "/shots/runway/home.png", alt: "Runway home", frame: "desktop" },
+            { src: "/shots/runway/phone.png", alt: "On a phone", frame: "phone" },
+          ],
         }}
       />,
     );
-    expect(screen.getByRole("img", { name: "Runway home" })).toBeInTheDocument();
+    const screens = screen.getByRole("region", { name: "Screenshots" });
+    const items = within(screens).getAllByRole("listitem");
+    expect(items.map((item) => item.getAttribute("data-frame"))).toEqual(["desktop", "phone"]);
+    expect(within(screens).getByRole("img", { name: "On a phone" })).toBeInTheDocument();
+    expect(within(screens).getByText("Runway home")).toBeInTheDocument();
   });
 
   test("links are anchors in a fixed order, and the back link goes home", () => {
-    render(<Case project={runway} />);
+    render(
+      <Case
+        project={{
+          ...runway,
+          links: {
+            ...runway.links,
+            appstore: "https://apps.apple.com/x",
+            video: "https://v.example/x",
+          },
+        }}
+      />,
+    );
     const links = within(screen.getByRole("region", { name: "Links" })).getAllByRole("link");
-    expect(links.map((a) => a.textContent)).toEqual(["Open", "Code"]);
+    expect(links.map((a) => a.textContent)).toEqual(["Open", "Watch", "App Store", "Code"]);
     expect(links[0]).toHaveAttribute("href", "https://pickler-runway.vercel.app");
-    expect(screen.getByRole("link", { name: "All projects" })).toHaveAttribute("href", "/");
+    expect(screen.getByRole("link", { name: /All projects/ })).toHaveAttribute("href", "/");
   });
 
   test("hides the links section when there are none", () => {

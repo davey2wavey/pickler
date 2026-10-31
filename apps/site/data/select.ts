@@ -1,5 +1,10 @@
 import type { Project } from "./project";
 
+/** Only the featured projects, in the file's order. The home page bands. */
+export function featured(projects: readonly Project[]): Project[] {
+  return projects.filter((project) => project.featured);
+}
+
 /** Featured first, otherwise the file's order. Stable. */
 export function byFeatured(projects: readonly Project[]): Project[] {
   return [...projects].sort((a, b) => Number(b.featured) - Number(a.featured));

@@ -17,7 +17,7 @@ function Segments({ active }: { active: ViewId }) {
           return (
             <li key={view.id} className="border-r border-line last:border-r-0">
               <Link
-                href={`/?view=${view.id}`}
+                href={`/views?view=${view.id}`}
                 aria-current={current ? "page" : undefined}
                 className={
                   current
