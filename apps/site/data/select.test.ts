@@ -1,11 +1,15 @@
 import { describe, expect, test } from "vitest";
-import { byFeatured, byNewest, featured, findProject, newestDate } from "./select";
+import { byFeatured, byNewest, byRoomOrder, featured, findProject, newestDate } from "./select";
 import { parseProjects } from "./project";
 
 const base = {
   oneLiner: "x",
+  headline: "H",
   status: "live",
   kind: "web",
+  tags: ["web"],
+  role: "r",
+  year: "2026",
   stack: ["a"],
   problem: "p",
   built: "b",
@@ -14,25 +18,9 @@ const base = {
 };
 const projects = parseProjects([
   { ...base, slug: "a", name: "A" },
-  {
-    ...base,
-    slug: "b",
-    name: "B",
-    headline: "H",
-    whatItDoes: "W",
-    underTheHood: "U",
-    featured: true,
-  },
+  { ...base, slug: "b", name: "B", featured: true },
   { ...base, slug: "c", name: "C" },
-  {
-    ...base,
-    slug: "d",
-    name: "D",
-    headline: "H",
-    whatItDoes: "W",
-    underTheHood: "U",
-    featured: true,
-  },
+  { ...base, slug: "d", name: "D", featured: true },
 ]);
 
 describe("byFeatured", () => {
@@ -75,6 +63,32 @@ describe("byNewest", () => {
     const before = dated.map((p) => p.slug);
     byNewest(dated);
     expect(dated.map((p) => p.slug)).toEqual(before);
+  });
+});
+
+describe("byRoomOrder", () => {
+  const room = parseProjects([
+    { ...base, slug: "older", name: "Older", updatedAt: "2026-02-01" },
+    { ...base, slug: "newer", name: "Newer", updatedAt: "2026-09-01" },
+    { ...base, slug: "star-old", name: "Star old", featured: true, updatedAt: "2026-01-01" },
+    { ...base, slug: "star-new", name: "Star new", featured: true, updatedAt: "2026-08-01" },
+    { ...base, slug: "tie", name: "Tie", updatedAt: "2026-09-01" },
+  ]);
+
+  test("featured first, then updatedAt descending, file order on ties", () => {
+    expect(byRoomOrder(room).map((p) => p.slug)).toEqual([
+      "star-new",
+      "star-old",
+      "newer",
+      "tie",
+      "older",
+    ]);
+  });
+
+  test("does not mutate the input", () => {
+    const before = room.map((p) => p.slug);
+    byRoomOrder(room);
+    expect(room.map((p) => p.slug)).toEqual(before);
   });
 });
 

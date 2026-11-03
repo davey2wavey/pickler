@@ -7,6 +7,10 @@ export type ProjectStatus = z.infer<typeof projectStatus>;
 export const projectKind = z.enum(["web", "ios", "mac", "worker", "static"]);
 export type ProjectKind = z.infer<typeof projectKind>;
 
+/** The rooms a project can live in. Its first tag is the room that shows it. */
+export const roomTag = z.enum(["web", "iphone", "mac", "automation"]);
+export type RoomTag = z.infer<typeof roomTag>;
+
 const isoDate = z.iso.date();
 const paragraph = z.string().trim().min(1);
 
@@ -14,19 +18,29 @@ const paragraph = z.string().trim().min(1);
 export const screenshotFrame = z.enum(["phone", "desktop", "none"]);
 export type ScreenshotFrame = z.infer<typeof screenshotFrame>;
 
-/** Fields a featured project must carry: the home page bands read them. */
-const featuredFields = ["headline", "whatItDoes", "underTheHood"] as const;
+/** One feature card under a project block. The metric is a short mono fact, when there is one. */
+export const featureSchema = z.object({
+  glyph: z.string().trim().min(1).max(3),
+  title: paragraph,
+  text: paragraph,
+  metric: paragraph.optional(),
+});
+export type Feature = z.infer<typeof featureSchema>;
 
-const projectBase = z.object({
+export const projectSchema = z.object({
   slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "slug is lowercase words joined by -"),
   name: z.string().min(1),
   /** Leads with what it does. No tagline. */
   oneLiner: paragraph,
-  /** Band headline. The mono tail goes in headlineMono. Required when featured. */
-  headline: paragraph.optional(),
+  /** Block headline. The mono tail goes in headlineMono. */
+  headline: paragraph,
   headlineMono: paragraph.optional(),
   status: projectStatus,
   kind: projectKind,
+  /** First tag is the room. Others are shown as chips. */
+  tags: z.array(roomTag).min(1),
+  role: paragraph,
+  year: paragraph,
   stack: z.array(z.string().min(1)).min(1),
   links: z
     .object({
@@ -42,9 +56,10 @@ const projectBase = z.object({
   problem: paragraph,
   built: paragraph,
   changed: paragraph,
-  /** Band facts. Required when featured. */
   whatItDoes: paragraph.optional(),
   underTheHood: paragraph.optional(),
+  /** Up to four cards under the block. Empty hides the row. */
+  features: z.array(featureSchema).max(4).default([]),
   /** Real numbers only. An estimate says "est." in note. */
   metrics: z
     .array(z.object({ label: paragraph, value: paragraph, note: paragraph.optional() }))
@@ -61,21 +76,8 @@ const projectBase = z.object({
     .default([]),
   shippedAt: isoDate.optional(),
   updatedAt: isoDate,
-  /** The core three. Sort first on the grid. */
+  /** Sorts first inside its room. */
   featured: z.boolean().default(false),
-});
-
-export const projectSchema = projectBase.superRefine((project, ctx) => {
-  if (!project.featured) return;
-  for (const field of featuredFields) {
-    if (!project[field]) {
-      ctx.addIssue({
-        code: "custom",
-        message: `${field} is required when featured`,
-        path: [field],
-      });
-    }
-  }
 });
 export type Project = z.infer<typeof projectSchema>;
 

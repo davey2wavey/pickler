@@ -75,6 +75,7 @@ export function DemoSlot({ project, title }: { project: Project; title?: string 
             alt={shot.alt}
             width={1600}
             height={1000}
+            unoptimized={shot.src.endsWith(".svg")}
             className="h-auto w-full"
           />
         </div>

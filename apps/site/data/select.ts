@@ -1,6 +1,6 @@
 import type { Project } from "./project";
 
-/** Only the featured projects, in the file's order. The home page bands. */
+/** Only the featured projects, in the file's order. */
 export function featured(projects: readonly Project[]): Project[] {
   return projects.filter((project) => project.featured);
 }
@@ -22,4 +22,11 @@ export function newestDate(project: Project): string {
 /** Newest first by newestDate(), otherwise the file's order. Stable. */
 export function byNewest(projects: readonly Project[]): Project[] {
   return [...projects].sort((a, b) => newestDate(b).localeCompare(newestDate(a)));
+}
+
+/** Order inside a room: featured first, then most recently updated. Stable. */
+export function byRoomOrder(projects: readonly Project[]): Project[] {
+  return [...projects].sort(
+    (a, b) => Number(b.featured) - Number(a.featured) || b.updatedAt.localeCompare(a.updatedAt),
+  );
 }
