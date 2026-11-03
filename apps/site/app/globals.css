@@ -1,3 +1,13 @@
 @import "tailwindcss";
 @import "@pickler/ui/styles.css";
 @source "../../../packages/ui/src";
+
+html {
+  scroll-padding-bottom: 96px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}

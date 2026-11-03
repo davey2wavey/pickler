@@ -9,3 +9,4 @@ packages/db/src/types.ts
 packages/db/supabase/config.toml
 apps/site/design/home-mock.html
 apps/site/SPEC-HOME.md
+apps/site/design/rooms-proto.html
