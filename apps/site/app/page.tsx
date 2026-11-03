@@ -1,29 +1,39 @@
-import { Contact } from "@/components/home/contact";
-import { Hero } from "@/components/home/hero";
-import { HowIWork } from "@/components/home/how-i-work";
-import { Nav } from "@/components/home/nav";
-import styles from "@/components/home/home.module.css";
-import { ProjectBand } from "@/components/home/project-band";
-import { ProofStrip } from "@/components/home/proof-strip";
 import { Waterline } from "@/components/home/waterline";
+import styles from "@/components/home/home.module.css";
+import { Dock } from "@/components/rooms/dock";
+import type { DockItem } from "@/components/rooms/dock";
+import { Hero } from "@/components/rooms/hero";
+import { Room } from "@/components/rooms/room";
+import { Touch } from "@/components/rooms/touch";
+import { fishing, hero, rooms } from "@/content/site";
 import { projects } from "@/data/projects";
-import { featured } from "@/data/select";
+import { groupByRoom, projectRooms } from "@/lib/rooms";
 
-/** Home. A hero, one band per featured project with its demo inside, how I work, contact. */
+/** Home. Rooms by platform on one scroll, a dock that follows, and the water underneath. */
 export default function Home() {
-  const bands = featured(projects);
+  const groups = groupByRoom(projects);
+  const dock: DockItem[] = [
+    { id: "home", ...rooms.home, preview: [hero.eyebrow, fishing.title] },
+    ...projectRooms.map((room) => ({
+      id: room,
+      ...rooms[room],
+      preview: groups[room].map((project) => project.name),
+    })),
+  ];
   return (
-    <Waterline>
-      <Nav projects={bands} />
-      <Hero projects={bands} />
-      <div className={styles.below}>
-        <ProofStrip projects={projects} today={new Date()} />
-        {bands.map((project, index) => (
-          <ProjectBand key={project.slug} project={project} index={index} />
-        ))}
-        <HowIWork />
-        <Contact />
-      </div>
-    </Waterline>
+    <>
+      <Waterline className="pb-[calc(96px+env(safe-area-inset-bottom,0px))]">
+        <section id="home" aria-label="Home">
+          <Hero groups={groups} />
+        </section>
+        <div className={styles.below}>
+          {projectRooms.map((room) => (
+            <Room key={room} id={room} projects={groups[room]} />
+          ))}
+          <Touch />
+        </div>
+      </Waterline>
+      <Dock items={dock} cta={{ id: "touch", ...rooms.touch, preview: [] }} />
+    </>
   );
 }

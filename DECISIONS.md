@@ -131,3 +131,12 @@ Reference: wahooservices.co.uk lean. Systems, terminals, hard grid. Not their pi
 - `--water` mixes 40% accent into the ground in light and 15% in dark. The same 40% over near-black read navy on the first preview.
 - `[data-invert]` flips a subtree to the other theme's values, so one band on a page can be black without a second copy of the tokens.
 - Rejected: keeping lime and only recoloring the home page. Two accents is two design systems.
+
+## 2026-11-02 — The site is rooms by platform, not views
+
+- One page: Home, Web, iPhone, Mac, Automation, Get in touch. A project's room is its first `tags` entry in `projects.json`; adding a project is a JSON edit. `/views`, the grid, the timeline, and the view switch are deleted, with `apps/site/SPEC.md`'s view-switch section superseded by `SPEC-ROOMS.md`.
+- A fixed dock replaces the top nav. It follows scroll and writes the room hash with `replaceState`, only after scrolling settles and never across a pointer or key press, so a tap after a scroll navigates cleanly. Dock clicks are plain hash links; the browser does the scrolling.
+- Every string on the home page lives in `apps/site/content/site.ts` or `projects.json`. Components hold no copy.
+- Fishing is a side quest in Home: a pure state machine in `lib/fishing.ts`, catches in localStorage, each catch opening its project's block. The ask box answers from a static keyword map until there is an API.
+- Placeholder iPhone screenshots are generated SVGs under `public/shots/<slug>/`, replaced later under the same names.
+- Rejected: a dock on project pages too. They keep the "All projects" strip; one scroll model is enough.

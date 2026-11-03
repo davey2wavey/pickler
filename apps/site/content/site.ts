@@ -7,6 +7,7 @@ export const linkedin = "";
 
 export const site = {
   name: "David Pickler",
+  url: "https://pickler-site.vercel.app",
   tagline: "// BUILDS TOOLS",
   location: "Orange County, CA",
   footer: "Built with the tools above",

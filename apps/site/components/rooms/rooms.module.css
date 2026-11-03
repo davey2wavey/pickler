@@ -1,0 +1,60 @@
+/* The dock and its preview strip, fixed to the bottom of the viewport. Colors from tokens only. */
+
+.dock {
+  position: fixed;
+  left: 50%;
+  bottom: max(18px, env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  align-items: stretch;
+  max-width: calc(100vw - 24px);
+  border: 1px solid var(--line);
+  background: var(--panel);
+  box-shadow: 4px 4px 0 var(--fg);
+}
+
+.strip {
+  position: fixed;
+  left: 50%;
+  bottom: calc(max(18px, env(safe-area-inset-bottom, 0px)) + 58px);
+  transform: translateX(-50%) translateY(6px);
+  z-index: 49;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 9px 12px;
+  white-space: nowrap;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  box-shadow: 4px 4px 0 var(--fg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.strip[data-show] {
+  opacity: 1;
+  transform: translateX(-50%);
+}
+
+.strip > span + span {
+  border-left: 1px solid var(--line-soft);
+  padding-left: 14px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .strip {
+    transition:
+      opacity 0.12s,
+      transform 0.12s;
+  }
+}
+
+@media (max-width: 760px) {
+  .strip {
+    display: none;
+  }
+  .glyph {
+    display: none;
+  }
+}
