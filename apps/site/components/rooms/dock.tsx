@@ -19,7 +19,7 @@ export type DockItem = {
 export const PREVIEW_DELAY_MS = 350;
 
 const item =
-  "flex items-center gap-2 border-r border-line-soft px-3.5 font-mono text-label uppercase tracking-label text-grey hover:bg-ground hover:text-fg focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-acc max-md:px-2.5 max-md:text-[0.6rem]";
+  "flex items-center gap-2 border-r border-line-soft px-3.5 font-mono text-label uppercase tracking-label text-grey hover:bg-ground hover:text-fg focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-acc whitespace-nowrap max-md:px-2 max-md:text-[0.58rem]";
 
 /**
  * Fixed strip of rooms at the bottom of the viewport. The active one follows scroll;
@@ -70,7 +70,7 @@ export function Dock({ items, cta }: { items: readonly DockItem[]; cta: DockItem
           href={hashFor(cta.id)}
           data-room={cta.id}
           aria-current={active === cta.id ? "location" : undefined}
-          className="flex h-11 items-center gap-2 bg-acc px-4 font-mono text-label uppercase tracking-label text-acc-ink hover:bg-fg hover:text-bg focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-fg max-md:px-2.5 max-md:text-[0.6rem]"
+          className="flex h-11 items-center gap-2 bg-acc px-4 font-mono text-label uppercase tracking-label text-acc-ink hover:bg-fg hover:text-bg focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-fg whitespace-nowrap max-md:px-2 max-md:text-[0.58rem]"
         >
           <span aria-hidden className="size-1.5 bg-current" />
           {cta.label}

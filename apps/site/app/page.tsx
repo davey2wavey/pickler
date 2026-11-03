@@ -1,6 +1,8 @@
 import { Waterline } from "@/components/home/waterline";
 import styles from "@/components/home/home.module.css";
+import { Ask } from "@/components/rooms/ask";
 import { Dock } from "@/components/rooms/dock";
+import { Fishing } from "@/components/rooms/fishing";
 import type { DockItem } from "@/components/rooms/dock";
 import { Hero } from "@/components/rooms/hero";
 import { Room } from "@/components/rooms/room";
@@ -25,12 +27,15 @@ export default function Home() {
       <Waterline className="pb-[calc(96px+env(safe-area-inset-bottom,0px))]">
         <section id="home" aria-label="Home">
           <Hero groups={groups} />
+          <Fishing pool={projects.map(({ slug, name }) => ({ slug, name }))} />
         </section>
         <div className={styles.below}>
           {projectRooms.map((room) => (
             <Room key={room} id={room} projects={groups[room]} />
           ))}
-          <Touch />
+          <Touch>
+            <Ask />
+          </Touch>
         </div>
       </Waterline>
       <Dock items={dock} cta={{ id: "touch", ...rooms.touch, preview: [] }} />

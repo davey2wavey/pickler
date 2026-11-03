@@ -70,3 +70,11 @@ test("get in touch copies the address and the footer links to GitHub @smoke", as
     "https://github.com/davey2wavey",
   );
 });
+
+test("the fishing scene responds to a tap @smoke", async ({ page }) => {
+  await page.goto("/#fish");
+  const status = page.getByTestId("fishing-status");
+  await expect(status).toHaveText("tap water to cast");
+  await page.getByRole("button", { name: "Cast the line" }).click();
+  await expect(status).toHaveText(/casting|waiting/);
+});
