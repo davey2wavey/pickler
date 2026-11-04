@@ -31,13 +31,10 @@ test("the iPhone room holds every iPhone project, branded apps as bands", () => 
   }
 });
 
-test("blocks without a brand alternate ground inside a room", () => {
+test("every project in the dataset renders as a band", () => {
   render(<Home />);
-  const web = document.getElementById("web");
-  if (!web) throw new Error("web");
-  const [first, second] = within(web).getAllByTestId("project-block");
-  expect(first).not.toHaveAttribute("data-invert");
-  expect(second).toHaveAttribute("data-invert");
+  for (const block of screen.getAllByTestId("project-block"))
+    expect(block).toHaveAttribute("data-band");
 });
 
 test("the dock lists six rooms and the map counts match the data", () => {

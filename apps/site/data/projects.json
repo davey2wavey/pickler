@@ -48,7 +48,14 @@
     "metrics": [],
     "screenshots": [],
     "updatedAt": "2026-10-30",
-    "featured": true
+    "featured": true,
+    "brand": {
+      "ground": "#0C1A14",
+      "accent": "#6EE7A0",
+      "radius": 0,
+      "eyebrow": "Where the money goes",
+      "lede": "One ledger for every account. One burn line. One number: how many months you have left at this pace."
+    }
   },
   {
     "slug": "site",
@@ -96,7 +103,14 @@
     "screenshots": [],
     "shippedAt": "2026-10-29",
     "updatedAt": "2026-11-02",
-    "featured": false
+    "featured": false,
+    "brand": {
+      "ground": "#0F1418",
+      "accent": "#7FD1F2",
+      "radius": 0,
+      "eyebrow": "This site",
+      "lede": "One data file of projects, rendered as rooms. Change the file, the site follows. You are standing in it."
+    }
   },
   {
     "slug": "dekk",
@@ -412,7 +426,14 @@
       }
     ],
     "updatedAt": "2026-10-12",
-    "featured": false
+    "featured": false,
+    "brand": {
+      "ground": "#151515",
+      "accent": "#FF2D2D",
+      "radius": 0,
+      "eyebrow": "Everything you own",
+      "lede": "A catalog of what you have. Clothing, tech, gear, in folders. Value, condition, rarity, boards."
+    }
   },
   {
     "slug": "mail-room",
@@ -457,7 +478,14 @@
     "metrics": [],
     "screenshots": [],
     "updatedAt": "2026-10-30",
-    "featured": true
+    "featured": true,
+    "brand": {
+      "ground": "#16121C",
+      "accent": "#C9A5FF",
+      "radius": 10,
+      "eyebrow": "Inbox that sorts itself",
+      "lede": "Every message lands in a bucket by what it needs from you. Reply, read, wait, or nothing. Synced back to Gmail."
+    }
   },
   {
     "slug": "company-log",
@@ -508,6 +536,13 @@
     "metrics": [],
     "screenshots": [],
     "updatedAt": "2026-10-30",
-    "featured": true
+    "featured": true,
+    "brand": {
+      "ground": "#1A1410",
+      "accent": "#FFB347",
+      "radius": 4,
+      "eyebrow": "Every post, one place",
+      "lede": "Paste a company's handles. A worker pulls every post from every platform, with the numbers, into one log."
+    }
   }
 ]

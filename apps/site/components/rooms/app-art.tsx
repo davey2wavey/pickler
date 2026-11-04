@@ -95,6 +95,64 @@ const glyphs: Record<string, ReactNode> = {
       ))}
     </>
   ),
+  runway: (
+    <>
+      <path className="tile" d={TILE} />
+      <rect className="mark" x="46" y="98" width="128" height="44" rx="6" />
+      <rect className={`tile ${styles.gfuel}`} x="54" y="106" width="112" height="28" rx="3" />
+    </>
+  ),
+  site: (
+    <>
+      <path className="tile" d={TILE} />
+      <rect className="mark" x="46" y="56" width="128" height="128" rx="8" />
+      <rect className="tile" x="46" y="56" width="128" height="18" rx="8" />
+      <rect className="tile" x="46" y="66" width="128" height="8" />
+      <rect className={`tile ${styles.cursor}`} x="62" y="96" width="6" height="28" />
+      {[96, 120, 144].map((y, i) => (
+        <rect
+          key={y}
+          className={`tile ${styles.roomrow}`}
+          x="78"
+          y={y}
+          width="78"
+          height="12"
+          rx="2"
+          style={{ animationDelay: `${i * 1.33}s` }}
+        />
+      ))}
+    </>
+  ),
+  loot: (
+    <>
+      <path className="tile" d={TILE} />
+      <path className="mark" d="M60 92 h100 l-10 70 h-80 z" />
+      <rect className="mark" x="86" y="70" width="48" height="24" rx="6" />
+      <rect className="tile" x="94" y="78" width="32" height="8" rx="4" />
+    </>
+  ),
+  "mail-room": (
+    <>
+      <path className="tile" d={TILE} />
+      <rect className="mark" x="50" y="86" width="120" height="76" rx="8" />
+      <path
+        className={`tile ${styles.flap}`}
+        d="M50 94 L110 134 L170 94"
+        style={{ fill: "none", stroke: "var(--accent)", strokeWidth: 10, strokeLinejoin: "round" }}
+      />
+    </>
+  ),
+  "company-log": (
+    <>
+      <path className="tile" d={TILE} />
+      {[64, 96, 128, 160].map((y, i) => (
+        <g key={y} className={styles.logrow} style={{ animationDelay: `${i * 0.75}s` }}>
+          <circle className="mark" cx="62" cy={y + 9} r="9" />
+          <rect className="mark" x="82" y={y} width="78" height="18" rx="4" />
+        </g>
+      ))}
+    </>
+  ),
 };
 
 const objects: Record<string, ReactNode> = {
@@ -208,6 +266,106 @@ const objects: Record<string, ReactNode> = {
           rx="4"
           style={{ "--dx": `${dx}px`, animationDelay: `${delay}s` } as CSSProperties}
         />
+      ))}
+    </>
+  ),
+  runway: (
+    <>
+      <path
+        className={`ln ${styles.burn}`}
+        d="M20 60 C80 70, 120 110, 200 200"
+        style={{ strokeWidth: 4, stroke: "var(--accent)" }}
+      />
+      <rect className="fg" x="20" y="208" width="180" height="22" rx="4" opacity=".18" />
+      <rect className={`ac ${styles.fuel}`} x="24" y="212" width="172" height="14" rx="2" />
+      {[20, 65, 110, 155, 200].map((x) => (
+        <line
+          key={x}
+          className="ln dim"
+          x1={x}
+          y1="200"
+          x2={x}
+          y2="236"
+          style={{ strokeWidth: 2 }}
+        />
+      ))}
+    </>
+  ),
+  site: (
+    <>
+      <rect className="fg" x="16" y="30" width="188" height="180" rx="6" opacity=".12" />
+      <rect className="fg" x="16" y="30" width="188" height="22" rx="6" opacity=".3" />
+      <circle className="ac" cx="30" cy="41" r="4" />
+      <circle className="fg" cx="44" cy="41" r="4" opacity=".4" />
+      <circle className="fg" cx="58" cy="41" r="4" opacity=".4" />
+      {[72, 104, 136, 168].map((y, i) => (
+        <g key={y} className={styles.roomrow} style={{ animationDelay: `${i}s` }}>
+          <rect className="ac" x="32" y={y} width="10" height="18" rx="2" />
+          <rect className="fg" x="52" y={y + 3} width={120 - i * 14} height="12" rx="2" />
+        </g>
+      ))}
+      <rect className={`ac ${styles.cursor}`} x="32" y="196" width="8" height="6" />
+    </>
+  ),
+  loot: (
+    <>
+      {[0, 1, 2].map((i) => (
+        <g key={i} className={styles.card} style={{ animationDelay: `${i}s` }}>
+          <rect
+            className="fg"
+            x={40 + i * 36}
+            y={70 + i * 10}
+            width="90"
+            height="120"
+            rx="6"
+            opacity={i === 2 ? 1 : 0.5}
+          />
+          <rect className="bgf" x={52 + i * 36} y={84 + i * 10} width="66" height="60" rx="4" />
+          <rect className="ac" x={52 + i * 36} y={154 + i * 10} width="40" height="8" rx="2" />
+        </g>
+      ))}
+    </>
+  ),
+  "mail-room": (
+    <>
+      {[28, 88, 148].map((x, i) => (
+        <g key={x}>
+          <path className="fg" d={`M${x} 150 h50 v60 h-50 z`} opacity=".18" />
+          <path className="ln" d={`M${x} 150 v60 h50 v-60`} style={{ strokeWidth: 4 }} />
+          <g className={styles.env} style={{ animationDelay: `${i * 1.5}s` }}>
+            <rect className="ac" x={x + 9} y="160" width="32" height="22" rx="3" />
+            <path
+              className="bgf"
+              d={`M${x + 9} 162 L${x + 25} 174 L${x + 41} 162 v-2 h-32 z`}
+              opacity=".5"
+            />
+          </g>
+        </g>
+      ))}
+      <path className="ln dim" d="M30 60 H190" style={{ strokeWidth: 3 }} />
+      <path className="ln dim" d="M110 60 V130" style={{ strokeWidth: 3 }} />
+    </>
+  ),
+  "company-log": (
+    <>
+      <rect className="fg" x="70" y="30" width="80" height="190" rx="6" opacity=".14" />
+      {(
+        [
+          [-90, 46, 0],
+          [90, 98, 1],
+          [-90, 150, 2],
+        ] as const
+      ).map(([dx, y, i]) => (
+        <g
+          key={y}
+          className={styles.post}
+          style={{ "--dx": `${dx}px`, animationDelay: `${i * 0.6}s` } as CSSProperties}
+        >
+          <rect className="fg" x="80" y={y} width="60" height="40" rx="4" />
+          <circle className="ac" cx="92" cy={y + 12} r="6" />
+          <rect className="bgf" x="104" y={y + 8} width="28" height="6" rx="2" opacity=".7" />
+          <rect className="bgf" x="88" y={y + 24} width="44" height="6" rx="2" opacity=".5" />
+        </g>
       ))}
     </>
   ),
