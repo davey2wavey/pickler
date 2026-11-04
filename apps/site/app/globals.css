@@ -2,6 +2,12 @@
 @import "@pickler/ui/styles.css";
 @source "../../../packages/ui/src";
 
+/* Trial: the whole site on the system font, like the app bands. Revert by deleting this block. */
+:root {
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+}
+
 html {
   scroll-padding-bottom: 96px;
 }
