@@ -17,23 +17,27 @@ test("home renders one block per project, each inside its room", () => {
   }
 });
 
-test("the iPhone room holds five blocks with phone-framed screenshots", () => {
+test("the iPhone room holds every iPhone project, branded apps as bands", () => {
   render(<Home />);
   const iphone = document.getElementById("iphone");
   if (!iphone) throw new Error("iphone");
   const blocks = within(iphone).getAllByTestId("project-block");
-  expect(blocks).toHaveLength(5);
-  expect(within(iphone).getAllByRole("img").length).toBeGreaterThanOrEqual(5);
+  expect(blocks).toHaveLength(groups.iphone.length);
+  const branded = groups.iphone.filter((p) => p.brand).map((p) => p.slug);
+  expect(branded.length).toBeGreaterThanOrEqual(5);
+  for (const block of blocks) {
+    if (branded.includes(block.id)) expect(block).toHaveAttribute("data-band");
+    else expect(block).not.toHaveAttribute("data-band");
+  }
 });
 
-test("blocks alternate ground inside a room", () => {
+test("blocks without a brand alternate ground inside a room", () => {
   render(<Home />);
-  const iphone = document.getElementById("iphone");
-  if (!iphone) throw new Error("iphone");
-  const [first, second, third] = within(iphone).getAllByTestId("project-block");
+  const web = document.getElementById("web");
+  if (!web) throw new Error("web");
+  const [first, second] = within(web).getAllByTestId("project-block");
   expect(first).not.toHaveAttribute("data-invert");
   expect(second).toHaveAttribute("data-invert");
-  expect(third).not.toHaveAttribute("data-invert");
 });
 
 test("the dock lists six rooms and the map counts match the data", () => {
