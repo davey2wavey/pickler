@@ -22,6 +22,15 @@ export const hero = {
   secondary: { label: "Get in touch", href: "#touch" },
 } as const;
 
+/** The glyph grid hero: name, every app icon, one line. */
+export const glyphHero = {
+  name: "David Pickler",
+  eyebrow: "Builds tools",
+  title: "Hi, I make apps.",
+  cue: "scroll ↓",
+  navLabel: "Apps",
+} as const;
+
 /** The system window in the hero: a clickable map of the rooms. */
 export const roomMap = {
   title: "PICKLER · SYSTEMS",

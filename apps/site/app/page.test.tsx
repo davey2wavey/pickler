@@ -48,9 +48,17 @@ test("the dock lists six rooms and the map counts match the data", () => {
   expect(screen.getByTestId("map-total")).toHaveTextContent(String(projects.length));
 });
 
+test("the glyph hero shows one tile per branded project, each linking to its band", () => {
+  render(<Home />);
+  const tiles = screen.getAllByTestId("hero-tile");
+  const branded = projects.filter((p) => p.brand);
+  expect(tiles).toHaveLength(branded.length);
+  expect(tiles.map((t) => t.getAttribute("href"))).toEqual(branded.map((p) => `#${p.slug}`));
+});
+
 test("the hero and the touch room are there, and this site does not embed itself", () => {
   render(<Home />);
-  expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/Working software/);
+  expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Hi, I make apps.");
   expect(
     within(screen.getByRole("region", { name: "Get in touch." })).getByRole("link", {
       name: "picklerdavid@gmail.com",

@@ -150,3 +150,9 @@ Reference: wahooservices.co.uk lean. Systems, terminals, hard grid. Not their pi
 - Renames: Skins & Pins → Divot, Fit → Regiment, Nourish → Skillet (new entry). Slugs follow.
 - Status line is driven by `status`: beta reads "On TestFlight", in-progress reads "Building", live reads "On the App Store". No store links until an app is live.
 - Rejected: stick-figure people doing the activity (first pass, looked crude); glyph-only heroes (too static); object-only (icons would be a separate job).
+
+## 2026-11-04 — Glyph grid replaces the hero and the fishing game
+
+- The home page opens on a dark grid of every branded project's icon, name top-left, "Hi, I make apps." bottom-left. Tap an icon, jump to its band. Then the rooms.
+- Rejected for now: the system-window hero with room map and doodles, the waterline, and the fishing side quest (kept on branch `feat/site-catch-wheel`). A cinematic scroll hero (overhead lake, fish pulled up, color flood into the first band) was mocked and shelved; it only earns its place photoreal, which means generated video frames, and that is a later upgrade if ever.
+- Hero copy lives in `content/site.ts` under `glyphHero`.

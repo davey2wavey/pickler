@@ -29,7 +29,7 @@ test("home shows every project once, embeds Runway, and opens a project page @sm
   page,
 }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("Working software");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Hi, I make apps.");
   await expect(page.getByTestId("project-block")).toHaveCount(projects.length);
   await expect(page.getByTitle(`${runway.name} demo`)).toHaveAttribute(
     "src",
@@ -69,12 +69,4 @@ test("get in touch copies the address and the footer links to GitHub @smoke", as
     "href",
     "https://github.com/davey2wavey",
   );
-});
-
-test("the fishing scene responds to a tap @smoke", async ({ page }) => {
-  await page.goto("/#fish");
-  const status = page.getByTestId("fishing-status");
-  await expect(status).toHaveText("tap water to cast");
-  await page.getByRole("button", { name: "Cast the line" }).click();
-  await expect(status).toHaveText(/casting|waiting/);
 });

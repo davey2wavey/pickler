@@ -1,21 +1,18 @@
-import { Waterline } from "@/components/home/waterline";
-import styles from "@/components/home/home.module.css";
 import { Ask } from "@/components/rooms/ask";
 import { Dock } from "@/components/rooms/dock";
-import { Fishing } from "@/components/rooms/fishing";
 import type { DockItem } from "@/components/rooms/dock";
-import { Hero } from "@/components/rooms/hero";
+import { GlyphHero } from "@/components/rooms/glyph-hero";
 import { Room } from "@/components/rooms/room";
 import { Touch } from "@/components/rooms/touch";
-import { fishing, hero, rooms } from "@/content/site";
+import { glyphHero, rooms } from "@/content/site";
 import { projects } from "@/data/projects";
 import { groupByRoom, projectRooms } from "@/lib/rooms";
 
-/** Home. Rooms by platform on one scroll, a dock that follows, and the water underneath. */
+/** Home. The glyph grid as the front door, then rooms by platform on one scroll, and a dock that follows. */
 export default function Home() {
   const groups = groupByRoom(projects);
   const dock: DockItem[] = [
-    { id: "home", ...rooms.home, preview: [hero.eyebrow, fishing.title] },
+    { id: "home", ...rooms.home, preview: [glyphHero.title] },
     ...projectRooms.map((room) => ({
       id: room,
       ...rooms[room],
@@ -24,20 +21,17 @@ export default function Home() {
   ];
   return (
     <>
-      <Waterline className="pb-[calc(96px+env(safe-area-inset-bottom,0px))]">
+      <main className="pb-[calc(96px+env(safe-area-inset-bottom,0px))]">
         <section id="home" aria-label="Home">
-          <Hero groups={groups} />
-          <Fishing pool={projects.map(({ slug, name }) => ({ slug, name }))} />
+          <GlyphHero projects={projects} />
         </section>
-        <div className={styles.below}>
-          {projectRooms.map((room) => (
-            <Room key={room} id={room} projects={groups[room]} />
-          ))}
-          <Touch>
-            <Ask />
-          </Touch>
-        </div>
-      </Waterline>
+        {projectRooms.map((room) => (
+          <Room key={room} id={room} projects={groups[room]} />
+        ))}
+        <Touch>
+          <Ask />
+        </Touch>
+      </main>
       <Dock items={dock} cta={{ id: "touch", ...rooms.touch, preview: [] }} />
     </>
   );
