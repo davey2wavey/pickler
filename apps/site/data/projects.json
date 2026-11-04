@@ -39,7 +39,11 @@
         "text": "One user, one ledger.",
         "metric": "30 RLS tests"
       },
-      { "glyph": "✓", "title": "Tested every push", "text": "Playwright on each PR." }
+      {
+        "glyph": "✓",
+        "title": "Tested every push",
+        "text": "Playwright on each PR."
+      }
     ],
     "metrics": [],
     "screenshots": [],
@@ -72,9 +76,21 @@
         "text": "Five primitives, two themes.",
         "metric": "/ui"
       },
-      { "glyph": "⚓", "title": "Dock + rooms", "text": "Hash-routed, keyboard-safe." },
-      { "glyph": "≈", "title": "Waterline", "text": "Scroll-driven, reduced-motion safe." },
-      { "glyph": "✓", "title": "CI gates merge", "text": "Typecheck, lint, unit, smoke." }
+      {
+        "glyph": "⚓",
+        "title": "Dock + rooms",
+        "text": "Hash-routed, keyboard-safe."
+      },
+      {
+        "glyph": "≈",
+        "title": "Waterline",
+        "text": "Scroll-driven, reduced-motion safe."
+      },
+      {
+        "glyph": "✓",
+        "title": "CI gates merge",
+        "text": "Typecheck, lint, unit, smoke."
+      }
     ],
     "metrics": [],
     "screenshots": [],
@@ -99,20 +115,43 @@
     "built": "Placeholder. An iPhone player that reads the files on the device, builds a library, and plays them with a queue and shuffle.",
     "changed": "Placeholder. On TestFlight, shared freely. App Store next.",
     "features": [
-      { "glyph": "♫", "title": "Local library", "text": "Reads files on device." },
-      { "glyph": "▶", "title": "Queue + shuffle", "text": "Simple, fast." },
-      { "glyph": "⬇", "title": "TestFlight", "text": "Shared freely." }
+      {
+        "glyph": "♫",
+        "title": "Local library",
+        "text": "Reads files on device."
+      },
+      {
+        "glyph": "▶",
+        "title": "Queue + shuffle",
+        "text": "Simple, fast."
+      },
+      {
+        "glyph": "⬇",
+        "title": "TestFlight",
+        "text": "Shared freely."
+      }
     ],
     "metrics": [],
     "screenshots": [
-      { "src": "/shots/dekk/01.svg", "alt": "Dekk, placeholder screenshot", "frame": "phone" }
+      {
+        "src": "/shots/dekk/01.svg",
+        "alt": "Dekk, placeholder screenshot",
+        "frame": "phone"
+      }
     ],
     "updatedAt": "2026-10-20",
-    "featured": true
+    "featured": true,
+    "brand": {
+      "ground": "#141114",
+      "accent": "#FF3E8A",
+      "radius": 0,
+      "eyebrow": "Local music player",
+      "lede": "Plays the music files you already own. Drop them in, build playlists, press play. No account, no subscription."
+    }
   },
   {
-    "slug": "skins-and-pins",
-    "name": "Skins & Pins",
+    "slug": "divot",
+    "name": "Divot",
     "oneLiner": "Scores plus side bets, settled after the round.",
     "headline": "Golf scorecard and",
     "headlineMono": "wagers",
@@ -127,26 +166,45 @@
     "built": "Placeholder. A scorecard that tracks every hole and every side bet, then settles the round.",
     "changed": "Placeholder. On TestFlight with a few regular groups.",
     "features": [
-      { "glyph": "⛳", "title": "Scorecard", "text": "Hole by hole." },
-      { "glyph": "$", "title": "Wagers", "text": "Skins, pins, settled." },
-      { "glyph": "⬇", "title": "TestFlight", "text": "Beta." }
+      {
+        "glyph": "⛳",
+        "title": "Scorecard",
+        "text": "Hole by hole."
+      },
+      {
+        "glyph": "$",
+        "title": "Wagers",
+        "text": "Skins, pins, settled."
+      },
+      {
+        "glyph": "⬇",
+        "title": "TestFlight",
+        "text": "Beta."
+      }
     ],
     "metrics": [],
     "screenshots": [
       {
-        "src": "/shots/skins-and-pins/01.svg",
-        "alt": "Skins & Pins, placeholder screenshot",
+        "src": "/shots/divot/01.svg",
+        "alt": "Divot, placeholder screenshot",
         "frame": "phone"
       }
     ],
     "updatedAt": "2026-10-15",
-    "featured": false
+    "featured": false,
+    "brand": {
+      "ground": "#0F3B2C",
+      "accent": "#FFFFFF",
+      "radius": 22,
+      "eyebrow": "Golf wagers",
+      "lede": "Keeps every player's score and settles the bets when you walk off 18. Skins, closest to pin, stroke play, all at once."
+    }
   },
   {
-    "slug": "fit",
-    "name": "Fit",
+    "slug": "regiment",
+    "name": "Regiment",
     "oneLiner": "Library of exercises, build workouts, run multi-week programs. Supersets first.",
-    "headline": "A workout planner for",
+    "headline": "Programs and routines for hybrid athletes",
     "headlineMono": "hybrid athletes",
     "status": "beta",
     "kind": "ios",
@@ -159,7 +217,11 @@
     "built": "Placeholder. An exercise library, workouts built from it, and multi-week programs with every day editable.",
     "changed": "Placeholder. On TestFlight since October 7.",
     "features": [
-      { "glyph": "≡", "title": "Exercise library", "text": "~200 to start, add your own." },
+      {
+        "glyph": "≡",
+        "title": "Exercise library",
+        "text": "~200 to start, add your own."
+      },
       {
         "glyph": "⊞",
         "title": "Workouts → programs",
@@ -170,15 +232,30 @@
         "title": "Supersets + circuits",
         "text": "Group rounds, per-exercise override."
       },
-      { "glyph": "⬇", "title": "TestFlight", "text": "Beta since Oct 7." }
+      {
+        "glyph": "⬇",
+        "title": "TestFlight",
+        "text": "Beta since Oct 7."
+      }
     ],
     "metrics": [],
     "screenshots": [
-      { "src": "/shots/fit/01.svg", "alt": "Fit, placeholder screenshot", "frame": "phone" }
+      {
+        "src": "/shots/regiment/01.svg",
+        "alt": "Regiment, placeholder screenshot",
+        "frame": "phone"
+      }
     ],
     "shippedAt": "2026-10-07",
     "updatedAt": "2026-10-25",
-    "featured": false
+    "featured": false,
+    "brand": {
+      "ground": "#0A1118",
+      "accent": "#35D0E0",
+      "radius": 14,
+      "eyebrow": "Programs & routines",
+      "lede": "Build workouts from a real exercise library. Stack them into a four-week program. Follow it at the gym without staring at your phone."
+    }
   },
   {
     "slug": "snaphour",
@@ -197,15 +274,27 @@
     "built": "Placeholder. A day view of hour blocks; tap one to fill it with a photo, Live Photo, or clip. Describe it instead and Image Playground draws it.",
     "changed": "Placeholder. Running on my phone. Shared days over CloudKit are in progress.",
     "features": [
-      { "glyph": "◷", "title": "24 hour blocks", "text": "Day view, tap an hour to fill." },
-      { "glyph": "✎", "title": "Describe it instead", "text": "Apple Image Playground draws it." },
+      {
+        "glyph": "◷",
+        "title": "24 hour blocks",
+        "text": "Day view, tap an hour to fill."
+      },
+      {
+        "glyph": "✎",
+        "title": "Describe it instead",
+        "text": "Apple Image Playground draws it."
+      },
       {
         "glyph": "☁",
         "title": "Shared days",
         "text": "Friends see each other's hours live.",
         "metric": "CloudKit"
       },
-      { "glyph": "▦", "title": "Library", "text": "Photo calendar, tap a day." }
+      {
+        "glyph": "▦",
+        "title": "Library",
+        "text": "Photo calendar, tap a day."
+      }
     ],
     "metrics": [],
     "screenshots": [
@@ -216,7 +305,65 @@
       }
     ],
     "updatedAt": "2026-10-18",
-    "featured": false
+    "featured": false,
+    "brand": {
+      "ground": "#0B1020",
+      "accent": "#F5F1EA",
+      "radius": 18,
+      "eyebrow": "Hourly photo diary",
+      "lede": "One photo for every hour you're awake. Fill them in as you go or all at once at night. Friends see your day as it happens."
+    }
+  },
+  {
+    "slug": "skillet",
+    "name": "Skillet",
+    "oneLiner": "Save recipes, cook them, shop for them in one list.",
+    "headline": "Recipes and tracking,",
+    "headlineMono": "one shopping list",
+    "status": "in-progress",
+    "kind": "ios",
+    "tags": ["iphone"],
+    "role": "Design and build. Solo.",
+    "year": "2026, building",
+    "stack": ["Swift", "SwiftUI", "CloudKit"],
+    "links": {},
+    "problem": "Placeholder. Recipes live in screenshots and bookmarks, and the shopping list gets rebuilt by hand every week.",
+    "built": "Placeholder. A native iPhone recipe library with a cook mode and a combined shopping list across the recipes you pick.",
+    "changed": "Placeholder. Building. TestFlight next.",
+    "features": [
+      {
+        "glyph": "⌁",
+        "title": "Save from anywhere",
+        "text": "Paste, photo, or type."
+      },
+      {
+        "glyph": "≡",
+        "title": "One list",
+        "text": "Pick recipes, get the merged list."
+      },
+      {
+        "glyph": "◐",
+        "title": "Cook mode",
+        "text": "Ingredients per step, dark."
+      }
+    ],
+    "metrics": [],
+    "screenshots": [
+      {
+        "src": "/shots/skillet/01.svg",
+        "alt": "Skillet, placeholder screenshot",
+        "frame": "phone"
+      }
+    ],
+    "updatedAt": "2026-11-03",
+    "featured": false,
+    "brand": {
+      "ground": "#1E2117",
+      "accent": "#E8432E",
+      "radius": 6,
+      "eyebrow": "Recipes & tracking",
+      "lede": "Save a recipe from anywhere. Pick a few for the week and it merges the ingredients into one shopping list."
+    }
   },
   {
     "slug": "loot",
@@ -235,14 +382,34 @@
     "built": "Placeholder. A catalog with nested folders, cutout photos, value and condition fields, and outfit boards.",
     "changed": "Placeholder. Running on my phone.",
     "features": [
-      { "glyph": "▤", "title": "Folders + categories", "text": "Your own, nested." },
-      { "glyph": "✂", "title": "Cutout photos", "text": "Background-removed stickers." },
-      { "glyph": "◫", "title": "Boards", "text": "Outfit boards, multi-page." },
-      { "glyph": "$", "title": "Value fields", "text": "Value, condition, rarity, location." }
+      {
+        "glyph": "▤",
+        "title": "Folders + categories",
+        "text": "Your own, nested."
+      },
+      {
+        "glyph": "✂",
+        "title": "Cutout photos",
+        "text": "Background-removed stickers."
+      },
+      {
+        "glyph": "◫",
+        "title": "Boards",
+        "text": "Outfit boards, multi-page."
+      },
+      {
+        "glyph": "$",
+        "title": "Value fields",
+        "text": "Value, condition, rarity, location."
+      }
     ],
     "metrics": [],
     "screenshots": [
-      { "src": "/shots/loot/01.svg", "alt": "Loot, placeholder screenshot", "frame": "phone" }
+      {
+        "src": "/shots/loot/01.svg",
+        "alt": "Loot, placeholder screenshot",
+        "frame": "phone"
+      }
     ],
     "updatedAt": "2026-10-12",
     "featured": false
@@ -266,10 +433,26 @@
     "whatItDoes": "Five views on one inbox: feed, days, buckets, reply board, calendar. AI classifies, you confirm, Gmail labels update.",
     "underTheHood": "SwiftUI, Gmail API, on-device classification cache, background sync.",
     "features": [
-      { "glyph": "@", "title": "Five views", "text": "Feed, days, buckets, board, calendar." },
-      { "glyph": "⇄", "title": "Two-way sync", "text": "Gmail labels update." },
-      { "glyph": "✎", "title": "Draft replies", "text": "Written for you to confirm." },
-      { "glyph": "◎", "title": "On-device cache", "text": "Fast, private." }
+      {
+        "glyph": "@",
+        "title": "Five views",
+        "text": "Feed, days, buckets, board, calendar."
+      },
+      {
+        "glyph": "⇄",
+        "title": "Two-way sync",
+        "text": "Gmail labels update."
+      },
+      {
+        "glyph": "✎",
+        "title": "Draft replies",
+        "text": "Written for you to confirm."
+      },
+      {
+        "glyph": "◎",
+        "title": "On-device cache",
+        "text": "Fast, private."
+      }
     ],
     "metrics": [],
     "screenshots": [],
@@ -316,7 +499,11 @@
         "text": "Filter by platform, week, format.",
         "metric": "building"
       },
-      { "glyph": "→", "title": "Official APIs first", "text": "Scraping as fallback." }
+      {
+        "glyph": "→",
+        "title": "Official APIs first",
+        "text": "Scraping as fallback."
+      }
     ],
     "metrics": [],
     "screenshots": [],

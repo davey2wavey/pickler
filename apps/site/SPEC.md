@@ -22,7 +22,7 @@ Per project:
 - `shippedAt`: ISO date; `updatedAt`: ISO date
 - `featured`: boolean (the three core ones)
 
-Seed with the three core projects plus Matchday, Mead Hall, Dekk, Skins & Pins as honest `status` values. Missing screenshots render a labeled placeholder, never a broken image.
+Seed with the three core projects plus Matchday, Mead Hall, Dekk, Divot as honest `status` values. Missing screenshots render a labeled placeholder, never a broken image.
 
 ## View switch
 

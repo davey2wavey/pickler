@@ -76,6 +76,13 @@ export const block = {
   selfDemo: "YOU ARE HERE",
 } as const;
 
+/** Status line on an app band. Keyed by project status; the rest fall back to the status itself. */
+export const bandStatus = {
+  live: "On the App Store",
+  beta: "On TestFlight",
+  "in-progress": "Building",
+} as const;
+
 export const fishing = {
   eyebrow: "Side quest",
   title: "Go fishing. Catch a project.",

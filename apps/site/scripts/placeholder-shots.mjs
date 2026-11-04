@@ -7,9 +7,10 @@ import { fileURLToPath } from "node:url";
 
 const apps = [
   { slug: "dekk", name: "DEKK", rows: 5, mark: "circle" },
-  { slug: "skins-and-pins", name: "SKINS & PINS", rows: 4, mark: "flag" },
-  { slug: "fit", name: "FIT", rows: 6, mark: "bars" },
+  { slug: "divot", name: "DIVOT", rows: 4, mark: "flag" },
+  { slug: "regiment", name: "REGIMENT", rows: 6, mark: "bars" },
   { slug: "snaphour", name: "SNAPHOUR", rows: 4, mark: "grid" },
+  { slug: "skillet", name: "SKILLET", rows: 5, mark: "circle" },
   { slug: "loot", name: "LOOT", rows: 5, mark: "tags" },
 ];
 

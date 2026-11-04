@@ -129,3 +129,34 @@ describe("parseProjects", () => {
     expect(() => parseProjects([])).toThrow();
   });
 });
+
+describe("brand", () => {
+  test("is optional, validates hex, and defaults radius to 0", () => {
+    const base = {
+      slug: "a",
+      name: "A",
+      oneLiner: "x",
+      headline: "x",
+      status: "beta",
+      kind: "ios",
+      tags: ["iphone"],
+      role: "x",
+      year: "2026",
+      stack: ["Swift"],
+      problem: "p",
+      built: "b",
+      changed: "c",
+      updatedAt: "2026-11-03",
+    };
+    expect(parseProjects([base])[0]?.brand).toBeUndefined();
+    const ok = parseProjects([
+      { ...base, brand: { ground: "#0A1118", accent: "#35D0E0", eyebrow: "e", lede: "l" } },
+    ])[0]?.brand;
+    expect(ok?.radius).toBe(0);
+    expect(() =>
+      parseProjects([
+        { ...base, brand: { ground: "blue", accent: "#35D0E0", eyebrow: "e", lede: "l" } },
+      ]),
+    ).toThrow(/hex/);
+  });
+});

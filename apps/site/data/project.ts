@@ -27,6 +27,26 @@ export const featureSchema = z.object({
 });
 export type Feature = z.infer<typeof featureSchema>;
 
+const hex = z.string().regex(/^#[0-9a-fA-F]{6}$/, "hex color like #0A1118");
+
+/**
+ * Consumer-app brand, only for apps with their own look. Two tones: one dark ground tinted
+ * toward one accent. The band renders in SF Pro, not the site font. See DECISIONS.md.
+ */
+export const brandSchema = z.object({
+  ground: hex,
+  accent: hex,
+  /** Corner radius in px for the button and glyph. 0 is square. */
+  radius: z.number().int().min(0).max(40).default(0),
+  /** Short store-style line: "Golf wagers". */
+  eyebrow: paragraph,
+  /** Two or three plain sentences on what it does. */
+  lede: paragraph,
+  /** Website for the app, once it exists. */
+  site: z.url().optional(),
+});
+export type Brand = z.infer<typeof brandSchema>;
+
 export const projectSchema = z.object({
   slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "slug is lowercase words joined by -"),
   name: z.string().min(1),
@@ -78,6 +98,8 @@ export const projectSchema = z.object({
   updatedAt: isoDate,
   /** Sorts first inside its room. */
   featured: z.boolean().default(false),
+  /** Present only for consumer apps with a locked look. Renders the app band instead of the block. */
+  brand: brandSchema.optional(),
 });
 export type Project = z.infer<typeof projectSchema>;
 

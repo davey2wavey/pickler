@@ -11,7 +11,7 @@ Supersedes SPEC-ROOMS v1 and SPEC-HOME-2. Visual reference: `apps/site/design/ro
 5. Each project block: demo slot left (iframe / video / screenshot / "Demo coming"), info right: name label, headline, one-liner, tag chips, Role / Year / Stack, Learn more → `/p/[slug]`. Under it, up to four feature cards (glyph, title, line, optional mono metric). Blocks alternate ground within a room (plain, inverted). Numbering removed everywhere.
 6. Fishing lives in Home, in the water. Pool = every project in `projects.json`. Catch card opens that project's block. Catch log in localStorage with reset. Pure state machine in `lib/fishing.ts`, test-first.
 7. Get in touch is the last section, not a tab: ask box (canned replies from a static map, no API yet), stack grid, email with copy button.
-8. iPhone room holds Dekk, Skins & Pins, Fit, Snaphour, Loot. Each gets placeholder screenshots generated as SVG in `public/shots/<slug>/` (phone frame, app name, a few UI strokes in the doodle style), replaced by real ones later via the same filenames.
+8. iPhone room holds Dekk, Divot, Regiment, Snaphour, Skillet, Loot. The five consumer apps render as branded bands (see DECISIONS.md, 2026-11-03); Loot stays a block. Each gets placeholder screenshots generated as SVG in `public/shots/<slug>/` (phone frame, app name, a few UI strokes in the doodle style), replaced by real ones later via the same filenames.
 9. Dock: Home · Web · iPhone · Mac · Automation · Get in touch (accent). Word labels with a small blue glyph. Hover a room 350 ms → one shared strip above the dock listing that room's projects. Phone: labels only, no strip.
 10. All copy is placeholder. Every string lives in `content/site.ts` or `projects.json` so David can rewrite without touching components.
 

@@ -140,3 +140,13 @@ Reference: wahooservices.co.uk lean. Systems, terminals, hard grid. Not their pi
 - Fishing is a side quest in Home: a pure state machine in `lib/fishing.ts`, catches in localStorage, each catch opening its project's block. The ask box answers from a static keyword map until there is an API.
 - Placeholder iPhone screenshots are generated SVGs under `public/shots/<slug>/`, replaced later under the same names.
 - Rejected: a dock on project pages too. They keep the "All projects" strip; one scroll model is enough.
+
+## 2026-11-03 — Consumer apps get their own skin in the iPhone room
+
+- The five consumer apps (Dekk, Snaphour, Skillet, Divot, Regiment) render as full-bleed bands in their own two tones: one dark ground tinted toward one accent. Name plus its icon glyph on the left, an animated object (the thing the app is about) on the right, status, and a link to `/p/[slug]`.
+- Type inside a band is the system font (SF Pro on Apple devices). The apps use it, so the band does. The rest of the site stays on Space Grotesk. If the system font wins on sight, it spreads site-wide as its own decision.
+- Brand lives on the project in `projects.json` as an optional `brand` field. No brand, no band: the project renders as a normal block. Add an app = add an entry plus its glyph and object in `components/rooms/app-art.tsx`.
+- The glyph is the app icon. Same drawing goes to the App Store and the home screen. The object is the hero visual for the site and the app's own `name.so` page.
+- Renames: Skins & Pins → Divot, Fit → Regiment, Nourish → Skillet (new entry). Slugs follow.
+- Status line is driven by `status`: beta reads "On TestFlight", in-progress reads "Building", live reads "On the App Store". No store links until an app is live.
+- Rejected: stick-figure people doing the activity (first pass, looked crude); glyph-only heroes (too static); object-only (icons would be a separate job).
