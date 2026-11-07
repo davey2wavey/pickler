@@ -163,3 +163,9 @@ Reference: wahooservices.co.uk lean. Systems, terminals, hard grid. Not their pi
 - Gone from code: the system-window hero, room map, doodles, waterline, fishing side quest, the Ask box, the bottom dock, the per-page footer on home. Project pages keep the footer. Everything removed is in git history and on the older `feat/site-*` branches.
 - Rejected: a numbered "Room 1 of 4" eyebrow on dividers (leftover numbering), grey blurbs under divider words (flat next to the bands), a top bar with name and "Builds tools" (redundant with the first line).
 - Grid lists every branded project. The band order inside a room is the dataset order.
+
+## 2026-11-07 — PR smoke for Runway runs on a local database
+
+- The Runway smoke job in CI now starts Supabase local and builds the app against it, the same way the nightly full e2e does. The hosted demo project is never touched by CI.
+- Why: the hosted demo was seeded relative to a day in October, so on November 1 "this month" had no rows and every PR went red. The Runway preview lookup was also coming back empty, so the job was already building locally, just pointed at the wrong database.
+- Cost: the Runway smoke no longer exercises the Vercel preview. Site and Company Log still do. If Runway needs preview coverage later, reseed the hosted demo on a schedule first.
