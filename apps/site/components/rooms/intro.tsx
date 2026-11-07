@@ -19,7 +19,8 @@ export function linesFor(p: number): { first: number; second: number } {
 
 /**
  * The page opens on one line. Scrolling crossfades it into the second. Two screens of
- * scroll, the text pinned. Under reduced motion both lines show, stacked, unpinned.
+ * scroll, the text pinned. CSS scroll-driven animation does the work where supported;
+ * the frame loop below covers older browsers. Under reduced motion both lines show, stacked.
  */
 export function Intro() {
   const wrap = useRef<HTMLDivElement>(null);
@@ -28,6 +29,7 @@ export function Intro() {
 
   useEffect(() => {
     if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+    if (typeof CSS !== "undefined" && CSS.supports?.("animation-timeline: view()")) return;
     let frame = 0;
     const draw = () => {
       const el = wrap.current;

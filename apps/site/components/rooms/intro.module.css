@@ -6,6 +6,8 @@
   position: relative;
   background: #111214;
   color: #e8e6e1;
+  view-timeline-name: --intro;
+  view-timeline-axis: block;
 }
 
 .stage {
@@ -36,9 +38,54 @@
   opacity: 0;
 }
 
+/* Where the browser can drive animation from scroll, CSS does it and the script steps aside. */
+@supports (animation-timeline: view()) {
+  .first,
+  .second {
+    animation-timeline: --intro;
+    animation-range: contain 0% contain 100%;
+    animation-fill-mode: both;
+    animation-timing-function: linear;
+  }
+  .first {
+    animation-name: introOut;
+  }
+  .second {
+    animation-name: introIn;
+  }
+  @keyframes introOut {
+    0%,
+    25% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    55%,
+    100% {
+      opacity: 0;
+      transform: translateY(-28px);
+    }
+  }
+  @keyframes introIn {
+    0%,
+    45% {
+      opacity: 0;
+      transform: translateY(28px);
+    }
+    75%,
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .intro {
     height: auto;
+  }
+  .first,
+  .second {
+    animation: none;
   }
   .stage {
     position: static;
