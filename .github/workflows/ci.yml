@@ -46,16 +46,28 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Find Vercel preview
         id: preview
+        if: matrix.app != 'runway'
         run: node scripts/vercel-preview-url.mjs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERCEL_PROJECT: pickler-${{ matrix.app }}
       - run: pnpm --filter ${{ matrix.app }} exec playwright install --with-deps chromium
+      # Runway reads and writes a database on every page. Same as the nightly: start
+      # Supabase local (migrations and seed apply on start, dated from today) and point
+      # the build at it. The hosted demo's seed goes stale each month; this never does.
+      - name: Start local Supabase (runway)
+        if: matrix.app == 'runway'
+        run: |
+          pnpm --filter @pickler/db exec supabase start -x studio,imgproxy,mailpit,edge-runtime,logflare,vector,supavisor,realtime,storage-api,postgres-meta
+          eval "$(pnpm --filter @pickler/db exec supabase status -o env | grep -E '^(API_URL|ANON_KEY)=')"
+          {
+            echo "NEXT_PUBLIC_SUPABASE_URL=$API_URL"
+            echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=$ANON_KEY"
+            echo "RUNWAY_DEMO_PASSWORD=runway-demo" # the seed's demo password
+          } >> "$GITHUB_ENV"
+      # Site and Company Log run against the Vercel preview. Runway has no base URL, so
+      # Playwright builds and starts it against the local database.
       - run: pnpm --filter ${{ matrix.app }} test:e2e --grep @smoke
         env:
           PLAYWRIGHT_BASE_URL: ${{ steps.preview.outputs.url }}
           VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
-          # Runway smoke signs in as the demo user to delete the rows it added.
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-          RUNWAY_DEMO_PASSWORD: ${{ secrets.RUNWAY_DEMO_PASSWORD }}
