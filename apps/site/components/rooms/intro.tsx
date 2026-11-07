@@ -27,7 +27,7 @@ export function Intro() {
   const second = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
     let frame = 0;
     const draw = () => {
       const el = wrap.current;

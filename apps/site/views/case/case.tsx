@@ -3,7 +3,6 @@ import { Label, cx } from "@pickler/ui";
 import type { Project } from "@/data/project";
 import { Column, columnClasses } from "@/components/home/column";
 import { DemoSlot } from "@/components/home/demo-slot";
-import { WaveRule } from "@/components/home/wave-rule";
 import { LinkButton } from "./link-button";
 import { Shots } from "./shots";
 import { Footer } from "@/components/footer";
@@ -87,7 +86,7 @@ export function Case({ project }: { project: Project }) {
             </div>
           </header>
         </Column>
-        <WaveRule />
+        <hr className="mx-6 border-0 border-t border-line" />
 
         <section aria-label="Demo" className="bg-ground">
           <Column className="p-6">
