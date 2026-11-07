@@ -1,0 +1,94 @@
+/* Connect: the last band on the page ground. */
+
+.connect {
+  background: #111214;
+  color: #e8e6e1;
+  text-align: center;
+  padding-block: clamp(80px, 14vw, 160px) clamp(40px, 6vw, 72px);
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
+}
+
+.k,
+.foot,
+.mail {
+  margin: 0;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.k {
+  color: #7fd1f2;
+}
+
+.title {
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  font-size: clamp(44px, 10vw, 112px);
+  line-height: 0.92;
+}
+
+.lead {
+  margin: 0;
+  max-width: 36ch;
+  color: #8a8984;
+  font-size: 17px;
+  text-wrap: balance;
+}
+
+.acts {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.btn {
+  font-weight: 600;
+  font-size: 16px;
+  padding: 16px 24px;
+  border-radius: 14px;
+  text-decoration: none;
+  background: #e8e6e1;
+  color: #111214;
+}
+
+.ghost {
+  background: transparent;
+  color: #e8e6e1;
+  border: 1px solid #2a2b2e;
+}
+
+.btn:focus-visible {
+  outline: 2px solid #e8e6e1;
+  outline-offset: 3px;
+}
+
+.mail {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-transform: none;
+  letter-spacing: 0.04em;
+  color: #8a8984;
+  font-size: 13px;
+}
+
+.foot {
+  margin-top: clamp(40px, 8vw, 96px);
+  color: #8a8984;
+}
+
+.foot a {
+  color: inherit;
+  text-decoration: none;
+}

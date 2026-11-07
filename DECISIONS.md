@@ -132,6 +132,38 @@ Reference: wahooservices.co.uk lean. Systems, terminals, hard grid. Not their pi
 - `[data-invert]` flips a subtree to the other theme's values, so one band on a page can be black without a second copy of the tokens.
 - Rejected: keeping lime and only recoloring the home page. Two accents is two design systems.
 
+## 2026-11-02 — The site is rooms by platform, not views
+
+- One page: Home, Web, iPhone, Mac, Automation, Get in touch. A project's room is its first `tags` entry in `projects.json`; adding a project is a JSON edit. `/views`, the grid, the timeline, and the view switch are deleted, with `apps/site/SPEC.md`'s view-switch section superseded by `SPEC-ROOMS.md`.
+- A fixed dock replaces the top nav. It follows scroll and writes the room hash with `replaceState`, only after scrolling settles and never across a pointer or key press, so a tap after a scroll navigates cleanly. Dock clicks are plain hash links; the browser does the scrolling.
+- Every string on the home page lives in `apps/site/content/site.ts` or `projects.json`. Components hold no copy.
+- Fishing is a side quest in Home: a pure state machine in `lib/fishing.ts`, catches in localStorage, each catch opening its project's block. The ask box answers from a static keyword map until there is an API.
+- Placeholder iPhone screenshots are generated SVGs under `public/shots/<slug>/`, replaced later under the same names.
+- Rejected: a dock on project pages too. They keep the "All projects" strip; one scroll model is enough.
+
+## 2026-11-03 — Consumer apps get their own skin in the iPhone room
+
+- The five consumer apps (Dekk, Snaphour, Skillet, Divot, Regiment) render as full-bleed bands in their own two tones: one dark ground tinted toward one accent. Name plus its icon glyph on the left, an animated object (the thing the app is about) on the right, status, and a link to `/p/[slug]`.
+- Type inside a band is the system font (SF Pro on Apple devices). The apps use it, so the band does. The rest of the site stays on Space Grotesk. If the system font wins on sight, it spreads site-wide as its own decision.
+- Brand lives on the project in `projects.json` as an optional `brand` field. No brand, no band: the project renders as a normal block. Add an app = add an entry plus its glyph and object in `components/rooms/app-art.tsx`.
+- The glyph is the app icon. Same drawing goes to the App Store and the home screen. The object is the hero visual for the site and the app's own `name.so` page.
+- Renames: Skins & Pins → Divot, Fit → Regiment, Nourish → Skillet (new entry). Slugs follow.
+- Status line is driven by `status`: beta reads "On TestFlight", in-progress reads "Building", live reads "On the App Store". No store links until an app is live.
+- Rejected: stick-figure people doing the activity (first pass, looked crude); glyph-only heroes (too static); object-only (icons would be a separate job).
+
+## 2026-11-04 — Glyph grid replaces the hero and the fishing game
+
+- The home page opens on a dark grid of every branded project's icon, name top-left, "Hi, I make apps." bottom-left. Tap an icon, jump to its band. Then the rooms.
+- Rejected for now: the system-window hero with room map and doodles, the waterline, and the fishing side quest (kept on branch `feat/site-catch-wheel`). A cinematic scroll hero (overhead lake, fish pulled up, color flood into the first band) was mocked and shelved; it only earns its place photoreal, which means generated video frames, and that is a later upgrade if ever.
+- Hero copy lives in `content/site.ts` under `glyphHero`.
+
+## 2026-11-07 — The whole site in the glyph grid style
+
+- Home is one dark scroll: two lines ("Hi, I'm David." crossfading into "I make apps."), the glyph grid, then every room as a divider band (the room's word in its accent, its icons under it) followed by its project bands, then Connect (one word, Email me, GitHub, the address). Dark only, system font everywhere.
+- Gone from code: the system-window hero, room map, doodles, waterline, fishing side quest, the Ask box, the bottom dock, the per-page footer on home. Project pages keep the footer. Everything removed is in git history and on the older `feat/site-*` branches.
+- Rejected: a numbered "Room 1 of 4" eyebrow on dividers (leftover numbering), grey blurbs under divider words (flat next to the bands), a top bar with name and "Builds tools" (redundant with the first line).
+- Grid lists every branded project. The band order inside a room is the dataset order.
+
 ## 2026-11-07 — PR smoke for Runway runs on a local database
 
 - The Runway smoke job in CI now starts Supabase local and builds the app against it, the same way the nightly full e2e does. The hosted demo project is never touched by CI.

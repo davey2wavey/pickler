@@ -2,11 +2,14 @@
   {
     "slug": "runway",
     "name": "Runway",
-    "oneLiner": "Shows where money goes.",
+    "oneLiner": "One ledger, one burn line, one number.",
     "headline": "Where the money goes, and",
     "headlineMono": "how long it lasts",
     "status": "beta",
     "kind": "web",
+    "tags": ["web"],
+    "role": "Spec, design, build. Solo.",
+    "year": "2026, beta",
     "stack": ["Next.js", "Supabase", "Vercel"],
     "links": {
       "live": "https://pickler-runway.vercel.app",
@@ -17,39 +20,484 @@
     "changed": "In progress. The web version is being rebuilt in this stack; the number that matters is the days-left figure on the first screen.",
     "whatItDoes": "Every outgoing dollar in one table. Transfers excluded from spend. A forward line shows the lowest cash point in the next 180 days.",
     "underTheHood": "Postgres with row-level security, server actions, magic-link auth, Playwright on every PR.",
+    "features": [
+      {
+        "glyph": "$",
+        "title": "One ledger",
+        "text": "Transfers excluded from spend.",
+        "metric": "65 rows seeded"
+      },
+      {
+        "glyph": "↘",
+        "title": "Forward line",
+        "text": "Lowest cash point ahead.",
+        "metric": "180 days"
+      },
+      {
+        "glyph": "⌘",
+        "title": "Row-level security",
+        "text": "One user, one ledger.",
+        "metric": "30 RLS tests"
+      },
+      {
+        "glyph": "✓",
+        "title": "Tested every push",
+        "text": "Playwright on each PR."
+      }
+    ],
     "metrics": [],
     "screenshots": [],
     "updatedAt": "2026-10-30",
-    "featured": true
+    "featured": true,
+    "brand": {
+      "ground": "#0C1A14",
+      "accent": "#6EE7A0",
+      "radius": 0,
+      "eyebrow": "Where the money goes",
+      "lede": "One ledger for every account. One burn line. One number: how many months you have left at this pace."
+    }
+  },
+  {
+    "slug": "site",
+    "name": "This site",
+    "oneLiner": "This portfolio. Data file in, rooms out.",
+    "headline": "One dataset,",
+    "headlineMono": "many rooms",
+    "status": "live",
+    "kind": "web",
+    "tags": ["web"],
+    "role": "Everything. Solo.",
+    "year": "2026, live",
+    "stack": ["Next.js", "Tailwind", "Turborepo"],
+    "links": {
+      "live": "https://pickler-site.vercel.app",
+      "repo": "https://github.com/davey2wavey/pickler"
+    },
+    "problem": "A portfolio usually shows one layout. Ten were drawn, and choosing one throws away nine.",
+    "built": "One JSON file describes every project. Each room is a renderer over that file, so projects can be added without touching components. The design system lives in the same repo.",
+    "changed": "Live. Rooms by platform, a dock that follows scroll, and a fishing game that opens projects.",
+    "features": [
+      {
+        "glyph": "◫",
+        "title": "Design system",
+        "text": "Five primitives, two themes.",
+        "metric": "/ui"
+      },
+      {
+        "glyph": "⚓",
+        "title": "Dock + rooms",
+        "text": "Hash-routed, keyboard-safe."
+      },
+      {
+        "glyph": "≈",
+        "title": "Waterline",
+        "text": "Scroll-driven, reduced-motion safe."
+      },
+      {
+        "glyph": "✓",
+        "title": "CI gates merge",
+        "text": "Typecheck, lint, unit, smoke."
+      }
+    ],
+    "metrics": [],
+    "screenshots": [],
+    "shippedAt": "2026-10-29",
+    "updatedAt": "2026-11-02",
+    "featured": false,
+    "brand": {
+      "ground": "#0F1418",
+      "accent": "#7FD1F2",
+      "radius": 0,
+      "eyebrow": "This site",
+      "lede": "One data file of projects, rendered as rooms. Change the file, the site follows. You are standing in it."
+    }
+  },
+  {
+    "slug": "dekk",
+    "name": "Dekk",
+    "oneLiner": "Plays what you own. No account.",
+    "headline": "A local-files music player,",
+    "headlineMono": "your Spotify",
+    "status": "beta",
+    "kind": "ios",
+    "tags": ["iphone"],
+    "role": "Design and build. Solo.",
+    "year": "2026, TestFlight",
+    "stack": ["Swift", "SwiftUI"],
+    "links": {},
+    "problem": "Placeholder. Music you bought sits in files no streaming app will play without an account and a subscription.",
+    "built": "Placeholder. An iPhone player that reads the files on the device, builds a library, and plays them with a queue and shuffle.",
+    "changed": "Placeholder. On TestFlight, shared freely. App Store next.",
+    "features": [
+      {
+        "glyph": "♫",
+        "title": "Local library",
+        "text": "Reads files on device."
+      },
+      {
+        "glyph": "▶",
+        "title": "Queue + shuffle",
+        "text": "Simple, fast."
+      },
+      {
+        "glyph": "⬇",
+        "title": "TestFlight",
+        "text": "Shared freely."
+      }
+    ],
+    "metrics": [],
+    "screenshots": [
+      {
+        "src": "/shots/dekk/01.svg",
+        "alt": "Dekk, placeholder screenshot",
+        "frame": "phone"
+      }
+    ],
+    "updatedAt": "2026-10-20",
+    "featured": true,
+    "brand": {
+      "ground": "#141114",
+      "accent": "#FF3E8A",
+      "radius": 0,
+      "eyebrow": "Local music player",
+      "lede": "Plays the music files you already own. Drop them in, build playlists, press play. No account, no subscription."
+    }
+  },
+  {
+    "slug": "divot",
+    "name": "Divot",
+    "oneLiner": "Scores plus side bets, settled after the round.",
+    "headline": "Golf scorecard and",
+    "headlineMono": "wagers",
+    "status": "beta",
+    "kind": "ios",
+    "tags": ["iphone"],
+    "role": "Design and build. Solo.",
+    "year": "2026, TestFlight",
+    "stack": ["Swift", "SwiftUI"],
+    "links": {},
+    "problem": "Placeholder. A foursome keeps score on paper and settles skins from memory in the parking lot.",
+    "built": "Placeholder. A scorecard that tracks every hole and every side bet, then settles the round.",
+    "changed": "Placeholder. On TestFlight with a few regular groups.",
+    "features": [
+      {
+        "glyph": "⛳",
+        "title": "Scorecard",
+        "text": "Hole by hole."
+      },
+      {
+        "glyph": "$",
+        "title": "Wagers",
+        "text": "Skins, pins, settled."
+      },
+      {
+        "glyph": "⬇",
+        "title": "TestFlight",
+        "text": "Beta."
+      }
+    ],
+    "metrics": [],
+    "screenshots": [
+      {
+        "src": "/shots/divot/01.svg",
+        "alt": "Divot, placeholder screenshot",
+        "frame": "phone"
+      }
+    ],
+    "updatedAt": "2026-10-15",
+    "featured": false,
+    "brand": {
+      "ground": "#0F3B2C",
+      "accent": "#FFFFFF",
+      "radius": 22,
+      "eyebrow": "Golf wagers",
+      "lede": "Keeps every player's score and settles the bets when you walk off 18. Skins, closest to pin, stroke play, all at once."
+    }
+  },
+  {
+    "slug": "regiment",
+    "name": "Regiment",
+    "oneLiner": "Library of exercises, build workouts, run multi-week programs. Supersets first.",
+    "headline": "Programs and routines for hybrid athletes",
+    "headlineMono": "hybrid athletes",
+    "status": "beta",
+    "kind": "ios",
+    "tags": ["iphone"],
+    "role": "Design and build. Solo.",
+    "year": "2026, TestFlight",
+    "stack": ["Swift", "SwiftUI", "SwiftData"],
+    "links": {},
+    "problem": "Placeholder. Workout apps treat a superset as two exercises in a row. Hybrid programs need rounds, circuits, and per-exercise overrides.",
+    "built": "Placeholder. An exercise library, workouts built from it, and multi-week programs with every day editable.",
+    "changed": "Placeholder. On TestFlight since October 7.",
+    "features": [
+      {
+        "glyph": "≡",
+        "title": "Exercise library",
+        "text": "~200 to start, add your own."
+      },
+      {
+        "glyph": "⊞",
+        "title": "Workouts → programs",
+        "text": "Routines, 4-week blocks, every day editable."
+      },
+      {
+        "glyph": "⇅",
+        "title": "Supersets + circuits",
+        "text": "Group rounds, per-exercise override."
+      },
+      {
+        "glyph": "⬇",
+        "title": "TestFlight",
+        "text": "Beta since Oct 7."
+      }
+    ],
+    "metrics": [],
+    "screenshots": [
+      {
+        "src": "/shots/regiment/01.svg",
+        "alt": "Regiment, placeholder screenshot",
+        "frame": "phone"
+      }
+    ],
+    "shippedAt": "2026-10-07",
+    "updatedAt": "2026-10-25",
+    "featured": false,
+    "brand": {
+      "ground": "#0A1118",
+      "accent": "#35D0E0",
+      "radius": 14,
+      "eyebrow": "Programs & routines",
+      "lede": "Build workouts from a real exercise library. Stack them into a four-week program. Follow it at the gym without staring at your phone."
+    }
+  },
+  {
+    "slug": "snaphour",
+    "name": "Snaphour",
+    "oneLiner": "One shot, Live Photo, or clip per hour block. Fill it live or later.",
+    "headline": "A photo for",
+    "headlineMono": "every hour",
+    "status": "in-progress",
+    "kind": "ios",
+    "tags": ["iphone"],
+    "role": "Design and build. Solo.",
+    "year": "2026, on phone",
+    "stack": ["Swift", "SwiftUI", "CloudKit"],
+    "links": {},
+    "problem": "Placeholder. A camera roll is a pile. A day is twenty-four hours, and most of them leave no trace.",
+    "built": "Placeholder. A day view of hour blocks; tap one to fill it with a photo, Live Photo, or clip. Describe it instead and Image Playground draws it.",
+    "changed": "Placeholder. Running on my phone. Shared days over CloudKit are in progress.",
+    "features": [
+      {
+        "glyph": "◷",
+        "title": "24 hour blocks",
+        "text": "Day view, tap an hour to fill."
+      },
+      {
+        "glyph": "✎",
+        "title": "Describe it instead",
+        "text": "Apple Image Playground draws it."
+      },
+      {
+        "glyph": "☁",
+        "title": "Shared days",
+        "text": "Friends see each other's hours live.",
+        "metric": "CloudKit"
+      },
+      {
+        "glyph": "▦",
+        "title": "Library",
+        "text": "Photo calendar, tap a day."
+      }
+    ],
+    "metrics": [],
+    "screenshots": [
+      {
+        "src": "/shots/snaphour/01.svg",
+        "alt": "Snaphour, placeholder screenshot",
+        "frame": "phone"
+      }
+    ],
+    "updatedAt": "2026-10-18",
+    "featured": false,
+    "brand": {
+      "ground": "#0B1020",
+      "accent": "#F5F1EA",
+      "radius": 18,
+      "eyebrow": "Hourly photo diary",
+      "lede": "One photo for every hour you're awake. Fill them in as you go or all at once at night. Friends see your day as it happens."
+    }
+  },
+  {
+    "slug": "skillet",
+    "name": "Skillet",
+    "oneLiner": "Save recipes, cook them, shop for them in one list.",
+    "headline": "Recipes and tracking,",
+    "headlineMono": "one shopping list",
+    "status": "in-progress",
+    "kind": "ios",
+    "tags": ["iphone"],
+    "role": "Design and build. Solo.",
+    "year": "2026, building",
+    "stack": ["Swift", "SwiftUI", "CloudKit"],
+    "links": {},
+    "problem": "Placeholder. Recipes live in screenshots and bookmarks, and the shopping list gets rebuilt by hand every week.",
+    "built": "Placeholder. A native iPhone recipe library with a cook mode and a combined shopping list across the recipes you pick.",
+    "changed": "Placeholder. Building. TestFlight next.",
+    "features": [
+      {
+        "glyph": "⌁",
+        "title": "Save from anywhere",
+        "text": "Paste, photo, or type."
+      },
+      {
+        "glyph": "≡",
+        "title": "One list",
+        "text": "Pick recipes, get the merged list."
+      },
+      {
+        "glyph": "◐",
+        "title": "Cook mode",
+        "text": "Ingredients per step, dark."
+      }
+    ],
+    "metrics": [],
+    "screenshots": [
+      {
+        "src": "/shots/skillet/01.svg",
+        "alt": "Skillet, placeholder screenshot",
+        "frame": "phone"
+      }
+    ],
+    "updatedAt": "2026-11-03",
+    "featured": false,
+    "brand": {
+      "ground": "#1E2117",
+      "accent": "#E8432E",
+      "radius": 6,
+      "eyebrow": "Recipes & tracking",
+      "lede": "Save a recipe from anywhere. Pick a few for the week and it merges the ingredients into one shopping list."
+    }
+  },
+  {
+    "slug": "loot",
+    "name": "Loot",
+    "oneLiner": "Folders for clothing, tech, gear. Value, condition, rarity, boards.",
+    "headline": "Everything you own,",
+    "headlineMono": "one catalog",
+    "status": "in-progress",
+    "kind": "ios",
+    "tags": ["iphone"],
+    "role": "Design and build. Solo.",
+    "year": "2026, on phone",
+    "stack": ["Swift", "SwiftUI"],
+    "links": {},
+    "problem": "Placeholder. Nobody knows what they own, what it is worth, or where it is.",
+    "built": "Placeholder. A catalog with nested folders, cutout photos, value and condition fields, and outfit boards.",
+    "changed": "Placeholder. Running on my phone.",
+    "features": [
+      {
+        "glyph": "▤",
+        "title": "Folders + categories",
+        "text": "Your own, nested."
+      },
+      {
+        "glyph": "✂",
+        "title": "Cutout photos",
+        "text": "Background-removed stickers."
+      },
+      {
+        "glyph": "◫",
+        "title": "Boards",
+        "text": "Outfit boards, multi-page."
+      },
+      {
+        "glyph": "$",
+        "title": "Value fields",
+        "text": "Value, condition, rarity, location."
+      }
+    ],
+    "metrics": [],
+    "screenshots": [
+      {
+        "src": "/shots/loot/01.svg",
+        "alt": "Loot, placeholder screenshot",
+        "frame": "phone"
+      }
+    ],
+    "updatedAt": "2026-10-12",
+    "featured": false,
+    "brand": {
+      "ground": "#151515",
+      "accent": "#FF2D2D",
+      "radius": 0,
+      "eyebrow": "Everything you own",
+      "lede": "A catalog of what you have. Clothing, tech, gear, in folders. Value, condition, rarity, boards."
+    }
   },
   {
     "slug": "mail-room",
     "name": "Mail Room",
-    "oneLiner": "Inbox sorts itself.",
+    "oneLiner": "Buckets every message by what it needs from you.",
     "headline": "An inbox that",
     "headlineMono": "sorts itself",
     "status": "case-study",
     "kind": "mac",
-    "stack": ["Swift", "macOS", "Gmail API"],
+    "tags": ["mac"],
+    "role": "Design and build. Solo.",
+    "year": "2026",
+    "stack": ["SwiftUI", "Gmail API"],
     "links": {},
     "problem": "Email piles up faster than anyone reads it. Mail Room buckets every message by what it needs from you, syncs the result back to Gmail, and drafts the reply.",
     "built": "A native Mac app that reads the inbox and sorts each message into a bucket, so the person only reads what is left.",
     "changed": "Mail Room stays native. This page is the case study; a short video and a link to the app follow when they are ready.",
     "whatItDoes": "Five views on one inbox: feed, days, buckets, reply board, calendar. AI classifies, you confirm, Gmail labels update.",
     "underTheHood": "SwiftUI, Gmail API, on-device classification cache, background sync.",
+    "features": [
+      {
+        "glyph": "@",
+        "title": "Five views",
+        "text": "Feed, days, buckets, board, calendar."
+      },
+      {
+        "glyph": "⇄",
+        "title": "Two-way sync",
+        "text": "Gmail labels update."
+      },
+      {
+        "glyph": "✎",
+        "title": "Draft replies",
+        "text": "Written for you to confirm."
+      },
+      {
+        "glyph": "◎",
+        "title": "On-device cache",
+        "text": "Fast, private."
+      }
+    ],
     "metrics": [],
     "screenshots": [],
     "updatedAt": "2026-10-30",
-    "featured": true
+    "featured": true,
+    "brand": {
+      "ground": "#16121C",
+      "accent": "#C9A5FF",
+      "radius": 10,
+      "eyebrow": "Inbox that sorts itself",
+      "lede": "Every message lands in a bucket by what it needs from you. Reply, read, wait, or nothing. Synced back to Gmail."
+    }
   },
   {
     "slug": "company-log",
     "name": "Company Log",
-    "oneLiner": "Every post from a company's socials, one place.",
+    "oneLiner": "Paste handles, a worker pulls every post with numbers.",
     "headline": "Every post a company makes,",
     "headlineMono": "one place",
     "status": "in-progress",
     "kind": "web",
+    "tags": ["automation", "web"],
+    "role": "Spec, build, deploy. Solo.",
+    "year": "2026, building",
     "stack": ["Next.js", "Postgres", "GitHub Actions"],
     "links": {
       "live": "https://pickler-company-log.vercel.app",
@@ -60,29 +508,41 @@
     "changed": "In progress. The scraper is the long pole; official APIs first, scraping as the fallback.",
     "whatItDoes": "Scheduled worker fetches, dedupes, and stores every post with likes, comments, views. Dashboard filters by platform, week, and format.",
     "underTheHood": "GitHub Actions cron, official APIs first, Postgres, Zod on every record.",
+    "features": [
+      {
+        "glyph": "#",
+        "title": "Scheduled worker",
+        "text": "Pulls on a cron.",
+        "metric": "5 platforms"
+      },
+      {
+        "glyph": "≡",
+        "title": "Dedupe + store",
+        "text": "Likes, comments, views.",
+        "metric": "Zod per record"
+      },
+      {
+        "glyph": "▦",
+        "title": "Dashboard",
+        "text": "Filter by platform, week, format.",
+        "metric": "building"
+      },
+      {
+        "glyph": "→",
+        "title": "Official APIs first",
+        "text": "Scraping as fallback."
+      }
+    ],
     "metrics": [],
     "screenshots": [],
     "updatedAt": "2026-10-30",
-    "featured": true
-  },
-  {
-    "slug": "site",
-    "name": "This site",
-    "oneLiner": "Portfolio. One dataset, many views.",
-    "status": "live",
-    "kind": "web",
-    "stack": ["Next.js", "Tailwind", "Turborepo"],
-    "links": {
-      "live": "https://pickler-site.vercel.app",
-      "repo": "https://github.com/davey2wavey/pickler"
-    },
-    "problem": "A portfolio usually shows one layout. Ten were drawn, and choosing one throws away nine.",
-    "built": "One JSON file describes every project. Each layout is a renderer over that file, so views can be added without touching the data. The design system lives in the same repo.",
-    "changed": "Live. One view so far; the switcher that lets a visitor flip between them is the next piece.",
-    "metrics": [],
-    "screenshots": [],
-    "shippedAt": "2026-10-29",
-    "updatedAt": "2026-10-29",
-    "featured": false
+    "featured": true,
+    "brand": {
+      "ground": "#1A1410",
+      "accent": "#FFB347",
+      "radius": 4,
+      "eyebrow": "Every post, one place",
+      "lede": "Paste a company's handles. A worker pulls every post from every platform, with the numbers, into one log."
+    }
   }
 ]

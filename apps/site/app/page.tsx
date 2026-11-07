@@ -1,29 +1,21 @@
-import { Contact } from "@/components/home/contact";
-import { Hero } from "@/components/home/hero";
-import { HowIWork } from "@/components/home/how-i-work";
-import { Nav } from "@/components/home/nav";
-import styles from "@/components/home/home.module.css";
-import { ProjectBand } from "@/components/home/project-band";
-import { ProofStrip } from "@/components/home/proof-strip";
-import { Waterline } from "@/components/home/waterline";
+import { GlyphHero } from "@/components/rooms/glyph-hero";
+import { Intro } from "@/components/rooms/intro";
+import { Room } from "@/components/rooms/room";
+import { Touch } from "@/components/rooms/touch";
 import { projects } from "@/data/projects";
-import { featured } from "@/data/select";
+import { groupByRoom, projectRooms } from "@/lib/rooms";
 
-/** Home. A hero, one band per featured project with its demo inside, how I work, contact. */
+/** Home. Two lines, the glyph grid, then every room as bands, then Connect. */
 export default function Home() {
-  const bands = featured(projects);
+  const groups = groupByRoom(projects);
   return (
-    <Waterline>
-      <Nav projects={bands} />
-      <Hero projects={bands} />
-      <div className={styles.below}>
-        <ProofStrip projects={projects} today={new Date()} />
-        {bands.map((project, index) => (
-          <ProjectBand key={project.slug} project={project} index={index} />
-        ))}
-        <HowIWork />
-        <Contact />
-      </div>
-    </Waterline>
+    <main id="top">
+      <Intro />
+      <GlyphHero projects={projects} />
+      {projectRooms.map((room) => (
+        <Room key={room} id={room} projects={groups[room]} />
+      ))}
+      <Touch />
+    </main>
   );
 }

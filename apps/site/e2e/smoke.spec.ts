@@ -1,70 +1,53 @@
 import { expect, test } from "@playwright/test";
 import projects from "../data/projects.json";
 
-const featured = projects.filter((p) => p.featured);
-const first = featured[0];
-if (!first) throw new Error("no featured project in projects.json");
-const embedded = featured.find((p) => p.kind === "web" && p.links.live && p.status === "beta");
-if (!embedded) throw new Error("no embeddable project in projects.json");
+const runway = projects.find((p) => p.slug === "runway");
+if (!runway) throw new Error("no runway in projects.json");
 
-test("home shows every featured headline and the live demo, and opens a project page @smoke", async ({
+test("a hash on load lands in its room, and a grid tile moves the hash @smoke", async ({
   page,
 }) => {
-  await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("Working software");
-  for (const project of featured) {
-    await expect(
-      page.getByRole("heading", { level: 2, name: new RegExp(project.headline ?? project.name) }),
-    ).toBeVisible();
-  }
-
-  const frame = page.getByTitle(`${embedded.name} demo`);
-  await expect(frame).toHaveAttribute("src", embedded.links.live ?? "");
-
+  await page.goto("/#iphone");
+  await expect(page.locator("section#iphone")).toBeInViewport();
   await page
-    .getByRole("heading", { level: 2, name: new RegExp(first.headline ?? first.name) })
-    .getByRole("link")
+    .getByRole("navigation", { name: "Apps" })
+    .getByRole("link", { name: /Mail Room/ })
     .click();
-  await expect(page).toHaveURL(`/p/${first.slug}`);
-  await expect(page.getByRole("heading", { level: 1 })).toContainText(first.headline ?? first.name);
-  await expect(page.getByText(first.problem)).toBeVisible();
+  await expect(page).toHaveURL(/#mail-room$/);
 });
 
-test("an unknown project is a 404 @smoke", async ({ page }) => {
-  const response = await page.goto("/p/nope");
-  expect(response?.status()).toBe(404);
+test("home shows every project once and opens a project page @smoke", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Hi, I'm David.");
+  await expect(page.getByTestId("project-block")).toHaveCount(projects.length);
+
+  await page
+    .locator("article#runway")
+    .getByRole("link", { name: /Learn more/ })
+    .click();
+  await expect(page).toHaveURL("/p/runway");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(runway.headline);
+  await expect(page.getByText(runway.problem)).toBeVisible();
+});
+
+test("/views and an unknown project are 404s @smoke", async ({ page }) => {
+  const views = await page.goto("/views");
+  expect(views?.status()).toBe(404);
+  const nope = await page.goto("/p/nope");
+  expect(nope?.status()).toBe(404);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("No such project");
 });
 
-test("the contact block copies the address and the footer links to GitHub @smoke", async ({
-  page,
-  context,
-}) => {
+test("connect copies the address and links to GitHub @smoke", async ({ page, context }) => {
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
-  await page.goto("/");
-  const contact = page.getByRole("region", { name: "Contact" });
-  await contact.getByRole("button", { name: "copy" }).click();
-  await expect(contact.getByRole("button", { name: "copied" })).toBeVisible();
+  await page.goto("/#touch");
+  const touch = page.locator("section#touch");
+  await touch.getByRole("button", { name: "copy" }).click();
+  await expect(touch.getByRole("button", { name: "copied" })).toBeVisible();
   expect(await page.evaluate(() => navigator.clipboard.readText())).toBe("picklerdavid@gmail.com");
 
-  const footer = page.getByRole("contentinfo");
-  await expect(footer.getByRole("link", { name: "GitHub" })).toHaveAttribute(
+  await expect(touch.getByRole("link", { name: "GitHub" })).toHaveAttribute(
     "href",
     "https://github.com/davey2wavey",
-  );
-});
-
-test("/views keeps the grid and timeline working @smoke", async ({ page }) => {
-  await page.goto("/views?view=timeline");
-  const nav = page.getByRole("navigation", { name: "View" });
-  await expect(nav.getByRole("link", { name: "Timeline" })).toHaveAttribute("aria-current", "page");
-  const entries = page.getByRole("list", { name: "Projects, newest first" }).getByRole("listitem");
-  await expect(entries).toHaveCount(projects.length);
-  await expect.poll(() => page.evaluate(() => localStorage.getItem("site.view"))).toBe("timeline");
-
-  await nav.getByRole("link", { name: "Grid" }).click();
-  await expect(page).toHaveURL("/views?view=grid");
-  await expect(page.getByRole("list", { name: "Projects" }).getByRole("link")).toHaveCount(
-    projects.length,
   );
 });

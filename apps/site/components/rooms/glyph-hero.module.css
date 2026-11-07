@@ -1,0 +1,75 @@
+/* The glyph grid hero. Dark ground like the bands; each tile carries its own two tones. */
+
+.top {
+  --hero-bg: #111214;
+  --hero-fg: #e8e6e1;
+  --hero-muted: #8a8984;
+  --hero-acc: #7fd1f2;
+  display: grid;
+  place-items: center;
+  padding-block: clamp(40px, 7vw, 96px);
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+  background: var(--hero-bg);
+  color: var(--hero-fg);
+  font-family:
+    -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(14px, 4vw, 28px);
+  width: min(100%, 420px);
+}
+
+@media (min-width: 560px) {
+  .tiles {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: min(100%, 560px);
+  }
+}
+
+@media (min-width: 900px) {
+  .tiles {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    width: min(100%, 1000px);
+  }
+}
+
+.tile {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--hero-fg);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tile span {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.glyph {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.45));
+}
+
+.tile:focus-visible {
+  outline: 2px solid var(--hero-fg);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .glyph {
+    transition: transform 0.18s ease;
+  }
+  .tile:hover .glyph,
+  .tile:focus-visible .glyph {
+    transform: translateY(-4px) scale(1.04);
+  }
+}

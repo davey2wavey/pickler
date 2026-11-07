@@ -33,6 +33,7 @@ export function Shots({ project }: { project: Project }) {
                 alt={shot.alt}
                 width={1600}
                 height={1000}
+                unoptimized={shot.src.endsWith(".svg")}
                 className={cx("h-auto w-full", shot.frame !== "none" && "h-full object-cover")}
               />
             </div>

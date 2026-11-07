@@ -5,8 +5,12 @@ const runway = {
   slug: "runway",
   name: "Runway",
   oneLiner: "Shows where money goes.",
+  headline: "Where the money goes",
   status: "in-progress",
   kind: "web",
+  tags: ["web"],
+  role: "Spec, design, build. Solo.",
+  year: "2026, beta",
   stack: ["Next.js", "Supabase"],
   links: { live: "https://pickler-runway.vercel.app" },
   problem: "Money leaves in small pieces.",
@@ -21,8 +25,10 @@ describe("parseProjects", () => {
     expect(parsed?.links.live).toBe("https://pickler-runway.vercel.app");
     expect(parsed?.metrics).toEqual([]);
     expect(parsed?.screenshots).toEqual([]);
+    expect(parsed?.features).toEqual([]);
     expect(parsed?.featured).toBe(false);
     expect(parsed?.shippedAt).toBeUndefined();
+    expect(parsed?.headlineMono).toBeUndefined();
   });
 
   test("links may be absent entirely", () => {
@@ -36,6 +42,36 @@ describe("parseProjects", () => {
     expect(() => parseProjects([{ ...runway, built: "   " }])).toThrow(/built/);
   });
 
+  test("headline, role, and year are required for every project", () => {
+    const { headline: _h, ...noHeadline } = runway;
+    expect(() => parseProjects([noHeadline])).toThrow(/headline/);
+    expect(() => parseProjects([{ ...runway, role: "" }])).toThrow(/role/);
+    const { year: _y, ...noYear } = runway;
+    expect(() => parseProjects([noYear])).toThrow(/year/);
+  });
+
+  test("tags need at least one known room; the first one is the room", () => {
+    expect(() => parseProjects([{ ...runway, tags: [] }])).toThrow(/tags/);
+    expect(() => parseProjects([{ ...runway, tags: ["ios"] }])).toThrow(/tags/);
+    const [ok] = parseProjects([{ ...runway, tags: ["automation", "web"] }]);
+    expect(ok?.tags[0]).toBe("automation");
+  });
+
+  test("features carry glyph, title, text, optional metric; at most four", () => {
+    const feature = { glyph: "$", title: "One ledger", text: "Transfers excluded." };
+    const [ok] = parseProjects([
+      { ...runway, features: [feature, { ...feature, metric: "65 rows" }] },
+    ]);
+    expect(ok?.features[1]?.metric).toBe("65 rows");
+    expect(ok?.features[0]?.metric).toBeUndefined();
+    expect(() => parseProjects([{ ...runway, features: [{ glyph: "$", title: "T" }] }])).toThrow(
+      /text/,
+    );
+    expect(() =>
+      parseProjects([{ ...runway, features: [feature, feature, feature, feature, feature] }]),
+    ).toThrow(/features/);
+  });
+
   test("rejects an unknown status or kind", () => {
     expect(() => parseProjects([{ ...runway, status: "building" }])).toThrow(/status/);
     expect(() => parseProjects([{ ...runway, kind: "native" }])).toThrow(/kind/);
@@ -43,6 +79,7 @@ describe("parseProjects", () => {
 
   test("rejects a link that is not a url", () => {
     expect(() => parseProjects([{ ...runway, links: { repo: "github" } }])).toThrow(/repo/);
+    expect(() => parseProjects([{ ...runway, links: { video: "clip" } }])).toThrow(/video/);
   });
 
   test("rejects a date that is not ISO", () => {
@@ -65,41 +102,13 @@ describe("parseProjects", () => {
     expect(ok?.metrics[0]?.note).toBe("est.");
   });
 
-  test("accepts the band fields and the extra links", () => {
-    const [ok] = parseProjects([
-      {
-        ...runway,
-        headline: "Where the money goes, and",
-        headlineMono: "how long it lasts",
-        whatItDoes: "Every dollar in one table.",
-        underTheHood: "Postgres with RLS.",
-        links: { video: "https://example.com/v.mp4", appstore: "https://apps.apple.com/x" },
-      },
-    ]);
-    expect(ok?.headlineMono).toBe("how long it lasts");
-    expect(ok?.links.appstore).toBe("https://apps.apple.com/x");
-    expect(() => parseProjects([{ ...runway, links: { video: "clip" } }])).toThrow(/video/);
-  });
-
-  test("a featured project must carry headline, whatItDoes, and underTheHood", () => {
-    expect(() => parseProjects([{ ...runway, featured: true }])).toThrow(
-      /headline is required when featured/,
-    );
-    const [ok] = parseProjects([
-      { ...runway, featured: true, headline: "H", whatItDoes: "W", underTheHood: "U" },
-    ]);
-    expect(ok?.featured).toBe(true);
-    const [plain] = parseProjects([runway]);
-    expect(plain?.headline).toBeUndefined();
-  });
-
   test("screenshots default to no frame and reject an unknown one", () => {
     const [ok] = parseProjects([
       {
         ...runway,
         screenshots: [
           { src: "/shots/runway/home.png", alt: "Home" },
-          { src: "/shots/runway/phone.png", alt: "Phone", frame: "phone" },
+          { src: "/shots/runway/phone.svg", alt: "Phone", frame: "phone" },
         ],
       },
     ]);
@@ -118,5 +127,36 @@ describe("parseProjects", () => {
   test("rejects duplicate slugs and an empty dataset", () => {
     expect(() => parseProjects([runway, runway])).toThrow(/duplicate slug runway/);
     expect(() => parseProjects([])).toThrow();
+  });
+});
+
+describe("brand", () => {
+  test("is optional, validates hex, and defaults radius to 0", () => {
+    const base = {
+      slug: "a",
+      name: "A",
+      oneLiner: "x",
+      headline: "x",
+      status: "beta",
+      kind: "ios",
+      tags: ["iphone"],
+      role: "x",
+      year: "2026",
+      stack: ["Swift"],
+      problem: "p",
+      built: "b",
+      changed: "c",
+      updatedAt: "2026-11-03",
+    };
+    expect(parseProjects([base])[0]?.brand).toBeUndefined();
+    const ok = parseProjects([
+      { ...base, brand: { ground: "#0A1118", accent: "#35D0E0", eyebrow: "e", lede: "l" } },
+    ])[0]?.brand;
+    expect(ok?.radius).toBe(0);
+    expect(() =>
+      parseProjects([
+        { ...base, brand: { ground: "blue", accent: "#35D0E0", eyebrow: "e", lede: "l" } },
+      ]),
+    ).toThrow(/hex/);
   });
 });

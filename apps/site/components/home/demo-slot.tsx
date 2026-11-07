@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Label } from "@pickler/ui";
 import type { Project } from "@/data/project";
+import { block } from "@/content/site";
 import { AppWindow } from "./app-window";
 
 export type DemoKind = "iframe" | "video" | "screenshot" | "placeholder";
@@ -23,10 +24,29 @@ const frameClass = {
 } as const;
 
 /** The demo inside window chrome: iframe, video, first screenshot, or a labeled "demo coming" panel. */
-export function DemoSlot({ project, title }: { project: Project; title?: string }) {
+export function DemoSlot({
+  project,
+  title,
+  self = false,
+}: {
+  project: Project;
+  title?: string;
+  /** This site itself: a marker panel instead of an iframe of the page you are on. */
+  self?: boolean;
+}) {
   const kind = demoKindFor(project);
   const shot = project.screenshots[0];
   const heading = title ?? project.name.toUpperCase();
+
+  if (self) {
+    return (
+      <AppWindow title={heading}>
+        <div className="grid aspect-[16/10] place-items-center bg-ground">
+          <Label text={block.selfDemo} dot="acc" />
+        </div>
+      </AppWindow>
+    );
+  }
 
   if (kind === "iframe" && project.links.live) {
     return (
@@ -75,6 +95,7 @@ export function DemoSlot({ project, title }: { project: Project; title?: string 
             alt={shot.alt}
             width={1600}
             height={1000}
+            unoptimized={shot.src.endsWith(".svg")}
             className="h-auto w-full"
           />
         </div>
