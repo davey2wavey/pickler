@@ -1,23 +1,35 @@
+import type { CSSProperties } from "react";
 import type { Project, RoomTag } from "@/data/project";
 import { rooms, site } from "@/content/site";
-import { Column } from "@/components/home/column";
+import { AppGlyph } from "./app-art";
 import { AppBand } from "./app-band";
 import { ProjectBlock } from "./project-block";
+import styles from "./room.module.css";
 
-/** One room: title and blurb, then its projects. Apps with a brand get a band in their own tones; the rest get blocks with alternating ground. */
+/**
+ * One room: a divider band (the room's word in its accent, then its icons), then its
+ * projects. Apps with a brand get a band in their own tones; the rest get blocks.
+ */
 export function Room({ id, projects }: { id: RoomTag; projects: readonly Project[] }) {
   const titleId = `${id}-title`;
+  const room = rooms[id];
+  const vars = { "--ground": room.ground, "--accent": room.accent } as CSSProperties;
   return (
-    <section id={id} aria-labelledby={titleId} className="border-b border-line">
-      <Column className="flex flex-col items-center gap-2 px-6 pb-6 pt-[72px] text-center">
-        <h2
-          id={titleId}
-          className="text-[clamp(1.8rem,3.6vw,2.6rem)] font-semibold tracking-[-0.03em]"
-        >
-          {rooms[id].title}
+    <section id={id} aria-labelledby={titleId}>
+      <div className={styles.divider} style={vars} data-testid="room-divider">
+        <h2 id={titleId} className={styles.word}>
+          {room.title}
         </h2>
-        <p className="max-w-[48ch] text-balance text-grey">{rooms[id].blurb}</p>
-      </Column>
+        <div className={styles.mini} aria-hidden>
+          {projects
+            .filter((p) => p.brand)
+            .map((p) => (
+              <a key={p.slug} href={`#${p.slug}`} tabIndex={-1}>
+                <AppGlyph slug={p.slug} />
+              </a>
+            ))}
+        </div>
+      </div>
       {projects.map((project, index) =>
         project.brand ? (
           <AppBand key={project.slug} project={{ ...project, brand: project.brand }} room={id} />

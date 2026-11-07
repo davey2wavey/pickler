@@ -13,68 +13,36 @@ export const site = {
   footer: "Built with the tools above",
 } as const;
 
-export const hero = {
-  eyebrow: "Internal tools · dashboards · automations",
-  title: "Working software for teams that need it",
-  titleMono: "this month",
-  lead: "I take a messy process, build the tool that runs it, and ship it alone, end to end. Pick a room, or go fishing.",
-  primary: { label: "See the work ↓", href: "#web" },
-  secondary: { label: "Get in touch", href: "#touch" },
-} as const;
-
 /** The glyph grid hero: name, every app icon, one line. */
 export const glyphHero = {
-  name: "David Pickler",
-  eyebrow: "Builds tools",
-  title: "Hi, I make apps.",
-  cue: "scroll ↓",
   navLabel: "Apps",
 } as const;
 
-/** The system window in the hero: a clickable map of the rooms. */
-export const roomMap = {
-  title: "PICKLER · SYSTEMS",
-  countLabel: "PROJECTS",
-  countLine: "web, phone, desktop, background. One builder.",
-  actions: [
-    { label: "Go fishing", href: "#fish", glyph: "~" },
-    { label: "Get in touch", href: "#touch", glyph: "@" },
-  ],
+/** The two lines the page opens on. Scroll crossfades the first into the second. */
+export const intro = {
+  first: "Hi, I'm David.",
+  second: "I make apps.",
 } as const;
 
-/** One entry per room, in page order. The dock reads label and glyph; sections read title and blurb. */
+/**
+ * One entry per room, in page order. A divider band before each room: the word in the
+ * room's accent on its own tinted ground, then that room's icons.
+ */
 export const rooms = {
-  home: { label: "Home", glyph: "⌂", title: "Home.", blurb: "" },
-  web: {
-    label: "Web",
-    glyph: "▦",
-    title: "Web.",
-    blurb: "Tools that run in a browser. Click into the live ones.",
-  },
-  iphone: {
-    label: "iPhone",
-    glyph: "▯",
-    title: "iPhone.",
-    blurb: "Apps on my phone and on TestFlight. Screenshots here, App Store next.",
-  },
-  mac: {
-    label: "Mac",
-    glyph: "▭",
-    title: "Mac.",
-    blurb: "Native desktop. Video walkthrough until a demo makes sense.",
-  },
-  automation: {
-    label: "Automation",
-    glyph: "⟳",
-    title: "Automation.",
-    blurb: "Workers and pipelines. Things that run on a schedule without me.",
-  },
-  touch: {
-    label: "Get in touch",
-    glyph: "@",
-    title: "Get in touch.",
-    blurb: "Ask the site first, or skip it and email me. Reply within a day.",
-  },
+  web: { title: "Web", ground: "#0C1F2A", accent: "#7FD1F2" },
+  iphone: { title: "iPhone", ground: "#1A1016", accent: "#FF6FA8" },
+  mac: { title: "Mac", ground: "#161228", accent: "#C9A5FF" },
+  automation: { title: "Automation", ground: "#221607", accent: "#FFB347" },
+} as const;
+
+/** The last band. One word, one line, the address. */
+export const connect = {
+  eyebrow: "Get in touch",
+  title: "Connect.",
+  lead: "Hiring, a project, or just want to talk about one of these. Reply within a day.",
+  email: "Email me",
+  github: "GitHub",
+  top: "↑ top",
 } as const;
 
 export const block = {
@@ -90,78 +58,4 @@ export const bandStatus = {
   live: "On the App Store",
   beta: "On TestFlight",
   "in-progress": "Building",
-} as const;
-
-export const fishing = {
-  eyebrow: "Side quest",
-  title: "Go fishing. Catch a project.",
-  lead: "Tap the water to cast. When something bites, tap again to reel. Each catch opens the project it belongs to.",
-  scene: "Cast the line",
-  status: {
-    idle: "tap water to cast",
-    cast: "casting…",
-    wait: "waiting for a bite…",
-    bite: "BITE — tap to reel!",
-    reel: "reeling…",
-    caught: "tap the card to open · tap water to cast",
-    missed: "it got away. tap to cast again",
-  },
-  card: { caught: "caught:", open: "tap to open" },
-  log: { caught: "caught", inWater: "in the water" },
-  allCaught: "you found them all",
-  reset: "reset log",
-} as const;
-
-export const ask = {
-  intro: "Ask about the work, the stack, or whether I'm available.",
-  from: "David's site",
-  you: "You",
-  placeholder: "Ask about my work…",
-  send: "Send",
-  tryOne: "Try one",
-  suggestions: [
-    "What did you build last week?",
-    "What stack do you use?",
-    "Are you available?",
-    "How do you test?",
-  ],
-  /** First entry whose keyword appears in the question wins. Canned until there is an API. */
-  canned: [
-    {
-      keywords: ["last week", "recently", "lately"],
-      reply:
-        "Shipped the rooms for this site, merged the home page with the waterline, and set the Vercel preview gate. Every PR green.",
-    },
-    {
-      keywords: ["stack", "tech", "built with"],
-      reply:
-        "Next.js and TypeScript on Vercel, Postgres through Supabase, Tailwind over my own tokens, Vitest and Playwright on every PR. Swift for iPhone apps.",
-    },
-    {
-      keywords: ["available", "hire", "hiring", "work with"],
-      reply: "Yes. Remote, project-based or full-time. Email is below, reply within a day.",
-    },
-    {
-      keywords: ["test", "ci", "quality"],
-      reply:
-        "Typecheck, lint, unit, and a browser smoke suite run on every pull request. Red cannot merge. You click the preview before I do.",
-    },
-  ],
-  fallback:
-    "Canned replies only for now, no API behind this box yet. Try one of the suggested questions, or email me below.",
-} as const;
-
-export const stack = {
-  title: "Stack",
-  blurb: "What I reach for.",
-  items: [
-    ["Web", "Next.js · TypeScript"],
-    ["Style", "Tailwind · own tokens"],
-    ["Data", "Postgres · Supabase"],
-    ["Deploy", "Vercel · GitHub Actions"],
-    ["Tests", "Vitest · Playwright"],
-    ["Native", "Swift · SwiftUI"],
-    ["Agents", "Claude Code · specs first"],
-    ["Design", "Hand-drawn SVG · hard grid"],
-  ],
 } as const;

@@ -37,17 +37,6 @@ test("every project in the dataset renders as a band", () => {
     expect(block).toHaveAttribute("data-band");
 });
 
-test("the dock lists six rooms and the map counts match the data", () => {
-  render(<Home />);
-  const dock = screen.getByRole("navigation", { name: "Rooms" });
-  expect(within(dock).getAllByRole("link")).toHaveLength(6);
-  expect(within(dock).getByRole("link", { name: /iPhone/ })).toHaveAttribute("href", "#iphone");
-  for (const room of projectRooms) {
-    expect(screen.getByTestId(`map-count-${room}`)).toHaveTextContent(String(groups[room].length));
-  }
-  expect(screen.getByTestId("map-total")).toHaveTextContent(String(projects.length));
-});
-
 test("the glyph hero shows one tile per branded project, each linking to its band", () => {
   render(<Home />);
   const tiles = screen.getAllByTestId("hero-tile");
@@ -56,14 +45,16 @@ test("the glyph hero shows one tile per branded project, each linking to its ban
   expect(tiles.map((t) => t.getAttribute("href"))).toEqual(branded.map((p) => `#${p.slug}`));
 });
 
-test("the hero and the touch room are there, and this site does not embed itself", () => {
+test("the intro, the room dividers, and connect are there, and this site does not embed itself", () => {
   render(<Home />);
-  expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Hi, I make apps.");
-  expect(
-    within(screen.getByRole("region", { name: "Get in touch." })).getByRole("link", {
-      name: "picklerdavid@gmail.com",
-    }),
-  ).toHaveAttribute("href", "mailto:picklerdavid@gmail.com");
+  expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Hi, I'm David.");
+  expect(screen.getAllByTestId("room-divider").map((d) => d.textContent)).toEqual(
+    expect.arrayContaining(["Web", "iPhone", "Mac", "Automation"]),
+  );
+  const touch = screen.getByRole("region", { name: "Connect." });
+  expect(within(touch).getByRole("link", { name: "Email me" })).toHaveAttribute(
+    "href",
+    "mailto:picklerdavid@gmail.com",
+  );
   expect(screen.queryByTitle("This site demo")).not.toBeInTheDocument();
-  expect(screen.getByText("//YOU ARE HERE//")).toBeInTheDocument();
 });

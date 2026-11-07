@@ -1,0 +1,54 @@
+/* The opening: two lines on the page ground, one crossfading into the other on scroll. */
+
+.intro {
+  height: 200vh;
+  height: 200svh;
+  position: relative;
+  background: #111214;
+  color: #e8e6e1;
+}
+
+.stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.first,
+.second {
+  grid-area: 1 / 1;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  font-size: clamp(44px, 11vw, 140px);
+  line-height: 0.92;
+  text-align: center;
+  padding-inline: 20px;
+  will-change: opacity, transform;
+}
+
+.second {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro {
+    height: auto;
+  }
+  .stage {
+    position: static;
+    height: auto;
+    padding: 80px 0;
+    gap: 20px;
+  }
+  .first,
+  .second {
+    grid-area: auto;
+    opacity: 1;
+  }
+}

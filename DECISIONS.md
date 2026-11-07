@@ -156,3 +156,10 @@ Reference: wahooservices.co.uk lean. Systems, terminals, hard grid. Not their pi
 - The home page opens on a dark grid of every branded project's icon, name top-left, "Hi, I make apps." bottom-left. Tap an icon, jump to its band. Then the rooms.
 - Rejected for now: the system-window hero with room map and doodles, the waterline, and the fishing side quest (kept on branch `feat/site-catch-wheel`). A cinematic scroll hero (overhead lake, fish pulled up, color flood into the first band) was mocked and shelved; it only earns its place photoreal, which means generated video frames, and that is a later upgrade if ever.
 - Hero copy lives in `content/site.ts` under `glyphHero`.
+
+## 2026-11-07 — The whole site in the glyph grid style
+
+- Home is one dark scroll: two lines ("Hi, I'm David." crossfading into "I make apps."), the glyph grid, then every room as a divider band (the room's word in its accent, its icons under it) followed by its project bands, then Connect (one word, Email me, GitHub, the address). Dark only, system font everywhere.
+- Gone from code: the system-window hero, room map, doodles, waterline, fishing side quest, the Ask box, the bottom dock, the per-page footer on home. Project pages keep the footer. Everything removed is in git history and on the older `feat/site-*` branches.
+- Rejected: a numbered "Room 1 of 4" eyebrow on dividers (leftover numbering), grey blurbs under divider words (flat next to the bands), a top bar with name and "Builds tools" (redundant with the first line).
+- Grid lists every branded project. The band order inside a room is the dataset order.
